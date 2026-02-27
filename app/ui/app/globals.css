@@ -1,19 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  /* Surface — warm stone (not cold black) */
+  --surface-0: #0C0A09;
+  --surface-1: #1C1917;
+  --surface-2: #292524;
+  --surface-3: #44403C;
+
+  /* Text */
+  --text-primary: #FAFAF9;
+  --text-secondary: #A8A29E;
+  --text-muted: #78716C;
+
+  /* Brand — Market Gold */
+  --brand: #F59E0B;
+  --brand-light: #FCD34D;
+  --brand-dark: #D97706;
+
+  /* Semantic */
+  --debt: #EF4444;
+  --payment: #22C55E;
+
+  /* Debt age */
+  --age-green: #22C55E;
+  --age-yellow: #EAB308;
+  --age-red: #EF4444;
+
+  /* Legacy aliases */
+  --background: var(--surface-0);
+  --foreground: var(--text-primary);
 }
 
 @theme inline {
+  --font-family-display: var(--font-display), "Nunito", system-ui, sans-serif;
+  --font-family-body: var(--font-body), "Noto Sans", system-ui, sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
+  --color-debt: var(--debt);
+  --color-payment: var(--payment);
+  --color-age-green: var(--age-green);
+  --color-age-yellow: var(--age-yellow);
+  --color-age-red: var(--age-red);
+}
+
+button, a, [role="button"] {
+  touch-action: manipulation;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--surface-0);
+  color: var(--text-primary);
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
 }

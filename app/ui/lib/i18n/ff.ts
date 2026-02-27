@@ -16,7 +16,12 @@ export const ff: Translations = {
     retry: "Fuɗɗito",
     offline: "Alaa ceŋol",
     online: "Ina ceŋii",
+    syncing: "Ina sinkroneede…",
     noData: "Hay huunde alaa",
+    today: "Hannde",
+    yesterday: "Haŋki",
+    close: "Uddu",
+    clear: "Momtu",
   },
   auth: {
     phoneNumber: "Tonngoode telefon",
@@ -47,6 +52,7 @@ export const ff: Translations = {
     addPayment: "Njobdi heɓaandi",
     amount: "Kaalis",
     enterAmount: "Naatnu kaalis",
+    otherAmount: "Kaalis goɗɗo",
     note: "Tindinoore",
     noteOptional: "Tindinoore (so a yiɗii)",
     debtRecorded: "Ɲamaande winndaama",
@@ -55,6 +61,7 @@ export const ff: Translations = {
     cashCollected: "Njobdi heɓaandi",
     creditGiven: "Ɲamaande hokkaande",
     totalReceivables: "Ɲamaande fof",
+    transactionCount: "baɗe",
   },
   reminders: {
     sendReminder: "Neldu miccitaari",
@@ -62,6 +69,7 @@ export const ff: Translations = {
     overdueDebts: "Ɲamaande ɓooɗɗe",
     noOverdue: "Alaa ɲamaande ɓooɗɗe",
     messagePreview: "Ƴeewtu ɓataake",
+    whatsappMessage: "Jam waali {name}, ko miccitaari ɲamaande maa. A jaaraama so a aroyii yoɓude.",
   },
   settings: {
     language: "Ɗemngal",

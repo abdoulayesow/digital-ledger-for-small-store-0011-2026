@@ -15,7 +15,12 @@ export interface Translations {
     retry: string;
     offline: string;
     online: string;
+    syncing: string;
     noData: string;
+    today: string;
+    yesterday: string;
+    close: string;
+    clear: string;
   };
   auth: {
     phoneNumber: string;
@@ -46,6 +51,7 @@ export interface Translations {
     addPayment: string;
     amount: string;
     enterAmount: string;
+    otherAmount: string;
     note: string;
     noteOptional: string;
     debtRecorded: string;
@@ -54,6 +60,7 @@ export interface Translations {
     cashCollected: string;
     creditGiven: string;
     totalReceivables: string;
+    transactionCount: string;
   };
   reminders: {
     sendReminder: string;
@@ -61,6 +68,7 @@ export interface Translations {
     overdueDebts: string;
     noOverdue: string;
     messagePreview: string;
+    whatsappMessage: string;
   };
   settings: {
     language: string;

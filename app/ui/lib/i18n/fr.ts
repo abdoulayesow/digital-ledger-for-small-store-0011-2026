@@ -16,7 +16,12 @@ export const fr: Translations = {
     retry: "Réessayer",
     offline: "Hors connexion",
     online: "Connecté",
+    syncing: "Synchronisation…",
     noData: "Aucune donnée",
+    today: "Aujourd'hui",
+    yesterday: "Hier",
+    close: "Fermer",
+    clear: "Effacer",
   },
   auth: {
     phoneNumber: "Numéro de téléphone",
@@ -47,6 +52,7 @@ export const fr: Translations = {
     addPayment: "Paiement reçu",
     amount: "Montant",
     enterAmount: "Entrez le montant",
+    otherAmount: "Autre montant",
     note: "Note",
     noteOptional: "Note (optionnel)",
     debtRecorded: "Crédit enregistré",
@@ -55,6 +61,7 @@ export const fr: Translations = {
     cashCollected: "Paiements reçus",
     creditGiven: "Crédits donnés",
     totalReceivables: "Total à recevoir",
+    transactionCount: "transaction(s)",
   },
   reminders: {
     sendReminder: "Envoyer un rappel",
@@ -62,6 +69,7 @@ export const fr: Translations = {
     overdueDebts: "Dettes en retard",
     noOverdue: "Aucune dette en retard",
     messagePreview: "Aperçu du message",
+    whatsappMessage: "Bonjour {name}, ceci est un rappel amical concernant votre dette. Merci de passer régler quand vous pourrez.",
   },
   settings: {
     language: "Langue",

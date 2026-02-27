@@ -5,7 +5,7 @@
  * In API routes, use dynamic import to keep Prisma out of client bundles:
  *   const { default: prisma } = await import("@/lib/prisma")
  */
-import { PrismaClient } from "../../db/generated/prisma";
+import { PrismaClient } from "@/generated/prisma";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 

@@ -16,7 +16,12 @@ export const su: Translations = {
     retry: "A mato",
     offline: "Nɛti mu na",
     online: "Nɛti na",
+    syncing: "A xɛɛma…",
     noData: "Fefe mu na",
+    today: "To",
+    yesterday: "Kunu",
+    close: "A bala",
+    clear: "A ba",
   },
   auth: {
     phoneNumber: "Telefɔni kɔntɔ",
@@ -47,6 +52,7 @@ export const su: Translations = {
     addPayment: "Sare sɔtɔxi",
     amount: "Xasaabi",
     enterAmount: "Xasaabi sa",
+    otherAmount: "Xasaabi gbɛtɛ",
     note: "Masenyi",
     noteOptional: "Masenyi (xa i wama)",
     debtRecorded: "Doni ragataxi",
@@ -55,6 +61,7 @@ export const su: Translations = {
     cashCollected: "Sare sɔtɔxi",
     creditGiven: "Doni fixi",
     totalReceivables: "Doni birin na sɔtɔ",
+    transactionCount: "fe(wu)",
   },
   reminders: {
     sendReminder: "Ratuxi xili",
@@ -62,6 +69,7 @@ export const su: Translations = {
     overdueDebts: "Doni forixi",
     noOverdue: "Doni forixi mu na",
     messagePreview: "Masenyi mato",
+    whatsappMessage: "I tɛ {name}, yi ratuxi nan i xa doni ma. I xa fa i sare fi.",
   },
   settings: {
     language: "Xui",

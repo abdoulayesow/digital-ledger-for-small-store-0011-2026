@@ -16,7 +16,12 @@ export const man: Translations = {
     retry: "A lajɛ tugu",
     offline: "Rezo tɛ",
     online: "Rezo bɛ",
+    syncing: "A bɛ sinkirone la…",
     noData: "Fɛn tɛ",
+    today: "Bi",
+    yesterday: "Kunu",
+    close: "A datugu",
+    clear: "A bɔ",
   },
   auth: {
     phoneNumber: "Telefɔni nimɔrɔ",
@@ -47,6 +52,7 @@ export const man: Translations = {
     addPayment: "Sara sɔrɔla",
     amount: "Hakɛ",
     enterAmount: "Hakɛ don",
+    otherAmount: "Hakɛ wɛrɛ",
     note: "Kumakan",
     noteOptional: "Kumakan (ni i bɛ a fɛ)",
     debtRecorded: "Juru marala",
@@ -55,6 +61,7 @@ export const man: Translations = {
     cashCollected: "Sara sɔrɔla",
     creditGiven: "Juru dira",
     totalReceivables: "Juru bɛɛ ka sɔrɔ",
+    transactionCount: "kɛwale(w)",
   },
   reminders: {
     sendReminder: "Hakili lajɛ ci",
@@ -62,6 +69,7 @@ export const man: Translations = {
     overdueDebts: "Juru kɔrɔ",
     noOverdue: "Juru kɔrɔ tɛ",
     messagePreview: "Ci lajɛ",
+    whatsappMessage: "I ni ce {name}, hakili lajɛ don i ka juru kɔnɔ. I ni na sara tuma min.",
   },
   settings: {
     language: "Kan",
