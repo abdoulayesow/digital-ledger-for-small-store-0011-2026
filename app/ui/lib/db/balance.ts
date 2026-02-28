@@ -1,28 +1,28 @@
 import { db } from "./index";
-import type { Transaction } from "./schema";
+import type { Sale } from "./schema";
 
 export interface CustomerBalance {
-  totalDebt: number;
+  totalCreditSales: number;
   totalPayments: number;
   balance: number; // positive = customer owes money
-  transactionCount: number;
-  lastTransactionDate: Date | null;
+  saleCount: number;
+  lastSaleDate: Date | null;
 }
 
 /**
- * Compute balance for a single customer from their transactions.
+ * Compute balance for a single customer from their sales.
  * Balance is always derived, never stored — eliminates consistency bugs.
  */
 export async function getCustomerBalance(
   retailerId: string,
   customerId: string
 ): Promise<CustomerBalance> {
-  const txns = await db.transactions
+  const sales = await db.sales
     .where("[retailerId+customerId]")
     .equals([retailerId, customerId])
     .toArray();
 
-  return computeBalance(txns);
+  return computeBalance(sales);
 }
 
 /**
@@ -32,24 +32,25 @@ export async function getCustomerBalance(
 export async function getAllBalances(
   retailerId: string
 ): Promise<Map<string, CustomerBalance>> {
-  const txns = await db.transactions
+  const sales = await db.sales
     .where("retailerId")
     .equals(retailerId)
     .toArray();
 
-  const grouped = new Map<string, Transaction[]>();
-  for (const txn of txns) {
-    const list = grouped.get(txn.customerId);
+  const grouped = new Map<string, Sale[]>();
+  for (const sale of sales) {
+    if (!sale.customerId) continue; // Skip anonymous cash sales
+    const list = grouped.get(sale.customerId);
     if (list) {
-      list.push(txn);
+      list.push(sale);
     } else {
-      grouped.set(txn.customerId, [txn]);
+      grouped.set(sale.customerId, [sale]);
     }
   }
 
   const balances = new Map<string, CustomerBalance>();
-  for (const [customerId, customerTxns] of grouped) {
-    balances.set(customerId, computeBalance(customerTxns));
+  for (const [customerId, customerSales] of grouped) {
+    balances.set(customerId, computeBalance(customerSales));
   }
 
   return balances;
@@ -68,52 +69,54 @@ export async function getTotalReceivables(retailerId: string): Promise<number> {
 }
 
 /**
- * Summary of today's activity: total debts given and payments received.
+ * Summary of today's activity: total credit sales given and payments received.
  */
 export async function getDailySummary(
   retailerId: string,
   date?: Date
-): Promise<{ totalDebts: number; totalPayments: number; transactionCount: number }> {
+): Promise<{ totalCashSales: number; totalCreditSales: number; totalPayments: number; saleCount: number }> {
   const target = date ?? new Date();
   const startOfDay = new Date(target.getFullYear(), target.getMonth(), target.getDate());
   const endOfDay = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
 
-  const txns = await db.transactions
-    .where("retailerId")
-    .equals(retailerId)
-    .filter((t) => t.createdAt >= startOfDay && t.createdAt < endOfDay)
+  const sales = await db.sales
+    .where("[retailerId+createdAt]")
+    .between([retailerId, startOfDay], [retailerId, endOfDay], true, false)
     .toArray();
 
-  let totalDebts = 0;
+  let totalCashSales = 0;
+  let totalCreditSales = 0;
   let totalPayments = 0;
-  for (const t of txns) {
-    if (t.type === "debt") totalDebts += t.amount;
-    else totalPayments += t.amount;
+  for (const s of sales) {
+    if (s.type === "credit") totalCreditSales += s.amount;
+    else if (s.type === "payment") totalPayments += s.amount;
+    else totalCashSales += s.amount;
   }
 
-  return { totalDebts, totalPayments, transactionCount: txns.length };
+  return { totalCashSales, totalCreditSales, totalPayments, saleCount: sales.length };
 }
 
-/** Internal: compute balance from a list of transactions. */
-function computeBalance(txns: Transaction[]): CustomerBalance {
-  let totalDebt = 0;
+/** Internal: compute balance from a list of sales. */
+function computeBalance(sales: Sale[]): CustomerBalance {
+  let totalCreditSales = 0;
   let totalPayments = 0;
   let lastDate: Date | null = null;
 
-  for (const t of txns) {
-    if (t.type === "debt") totalDebt += t.amount;
-    else totalPayments += t.amount;
+  for (const s of sales) {
+    if (s.type === "credit") totalCreditSales += s.amount;
+    else if (s.type === "payment") totalPayments += s.amount;
+    // cash sales don't affect customer balance
 
-    if (!lastDate || t.createdAt > lastDate) {
-      lastDate = t.createdAt;
+    if (!lastDate || s.createdAt > lastDate) {
+      lastDate = s.createdAt;
     }
   }
 
   return {
-    totalDebt,
+    totalCreditSales,
     totalPayments,
-    balance: totalDebt - totalPayments,
-    transactionCount: txns.length,
-    lastTransactionDate: lastDate,
+    balance: totalCreditSales - totalPayments,
+    saleCount: sales.length,
+    lastSaleDate: lastDate,
   };
 }

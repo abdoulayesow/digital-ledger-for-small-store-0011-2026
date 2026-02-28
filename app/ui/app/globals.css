@@ -17,9 +17,13 @@
   --brand-light: #FCD34D;
   --brand-dark: #D97706;
 
-  /* Semantic */
-  --debt: #EF4444;
-  --payment: #22C55E;
+  /* Semantic — sales domain */
+  --sale-credit: #EF4444;
+  --sale-payment: #22C55E;
+
+  /* Legacy aliases (components use these names) */
+  --debt: var(--sale-credit);
+  --payment: var(--sale-payment);
 
   /* Debt age */
   --age-green: #22C55E;
@@ -47,6 +51,8 @@
   --color-brand: var(--brand);
   --color-brand-light: var(--brand-light);
   --color-brand-dark: var(--brand-dark);
+  --color-sale-credit: var(--sale-credit);
+  --color-sale-payment: var(--sale-payment);
   --color-debt: var(--debt);
   --color-payment: var(--payment);
   --color-age-green: var(--age-green);

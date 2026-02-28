@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(cd /c/workspace/sources/digital-ledger-for-small-store-0011-2026/app/ui && npx tsc --noEmit 2>&1)",
+      "Bash(cd /c/workspace/sources/digital-ledger-for-small-store-0011-2026/app/db && DATABASE_URL=\"postgresql://placeholder:placeholder@localhost:5432/placeholder\" npx prisma generate 2>&1)",
+      "Bash(cd /c/workspace/sources/digital-ledger-for-small-store-0011-2026 && git push 2>&1)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(cd \"C:/workspace/sources/digital-ledger-for-small-store-0011-2026/app/ui\" && npx tsc --noEmit 2>&1)",
+      "Bash(ls:*)",
+      "Bash(sed:*)",
+      "Bash(node:*)"
     ]
   }
 }

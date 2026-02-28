@@ -4,13 +4,13 @@ import { useParams, useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { useCustomer } from "@/lib/hooks/use-customers";
 import { useCustomerBalance } from "@/lib/hooks/use-balance";
-import { useCustomerTransactions } from "@/lib/hooks/use-transactions";
+import { useCustomerSales } from "@/lib/hooks/use-sales";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { SyncStatusBadge } from "@/components/layout/SyncStatusBadge";
 import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
 import { BalanceSummary } from "@/components/customer/BalanceSummary";
-import { TransactionList } from "@/components/transaction/TransactionList";
+import { SaleList } from "@/components/sale/SaleList";
 import { IconDebt, IconPayment } from "@/components/icons";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
 
@@ -23,7 +23,7 @@ export default function CustomerDetailPage() {
 
   const customer = useCustomer(customerId);
   const balance = useCustomerBalance(retailerId, customerId);
-  const transactions = useCustomerTransactions(retailerId, customerId);
+  const sales = useCustomerSales(retailerId, customerId);
 
   if (!customer) {
     return (
@@ -64,11 +64,11 @@ export default function CustomerDetailPage() {
           <Button
             variant="debt"
             size="lg"
-            onClick={() => router.push(`/customers/${customerId}/debt`)}
+            onClick={() => router.push(`/customers/${customerId}/credit-sale`)}
             className="flex-col gap-1 py-4"
           >
             <IconDebt size={24} />
-            <span>{t.transactions.addDebt}</span>
+            <span>{t.sales.addCreditSale}</span>
           </Button>
           <Button
             variant="payment"
@@ -77,19 +77,19 @@ export default function CustomerDetailPage() {
             className="flex-col gap-1 py-4"
           >
             <IconPayment size={24} />
-            <span>{t.transactions.addPayment}</span>
+            <span>{t.sales.addPayment}</span>
           </Button>
         </div>
 
-        {/* Transaction history */}
+        {/* Sale history */}
         <div>
           <h2
             className="text-sm font-semibold text-text-secondary mb-2"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            {t.customers.lastTransaction}
+            {t.customers.saleHistory}
           </h2>
-          <TransactionList transactions={transactions ?? []} />
+          <SaleList sales={sales ?? []} />
         </div>
       </div>
     </div>

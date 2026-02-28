@@ -144,7 +144,7 @@ exports.Prisma.CustomerScalarFieldEnum = {
   clientId: 'clientId'
 };
 
-exports.Prisma.TransactionScalarFieldEnum = {
+exports.Prisma.SaleScalarFieldEnum = {
   id: 'id',
   retailerId: 'retailerId',
   customerId: 'customerId',
@@ -158,9 +158,9 @@ exports.Prisma.TransactionScalarFieldEnum = {
   clientId: 'clientId'
 };
 
-exports.Prisma.TransactionItemScalarFieldEnum = {
+exports.Prisma.SaleItemScalarFieldEnum = {
   id: 'id',
-  transactionId: 'transactionId',
+  saleId: 'saleId',
   description: 'description',
   amount: 'amount'
 };
@@ -217,8 +217,9 @@ exports.Language = exports.$Enums.Language = {
   fr: 'fr'
 };
 
-exports.TransactionType = exports.$Enums.TransactionType = {
-  debt: 'debt',
+exports.SaleType = exports.$Enums.SaleType = {
+  cash: 'cash',
+  credit: 'credit',
   payment: 'payment'
 };
 
@@ -237,8 +238,8 @@ exports.ReminderStatus = exports.$Enums.ReminderStatus = {
 exports.Prisma.ModelName = {
   Retailer: 'Retailer',
   Customer: 'Customer',
-  Transaction: 'Transaction',
-  TransactionItem: 'TransactionItem',
+  Sale: 'Sale',
+  SaleItem: 'SaleItem',
   Reminder: 'Reminder',
   Session: 'Session',
   OtpVerification: 'OtpVerification'

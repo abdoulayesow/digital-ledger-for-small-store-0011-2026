@@ -1,6 +1,6 @@
 import { db, getPendingSyncEntries, removeSyncEntry, incrementRetryCount } from "@/lib/db/index";
 import type { SyncQueueEntry } from "@/lib/db/schema";
-import type { Customer, Transaction } from "@/lib/db/schema";
+import type { Customer, Sale } from "@/lib/db/schema";
 import {
   SYNC_INTERVAL_MS,
   MAX_RETRIES,
@@ -9,6 +9,13 @@ import {
   BATCH_SIZE,
   LAST_PULL_KEY,
 } from "./constants";
+
+class UnknownTableError extends Error {
+  constructor(table: string) {
+    super(`Unknown sync table: ${table}`);
+    this.name = "UnknownTableError";
+  }
+}
 
 export type SyncState = "idle" | "syncing" | "offline";
 
@@ -88,15 +95,20 @@ function handleOnline() {
   runSyncCycle();
 }
 
+let syncing = false;
+
 /**
  * Core sync cycle: push local changes → pull server changes.
  */
 async function runSyncCycle(): Promise<void> {
+  if (syncing) return;
+
   if (typeof navigator !== "undefined" && !navigator.onLine) {
     setState("offline");
     return;
   }
 
+  syncing = true;
   setState("syncing");
 
   try {
@@ -104,6 +116,8 @@ async function runSyncCycle(): Promise<void> {
     await pullChanges();
   } catch {
     // Network failures are expected when offline
+  } finally {
+    syncing = false;
   }
 
   if (typeof navigator !== "undefined" && !navigator.onLine) {
@@ -133,7 +147,11 @@ async function pushChanges(): Promise<void> {
 
       // Mark the local record as synced
       await markSynced(entry.table, entry.recordId);
-    } catch {
+    } catch (err) {
+      if (err instanceof UnknownTableError) {
+        // Don't remove or retry — leave unknown entries in the queue
+        continue;
+      }
       await incrementRetryCount(entry.id!);
       // Exponential backoff: skip remaining entries after a failure
       const delay = Math.min(
@@ -155,10 +173,11 @@ async function pushEntry(entry: SyncQueueEntry): Promise<void> {
 
   if (entry.table === "customers") {
     url = "/api/sync/customers";
-  } else if (entry.table === "transactions") {
-    url = "/api/sync/transactions";
+  } else if (entry.table === "sales") {
+    url = "/api/sync/sales";
   } else {
-    return; // Unknown table, skip
+    console.warn(`[sync] Unknown table "${entry.table}", skipping entry ${entry.id}`);
+    throw new UnknownTableError(entry.table);
   }
 
   const response = await fetch(url, {
@@ -182,8 +201,8 @@ async function markSynced(table: string, recordId: string): Promise<void> {
       syncStatus: "synced",
       lastSyncedAt: now,
     });
-  } else if (table === "transactions") {
-    await db.transactions.update(recordId, {
+  } else if (table === "sales") {
+    await db.sales.update(recordId, {
       syncStatus: "synced",
       lastSyncedAt: now,
     });
@@ -194,28 +213,34 @@ async function markSynced(table: string, recordId: string): Promise<void> {
  * Pull: fetch server changes since last pull and apply with last-write-wins.
  */
 async function pullChanges(): Promise<void> {
-  const lastPull = localStorage.getItem(LAST_PULL_KEY) ?? new Date(0).toISOString();
+  let hasMore = true;
 
-  const response = await fetch(`/api/sync/pull?since=${encodeURIComponent(lastPull)}`);
-  if (!response.ok) return;
+  while (hasMore) {
+    const lastPull = localStorage.getItem(LAST_PULL_KEY) ?? new Date(0).toISOString();
 
-  const { customers, transactions, serverTime } = (await response.json()) as {
-    customers: Customer[];
-    transactions: Transaction[];
-    serverTime: string;
-  };
+    const response = await fetch(`/api/sync/pull?since=${encodeURIComponent(lastPull)}`);
+    if (!response.ok) return;
 
-  // Apply in a single Dexie transaction for atomicity
-  await db.transaction("rw", [db.customers, db.transactions], async () => {
-    for (const serverCustomer of customers) {
-      await applyCustomer(serverCustomer);
-    }
-    for (const serverTxn of transactions) {
-      await applyTransaction(serverTxn);
-    }
-  });
+    const result = (await response.json()) as {
+      customers: Customer[];
+      sales: Sale[];
+      serverTime: string;
+      hasMore?: boolean;
+    };
 
-  localStorage.setItem(LAST_PULL_KEY, serverTime);
+    // Apply in a single Dexie transaction for atomicity
+    await db.transaction("rw", [db.customers, db.sales], async () => {
+      for (const serverCustomer of result.customers) {
+        await applyCustomer(serverCustomer);
+      }
+      for (const serverSale of result.sales) {
+        await applySale(serverSale);
+      }
+    });
+
+    localStorage.setItem(LAST_PULL_KEY, result.serverTime);
+    hasMore = result.hasMore === true;
+  }
 }
 
 /**
@@ -258,13 +283,13 @@ async function applyCustomer(server: Customer): Promise<void> {
 }
 
 /**
- * Apply a server transaction with last-write-wins.
+ * Apply a server sale with last-write-wins.
  */
-async function applyTransaction(server: Transaction): Promise<void> {
-  const local = await db.transactions.get(server.id);
+async function applySale(server: Sale): Promise<void> {
+  const local = await db.sales.get(server.id);
 
   if (!local) {
-    await db.transactions.put({
+    await db.sales.put({
       ...server,
       createdAt: new Date(server.createdAt),
       updatedAt: new Date(server.updatedAt),
@@ -280,7 +305,7 @@ async function applyTransaction(server: Transaction): Promise<void> {
   const localUpdated = local.updatedAt.getTime();
 
   if (serverUpdated > localUpdated) {
-    await db.transactions.put({
+    await db.sales.put({
       ...server,
       createdAt: new Date(server.createdAt),
       updatedAt: new Date(server.updatedAt),

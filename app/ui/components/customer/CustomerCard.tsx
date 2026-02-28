@@ -20,8 +20,8 @@ interface CustomerCardProps {
 export function CustomerCard({ customer, balance, onClick, className = "" }: CustomerCardProps) {
   const { t } = useI18n();
   const debtAge =
-    balance && balance.balance > 0 && balance.lastTransactionDate
-      ? getDebtAge(balance.lastTransactionDate)
+    balance && balance.balance > 0 && balance.lastSaleDate
+      ? getDebtAge(balance.lastSaleDate)
       : null;
 
   return (
@@ -45,7 +45,7 @@ export function CustomerCard({ customer, balance, onClick, className = "" }: Cus
             />
             {debtAge && (
               <Badge variant={debtAge}>
-                {debtAge === "green" ? t.debt.green : debtAge === "yellow" ? t.debt.yellow : t.debt.red}
+                {debtAge === "green" ? t.creditAge.green : debtAge === "yellow" ? t.creditAge.yellow : t.creditAge.red}
               </Badge>
             )}
           </div>

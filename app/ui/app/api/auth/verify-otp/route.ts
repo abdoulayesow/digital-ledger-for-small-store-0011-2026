@@ -6,6 +6,8 @@ import { setSessionCookie } from "@/lib/auth";
 const MAX_ATTEMPTS = 5;
 const SESSION_DURATION_DAYS = 30;
 
+const DEV_RETAILER_ID = "dev-retailer-00000000";
+
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const phone = parsePhone(body.phone ?? "");
@@ -16,6 +18,22 @@ export async function POST(req: NextRequest) {
       { error: "Phone and code are required" },
       { status: 400 }
     );
+  }
+
+  if (process.env.DEV_BYPASS_AUTH === "true") {
+    if (code !== "123456") {
+      return NextResponse.json({ error: "Invalid code" }, { status: 400 });
+    }
+    await setSessionCookie("dev-session-token");
+    return NextResponse.json({
+      success: true,
+      retailer: {
+        id: DEV_RETAILER_ID,
+        phone,
+        language: "fr",
+        shopName: "Boutique Test",
+      },
+    });
   }
 
   const { default: prisma } = await import("@/lib/prisma");

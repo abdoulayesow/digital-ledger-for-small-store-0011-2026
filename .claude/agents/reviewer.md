@@ -92,12 +92,12 @@ Use confidence-based filtering: only report issues you're confident about. Avoid
 Overall assessment of the changes...
 
 ## Critical Issues
-1. **SQL Injection Risk** (app/ui/app/api/transactions/route.ts:45)
+1. **SQL Injection Risk** (app/ui/app/api/sync/sales/route.ts:45)
    - Raw query uses unsanitized user input
    - Fix: Use Prisma's query builder
 
 ## High Priority
-1. **Missing Offline Support** (app/ui/components/debt-form.tsx:120)
+1. **Missing Offline Support** (app/ui/components/sale/SaleList.tsx:120)
    - API call doesn't write to IndexedDB first
    - Fix: Use Dexie.js write → sync queue pattern
 

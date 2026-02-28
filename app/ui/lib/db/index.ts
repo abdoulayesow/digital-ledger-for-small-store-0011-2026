@@ -1,15 +1,15 @@
 import Dexie, { type EntityTable } from "dexie";
 import type {
   Customer,
-  Transaction,
-  TransactionItem,
+  Sale,
+  SaleItem,
   SyncQueueEntry,
 } from "./schema";
 
 class DeftarDB extends Dexie {
   customers!: EntityTable<Customer, "id">;
-  transactions!: EntityTable<Transaction, "id">;
-  transactionItems!: EntityTable<TransactionItem, "id">;
+  sales!: EntityTable<Sale, "id">;
+  saleItems!: EntityTable<SaleItem, "id">;
   syncQueue!: EntityTable<SyncQueueEntry, "id">;
 
   constructor() {
@@ -22,6 +22,45 @@ class DeftarDB extends Dexie {
         "id, retailerId, customerId, type, createdAt, syncStatus, [retailerId+customerId], [retailerId+createdAt]",
       transactionItems: "id, transactionId",
       syncQueue: "++id, table, recordId, createdAt",
+    });
+
+    // v2: Add new sales/saleItems tables and migrate data from old transactions tables.
+    // Old tables must remain so the upgrade() callback can read from them.
+    this.version(2)
+      .stores({
+        sales:
+          "id, retailerId, customerId, type, createdAt, syncStatus, [retailerId+customerId], [retailerId+createdAt]",
+        saleItems: "id, saleId",
+      })
+      .upgrade(async (tx) => {
+        const oldTable = tx.table("transactions");
+        const oldItems = tx.table("transactionItems");
+        const newSales = tx.table("sales");
+        const newItems = tx.table("saleItems");
+
+        const allTxns = await oldTable.toArray();
+        for (const txn of allTxns) {
+          await newSales.add({
+            ...txn,
+            type: txn.type === "debt" ? "credit" : txn.type === "payment" ? "payment" : "cash",
+          });
+        }
+
+        const allItems = await oldItems.toArray();
+        for (const item of allItems) {
+          await newItems.add({
+            id: item.id,
+            saleId: item.transactionId,
+            description: item.description,
+            amount: item.amount,
+          });
+        }
+      });
+
+    // v3: Remove old tables now that data has been migrated.
+    this.version(3).stores({
+      transactions: null,
+      transactionItems: null,
     });
   }
 }
@@ -65,7 +104,7 @@ export async function removeSyncEntry(id: number): Promise<void> {
  * Increment retry count for a failed sync entry.
  */
 export async function incrementRetryCount(id: number): Promise<void> {
-  await db.syncQueue.update(id, {
-    retryCount: (await db.syncQueue.get(id))!.retryCount + 1,
+  await db.syncQueue.where("id").equals(id).modify((entry) => {
+    entry.retryCount += 1;
   });
 }

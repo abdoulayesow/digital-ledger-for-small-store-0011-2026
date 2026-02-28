@@ -11,20 +11,21 @@
 
 ### The Pain
 
-Guinea's economy runs on informal retail. Hundreds of thousands of small kiosks and boutiques are the primary distribution point for daily essentials — rice, oil, bread, phone credit, candles — in every neighborhood across the country. These retailers are the invisible backbone of Guinean commerce.
+Guinea's economy runs on informal retail. Hundreds of thousands of small kiosks, boutiques, and walking vendors (ambulants) are the primary distribution point for daily essentials — rice, oil, bread, phone credit, candles, phone accessories — in every neighborhood across the country. These retailers are the invisible backbone of Guinean commerce.
 
-They all share one devastating problem: **they cannot track their money.**
+They all share one devastating problem: **they cannot track their sales or their money.**
 
-The typical boutiquier (small retailer) in Conakry extends credit to 60-70% of regular customers. Debts are tracked in paper notebooks — or worse, in memory. Pages get torn, ink fades, notebooks get lost in rain. Customers dispute amounts. The shopkeeper, lacking proof, either absorbs the loss or creates social conflict.
+Most retailers have no idea how much they actually sell in a day, what their profit is, or which products make money. An ambulant selling 50+ items a day from a basket has zero visibility into his totals. A boutiquier handling dozens of transactions between cash and credit can't tell at day's end whether the business grew or shrank. They are running businesses blind.
 
-**The result:** An estimated 15-25% of credit-based sales are never collected. For a retailer earning 3 million GNF/month ($350 USD), that's 450,000-750,000 GNF ($50-85 USD) lost monthly — money that would feed their family, pay school fees, or reinvest in stock.
+On top of this blindness, the typical boutiquier in Conakry extends credit to 60-70% of regular customers. Debts are tracked in paper notebooks — or worse, in memory. Pages get torn, ink fades, notebooks get lost in rain. Customers dispute amounts. The shopkeeper, lacking proof, either absorbs the loss or creates social conflict.
 
-Beyond debt, these retailers have zero financial visibility. They don't know their daily profit. They can't identify which products are profitable. They have no financial history to access formal credit. They are running businesses blind.
+**The result:** An estimated 15-25% of credit-based sales are never collected. For a retailer earning 3 million GNF/month ($350 USD), that's 450,000-750,000 GNF ($50-85 USD) lost monthly — money that would feed their family, pay school fees, or reinvest in stock. And beyond uncollected debt, the deeper problem is that no retailer truly knows if their business is profitable.
 
 ### Who Suffers
 
 - **Small kiosk owners** (boutiquiers) — Estimated 50,000+ in Conakry alone
 - **Market women** — Selling vegetables, condiments, and household goods in open-air markets
+- **Ambulants** — Walking vendors selling door-to-door in neighborhoods, bus stations, and markets
 - **Micro-entrepreneurs** — Phone credit sellers, charging stations, small artisans
 
 ### Why Now
@@ -41,13 +42,13 @@ Three converging forces create the window of opportunity:
 
 ## 2. Vision Statement
 
-> **Déftar est l'application qui permet aux petits commerçants guinéens de suivre leurs crédits, récupérer leur argent, et comprendre leur activité — sans savoir lire ni écrire, sans connexion internet, et sans changer leurs habitudes.**
+> **Déftar est l'application qui permet aux petits commerçants guinéens de suivre leurs ventes, gérer leurs crédits, récupérer leur argent, et comprendre leur activité — sans savoir lire ni écrire, sans connexion internet, et sans changer leurs habitudes.**
 
-*English: Déftar is the app that enables small Guinean retailers to track their credits, recover their money, and understand their business — without needing to read or write, without internet, and without changing their habits.*
+*English: Déftar is the app that enables small Guinean retailers to track their sales, manage credit, recover their money, and understand their business — without needing to read or write, without internet, and without changing their habits.*
 
 ### Vision in One Sentence
 
-**Déftar replaces the paper notebook with a 2-tap digital ledger that works offline, speaks your language, and helps you get paid.**
+**Déftar replaces the paper notebook with a 1-tap sales ledger that works offline, speaks your language, and helps you get paid.**
 
 ---
 
@@ -59,13 +60,13 @@ These principles are non-negotiable. Every feature, design decision, and roadmap
 
 Guinea's connectivity is unreliable and expensive. Déftar must work fully offline for all core functions. Network connectivity is a bonus for syncing and reminders, not a requirement for operation.
 
-**Test:** Can Ibrahima record 20 transactions in a day without any internet? → Must be YES.
+**Test:** Can Ibrahima record 20 sales in a day without any internet? → Must be YES.
 
 ### Principle 2: If You Can Use WhatsApp, You Can Use Déftar
 
 The app's interaction complexity must never exceed WhatsApp's. Large buttons, visual feedback, minimal text, voice-first where possible. No tutorials needed — the UI teaches itself.
 
-**Test:** Can Ousmane teach Ibrahima to record a debt in under 2 minutes? → Must be YES.
+**Test:** Can Ousmane teach Ibrahima to record a sale in under 2 minutes? → Must be YES.
 
 ### Principle 3: The Notebook Mental Model
 
@@ -126,7 +127,8 @@ These tools assume literacy, connectivity, and Western business structures. They
 | Small kiosks/boutiques in Conakry | 50,000+ | BCG estimates 82-97% of retail in similar African markets is traditional; Conakry pop. ~2M |
 | Small kiosks/boutiques nationally | 150,000+ | Guinea pop. ~15.4M; retail density in urban centers |
 | Market women (open-air vendors) | 100,000+ | Major markets in every prefecture |
-| **Total Addressable Market (Guinea)** | **~250,000+ retailers** | |
+| Ambulants (walking vendors) | 50,000+ | Neighborhoods, bus stations, markets across urban Guinea |
+| **Total Addressable Market (Guinea)** | **~350,000+ retailers** | |
 
 ### Francophone West Africa (Expansion Market)
 
@@ -160,11 +162,16 @@ The KhataBook playbook shows monetization through financial services (not app su
 |--------|--------|-----------|
 | **Registered retailers** | ≥ 500 in Conakry | Critical mass for word-of-mouth in 3-5 neighborhoods |
 | **Weekly Active Users (WAU)** | ≥ 60% of registered | Ledger must be a daily habit, not a novelty |
-| **Transactions recorded/user/week** | ≥ 15 | Proves the tool is replacing the paper notebook |
-| **Debt recovery rate** | +20% vs. self-reported baseline | Core value proposition validated |
-| **Onboarding completion** | ≥ 80% who open the app complete first transaction | UX is simple enough for the target audience |
+| **Sales recorded/user/week** | ≥ 30 | Proves the tool replaces mental tracking for daily sales |
+| **Onboarding completion** | ≥ 80% who open the app complete first sale | UX is simple enough for the target audience |
 | **NPS (Net Promoter Score)** | ≥ 50 | Shopkeepers would recommend to peers |
 | **Organic referral rate** | ≥ 30% of new users from word-of-mouth | Virality engine is working |
+
+#### V2 Success Metrics
+
+| Metric | Target | Rationale |
+|--------|--------|-----------|
+| **Debt recovery rate** | +20% vs. self-reported baseline | Core credit recovery value proposition validated |
 
 ### Anti-Metrics (What We Are NOT Optimizing For)
 
@@ -200,7 +207,7 @@ The KhataBook playbook shows monetization through financial services (not app su
 
 | Risk | Severity | Mitigation |
 |------|----------|------------|
-| **Low adoption** — Shopkeepers resist digital tools | 🔴 High | Seed through community influencers (Ousmane persona); prove value in first week via debt recovery |
+| **Low adoption** — Shopkeepers resist digital tools | 🔴 High | Seed through community influencers (Ousmane + Amadou personas); prove value in first week via sales visibility and credit tracking |
 | **Connectivity worse than expected** | 🟡 Medium | Architecture is offline-native; sync is gravy, not requirement |
 | **Political instability** | 🟡 Medium | App works offline and locally; no dependency on government infrastructure |
 | **Orange Money API access** | 🟡 Medium | V1 works without integration; Orange Money is a V2 enhancement |
@@ -246,4 +253,4 @@ The KhataBook playbook shows monetization through financial services (not app su
 
 > **The phone is the database. The server is the backup.**
 >
-> Every transaction is written to local IndexedDB first. When network is available, a background sync pushes changes to Neon. If the server is unreachable for a week, nothing breaks. If the user loses their phone, data can be restored from the last sync.
+> Every sale and payment is written to local IndexedDB first. When network is available, a background sync pushes changes to Neon. If the server is unreachable for a week, nothing breaks. If the user loses their phone, data can be restored from the last sync.

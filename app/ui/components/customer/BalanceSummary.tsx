@@ -33,9 +33,9 @@ export function BalanceSummary({ balance, className = "" }: BalanceSummaryProps)
             <IconDebt size={16} className="text-debt" />
           </div>
           <div>
-            <p className="text-xs text-text-muted">{t.transactions.creditGiven}</p>
+            <p className="text-xs text-text-muted">{t.sales.creditGiven}</p>
             <p className="text-sm font-semibold text-debt tabular-nums">
-              {formatGNF(balance.totalDebt)}
+              {formatGNF(balance.totalCreditSales)}
             </p>
           </div>
         </div>
@@ -47,7 +47,7 @@ export function BalanceSummary({ balance, className = "" }: BalanceSummaryProps)
             <IconPayment size={16} className="text-payment" />
           </div>
           <div>
-            <p className="text-xs text-text-muted">{t.transactions.cashCollected}</p>
+            <p className="text-xs text-text-muted">{t.sales.cashCollected}</p>
             <p className="text-sm font-semibold text-payment tabular-nums">
               {formatGNF(balance.totalPayments)}
             </p>
@@ -55,9 +55,9 @@ export function BalanceSummary({ balance, className = "" }: BalanceSummaryProps)
         </div>
       </div>
 
-      {/* Transaction count */}
+      {/* Sale count */}
       <p className="text-xs text-text-muted">
-        {balance.transactionCount} {t.transactions.transactionCount}
+        {balance.saleCount} {t.sales.saleCount}
       </p>
     </div>
   );

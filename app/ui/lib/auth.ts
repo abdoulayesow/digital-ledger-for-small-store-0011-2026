@@ -13,11 +13,21 @@ interface SessionResult {
   error: NextResponse | null;
 }
 
+const DEV_BYPASS_AUTH = process.env.DEV_BYPASS_AUTH === "true";
+const DEV_RETAILER_ID = "dev-retailer-00000000";
+
 /**
  * Validate the current session from request cookies.
  * Use in API routes: `const { session, error } = await requireSession()`
  */
 export async function requireSession(): Promise<SessionResult> {
+  if (DEV_BYPASS_AUTH) {
+    return {
+      session: { sessionId: "dev-session", retailerId: DEV_RETAILER_ID },
+      error: null,
+    };
+  }
+
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE)?.value;
 

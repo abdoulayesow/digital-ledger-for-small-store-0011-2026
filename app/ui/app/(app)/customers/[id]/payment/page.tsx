@@ -5,11 +5,11 @@ import { useParams, useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { useCustomer } from "@/lib/hooks/use-customers";
 import { useCustomerBalance } from "@/lib/hooks/use-balance";
-import { recordPayment } from "@/lib/hooks/use-transactions";
+import { recordPayment } from "@/lib/hooks/use-sales";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Avatar } from "@/components/ui/Avatar";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
-import { AmountPicker } from "@/components/transaction/AmountPicker";
+import { AmountPicker } from "@/components/sale/AmountPicker";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { IconCheck } from "@/components/icons";
@@ -69,7 +69,7 @@ export default function RecordPaymentPage() {
         <div className="w-20 h-20 rounded-full bg-payment/20 flex items-center justify-center">
           <IconCheck size={40} className="text-payment" />
         </div>
-        <p className="text-lg font-semibold text-text-primary">{t.transactions.paymentRecorded}</p>
+        <p className="text-lg font-semibold text-text-primary">{t.sales.paymentRecorded}</p>
         <AmountDisplay amount={savedAmount} type="payment" size="lg" />
       </div>
     );
@@ -77,7 +77,7 @@ export default function RecordPaymentPage() {
 
   return (
     <div className="flex flex-col">
-      <PageHeader title={t.transactions.addPayment} showBack />
+      <PageHeader title={t.sales.addPayment} showBack />
 
       <div className="px-4 flex flex-col gap-4 pb-4">
         {/* Customer info */}
@@ -96,7 +96,7 @@ export default function RecordPaymentPage() {
         {/* Amount picker — tap 1 */}
         <div>
           <p className="text-sm font-medium text-text-secondary mb-2">
-            {t.transactions.amount}
+            {t.sales.amount}
           </p>
           <AmountPicker
             selectedAmount={selectedAmount}
@@ -107,13 +107,13 @@ export default function RecordPaymentPage() {
         {/* Optional note */}
         <div>
           <label className="text-sm font-medium text-text-secondary block mb-1.5">
-            {t.transactions.noteOptional}
+            {t.sales.noteOptional}
           </label>
           <input
             type="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder={t.transactions.note}
+            placeholder={t.sales.note}
             className={[
               "w-full min-h-12 px-4 rounded-xl",
               "bg-surface-2 text-text-primary placeholder:text-text-muted",

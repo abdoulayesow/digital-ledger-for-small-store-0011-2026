@@ -35,8 +35,8 @@ export default function RemindersPage() {
     const result: OverdueCustomer[] = [];
     for (const customer of customers) {
       const bal = balances.get(customer.id);
-      if (bal && bal.balance > 0 && bal.lastTransactionDate) {
-        const age = getDebtAge(bal.lastTransactionDate);
+      if (bal && bal.balance > 0 && bal.lastSaleDate) {
+        const age = getDebtAge(bal.lastSaleDate);
         result.push({ customer, balance: bal, age });
       }
     }
@@ -74,10 +74,10 @@ export default function RemindersPage() {
                       <p className="font-semibold text-text-primary truncate">{customer.name}</p>
                       <Badge variant={age}>
                         {age === "green"
-                          ? t.debt.green
+                          ? t.creditAge.green
                           : age === "yellow"
-                            ? t.debt.yellow
-                            : t.debt.red}
+                            ? t.creditAge.yellow
+                            : t.creditAge.red}
                       </Badge>
                     </div>
                     <AmountDisplay amount={balance.balance} type="debt" size="sm" />

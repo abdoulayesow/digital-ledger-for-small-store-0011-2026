@@ -44,23 +44,26 @@ export interface Translations {
     phoneOptional: string;
     noCustomers: string;
     totalOwed: string;
-    lastTransaction: string;
+    saleHistory: string;
   };
-  transactions: {
-    addDebt: string;
+  sales: {
+    addCreditSale: string;
+    addCashSale: string;
     addPayment: string;
+    quickSale: string;
     amount: string;
     enterAmount: string;
     otherAmount: string;
     note: string;
     noteOptional: string;
-    debtRecorded: string;
+    creditSaleRecorded: string;
+    cashSaleRecorded: string;
     paymentRecorded: string;
     todaySummary: string;
     cashCollected: string;
     creditGiven: string;
     totalReceivables: string;
-    transactionCount: string;
+    saleCount: string;
   };
   reminders: {
     sendReminder: string;
@@ -77,7 +80,7 @@ export interface Translations {
     help: string;
     about: string;
   };
-  debt: {
+  creditAge: {
     green: string;
     yellow: string;
     red: string;

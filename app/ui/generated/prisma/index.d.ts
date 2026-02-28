@@ -24,15 +24,15 @@ export type Retailer = $Result.DefaultSelection<Prisma.$RetailerPayload>
  */
 export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
 /**
- * Model Transaction
+ * Model Sale
  * 
  */
-export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
+export type Sale = $Result.DefaultSelection<Prisma.$SalePayload>
 /**
- * Model TransactionItem
+ * Model SaleItem
  * 
  */
-export type TransactionItem = $Result.DefaultSelection<Prisma.$TransactionItemPayload>
+export type SaleItem = $Result.DefaultSelection<Prisma.$SaleItemPayload>
 /**
  * Model Reminder
  * 
@@ -53,12 +53,13 @@ export type OtpVerification = $Result.DefaultSelection<Prisma.$OtpVerificationPa
  * Enums
  */
 export namespace $Enums {
-  export const TransactionType: {
-  debt: 'debt',
+  export const SaleType: {
+  cash: 'cash',
+  credit: 'credit',
   payment: 'payment'
 };
 
-export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+export type SaleType = (typeof SaleType)[keyof typeof SaleType]
 
 
 export const ReminderChannel: {
@@ -90,9 +91,9 @@ export type Language = (typeof Language)[keyof typeof Language]
 
 }
 
-export type TransactionType = $Enums.TransactionType
+export type SaleType = $Enums.SaleType
 
-export const TransactionType: typeof $Enums.TransactionType
+export const SaleType: typeof $Enums.SaleType
 
 export type ReminderChannel = $Enums.ReminderChannel
 
@@ -244,24 +245,24 @@ export class PrismaClient<
   get customer(): Prisma.CustomerDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.transaction`: Exposes CRUD operations for the **Transaction** model.
+   * `prisma.sale`: Exposes CRUD operations for the **Sale** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Transactions
-    * const transactions = await prisma.transaction.findMany()
+    * // Fetch zero or more Sales
+    * const sales = await prisma.sale.findMany()
     * ```
     */
-  get transaction(): Prisma.TransactionDelegate<ExtArgs, ClientOptions>;
+  get sale(): Prisma.SaleDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.transactionItem`: Exposes CRUD operations for the **TransactionItem** model.
+   * `prisma.saleItem`: Exposes CRUD operations for the **SaleItem** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more TransactionItems
-    * const transactionItems = await prisma.transactionItem.findMany()
+    * // Fetch zero or more SaleItems
+    * const saleItems = await prisma.saleItem.findMany()
     * ```
     */
-  get transactionItem(): Prisma.TransactionItemDelegate<ExtArgs, ClientOptions>;
+  get saleItem(): Prisma.SaleItemDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.reminder`: Exposes CRUD operations for the **Reminder** model.
@@ -728,8 +729,8 @@ export namespace Prisma {
   export const ModelName: {
     Retailer: 'Retailer',
     Customer: 'Customer',
-    Transaction: 'Transaction',
-    TransactionItem: 'TransactionItem',
+    Sale: 'Sale',
+    SaleItem: 'SaleItem',
     Reminder: 'Reminder',
     Session: 'Session',
     OtpVerification: 'OtpVerification'
@@ -748,7 +749,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "retailer" | "customer" | "transaction" | "transactionItem" | "reminder" | "session" | "otpVerification"
+      modelProps: "retailer" | "customer" | "sale" | "saleItem" | "reminder" | "session" | "otpVerification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -900,151 +901,151 @@ export namespace Prisma {
           }
         }
       }
-      Transaction: {
-        payload: Prisma.$TransactionPayload<ExtArgs>
-        fields: Prisma.TransactionFieldRefs
+      Sale: {
+        payload: Prisma.$SalePayload<ExtArgs>
+        fields: Prisma.SaleFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.TransactionFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+            args: Prisma.SaleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.TransactionFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+            args: Prisma.SaleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>
           }
           findFirst: {
-            args: Prisma.TransactionFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+            args: Prisma.SaleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.TransactionFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+            args: Prisma.SaleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>
           }
           findMany: {
-            args: Prisma.TransactionFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+            args: Prisma.SaleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>[]
           }
           create: {
-            args: Prisma.TransactionCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+            args: Prisma.SaleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>
           }
           createMany: {
-            args: Prisma.TransactionCreateManyArgs<ExtArgs>
+            args: Prisma.SaleCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.TransactionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+            args: Prisma.SaleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>[]
           }
           delete: {
-            args: Prisma.TransactionDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+            args: Prisma.SaleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>
           }
           update: {
-            args: Prisma.TransactionUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+            args: Prisma.SaleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>
           }
           deleteMany: {
-            args: Prisma.TransactionDeleteManyArgs<ExtArgs>
+            args: Prisma.SaleDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.TransactionUpdateManyArgs<ExtArgs>
+            args: Prisma.SaleUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.TransactionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+            args: Prisma.SaleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>[]
           }
           upsert: {
-            args: Prisma.TransactionUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+            args: Prisma.SaleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalePayload>
           }
           aggregate: {
-            args: Prisma.TransactionAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTransaction>
+            args: Prisma.SaleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSale>
           }
           groupBy: {
-            args: Prisma.TransactionGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TransactionGroupByOutputType>[]
+            args: Prisma.SaleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SaleGroupByOutputType>[]
           }
           count: {
-            args: Prisma.TransactionCountArgs<ExtArgs>
-            result: $Utils.Optional<TransactionCountAggregateOutputType> | number
+            args: Prisma.SaleCountArgs<ExtArgs>
+            result: $Utils.Optional<SaleCountAggregateOutputType> | number
           }
         }
       }
-      TransactionItem: {
-        payload: Prisma.$TransactionItemPayload<ExtArgs>
-        fields: Prisma.TransactionItemFieldRefs
+      SaleItem: {
+        payload: Prisma.$SaleItemPayload<ExtArgs>
+        fields: Prisma.SaleItemFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.TransactionItemFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload> | null
+            args: Prisma.SaleItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.TransactionItemFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>
+            args: Prisma.SaleItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>
           }
           findFirst: {
-            args: Prisma.TransactionItemFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload> | null
+            args: Prisma.SaleItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.TransactionItemFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>
+            args: Prisma.SaleItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>
           }
           findMany: {
-            args: Prisma.TransactionItemFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>[]
+            args: Prisma.SaleItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>[]
           }
           create: {
-            args: Prisma.TransactionItemCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>
+            args: Prisma.SaleItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>
           }
           createMany: {
-            args: Prisma.TransactionItemCreateManyArgs<ExtArgs>
+            args: Prisma.SaleItemCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.TransactionItemCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>[]
+            args: Prisma.SaleItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>[]
           }
           delete: {
-            args: Prisma.TransactionItemDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>
+            args: Prisma.SaleItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>
           }
           update: {
-            args: Prisma.TransactionItemUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>
+            args: Prisma.SaleItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>
           }
           deleteMany: {
-            args: Prisma.TransactionItemDeleteManyArgs<ExtArgs>
+            args: Prisma.SaleItemDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.TransactionItemUpdateManyArgs<ExtArgs>
+            args: Prisma.SaleItemUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.TransactionItemUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>[]
+            args: Prisma.SaleItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>[]
           }
           upsert: {
-            args: Prisma.TransactionItemUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TransactionItemPayload>
+            args: Prisma.SaleItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaleItemPayload>
           }
           aggregate: {
-            args: Prisma.TransactionItemAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTransactionItem>
+            args: Prisma.SaleItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSaleItem>
           }
           groupBy: {
-            args: Prisma.TransactionItemGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TransactionItemGroupByOutputType>[]
+            args: Prisma.SaleItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SaleItemGroupByOutputType>[]
           }
           count: {
-            args: Prisma.TransactionItemCountArgs<ExtArgs>
-            result: $Utils.Optional<TransactionItemCountAggregateOutputType> | number
+            args: Prisma.SaleItemCountArgs<ExtArgs>
+            result: $Utils.Optional<SaleItemCountAggregateOutputType> | number
           }
         }
       }
@@ -1380,8 +1381,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     retailer?: RetailerOmit
     customer?: CustomerOmit
-    transaction?: TransactionOmit
-    transactionItem?: TransactionItemOmit
+    sale?: SaleOmit
+    saleItem?: SaleItemOmit
     reminder?: ReminderOmit
     session?: SessionOmit
     otpVerification?: OtpVerificationOmit
@@ -1466,14 +1467,14 @@ export namespace Prisma {
 
   export type RetailerCountOutputType = {
     customers: number
-    transactions: number
+    sales: number
     reminders: number
     sessions: number
   }
 
   export type RetailerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customers?: boolean | RetailerCountOutputTypeCountCustomersArgs
-    transactions?: boolean | RetailerCountOutputTypeCountTransactionsArgs
+    sales?: boolean | RetailerCountOutputTypeCountSalesArgs
     reminders?: boolean | RetailerCountOutputTypeCountRemindersArgs
     sessions?: boolean | RetailerCountOutputTypeCountSessionsArgs
   }
@@ -1499,8 +1500,8 @@ export namespace Prisma {
   /**
    * RetailerCountOutputType without action
    */
-  export type RetailerCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionWhereInput
+  export type RetailerCountOutputTypeCountSalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaleWhereInput
   }
 
   /**
@@ -1523,12 +1524,12 @@ export namespace Prisma {
    */
 
   export type CustomerCountOutputType = {
-    transactions: number
+    sales: number
     reminders: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    transactions?: boolean | CustomerCountOutputTypeCountTransactionsArgs
+    sales?: boolean | CustomerCountOutputTypeCountSalesArgs
     reminders?: boolean | CustomerCountOutputTypeCountRemindersArgs
   }
 
@@ -1546,8 +1547,8 @@ export namespace Prisma {
   /**
    * CustomerCountOutputType without action
    */
-  export type CustomerCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionWhereInput
+  export type CustomerCountOutputTypeCountSalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaleWhereInput
   }
 
   /**
@@ -1559,33 +1560,33 @@ export namespace Prisma {
 
 
   /**
-   * Count Type TransactionCountOutputType
+   * Count Type SaleCountOutputType
    */
 
-  export type TransactionCountOutputType = {
+  export type SaleCountOutputType = {
     items: number
   }
 
-  export type TransactionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    items?: boolean | TransactionCountOutputTypeCountItemsArgs
+  export type SaleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | SaleCountOutputTypeCountItemsArgs
   }
 
   // Custom InputTypes
   /**
-   * TransactionCountOutputType without action
+   * SaleCountOutputType without action
    */
-  export type TransactionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionCountOutputType
+     * Select specific fields to fetch from the SaleCountOutputType
      */
-    select?: TransactionCountOutputTypeSelect<ExtArgs> | null
+    select?: SaleCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * TransactionCountOutputType without action
+   * SaleCountOutputType without action
    */
-  export type TransactionCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionItemWhereInput
+  export type SaleCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaleItemWhereInput
   }
 
 
@@ -1774,7 +1775,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     customers?: boolean | Retailer$customersArgs<ExtArgs>
-    transactions?: boolean | Retailer$transactionsArgs<ExtArgs>
+    sales?: boolean | Retailer$salesArgs<ExtArgs>
     reminders?: boolean | Retailer$remindersArgs<ExtArgs>
     sessions?: boolean | Retailer$sessionsArgs<ExtArgs>
     _count?: boolean | RetailerCountOutputTypeDefaultArgs<ExtArgs>
@@ -1813,7 +1814,7 @@ export namespace Prisma {
   export type RetailerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "language" | "shopName" | "neighborhood" | "createdAt" | "updatedAt", ExtArgs["result"]["retailer"]>
   export type RetailerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customers?: boolean | Retailer$customersArgs<ExtArgs>
-    transactions?: boolean | Retailer$transactionsArgs<ExtArgs>
+    sales?: boolean | Retailer$salesArgs<ExtArgs>
     reminders?: boolean | Retailer$remindersArgs<ExtArgs>
     sessions?: boolean | Retailer$sessionsArgs<ExtArgs>
     _count?: boolean | RetailerCountOutputTypeDefaultArgs<ExtArgs>
@@ -1825,7 +1826,7 @@ export namespace Prisma {
     name: "Retailer"
     objects: {
       customers: Prisma.$CustomerPayload<ExtArgs>[]
-      transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      sales: Prisma.$SalePayload<ExtArgs>[]
       reminders: Prisma.$ReminderPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
     }
@@ -2232,7 +2233,7 @@ export namespace Prisma {
   export interface Prisma__RetailerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customers<T extends Retailer$customersArgs<ExtArgs> = {}>(args?: Subset<T, Retailer$customersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    transactions<T extends Retailer$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Retailer$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sales<T extends Retailer$salesArgs<ExtArgs> = {}>(args?: Subset<T, Retailer$salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reminders<T extends Retailer$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Retailer$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends Retailer$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, Retailer$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2683,27 +2684,27 @@ export namespace Prisma {
   }
 
   /**
-   * Retailer.transactions
+   * Retailer.sales
    */
-  export type Retailer$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Retailer$salesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
-    where?: TransactionWhereInput
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
-    cursor?: TransactionWhereUniqueInput
+    include?: SaleInclude<ExtArgs> | null
+    where?: SaleWhereInput
+    orderBy?: SaleOrderByWithRelationInput | SaleOrderByWithRelationInput[]
+    cursor?: SaleWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+    distinct?: SaleScalarFieldEnum | SaleScalarFieldEnum[]
   }
 
   /**
@@ -2986,7 +2987,7 @@ export namespace Prisma {
     lastSyncedAt?: boolean
     clientId?: boolean
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    transactions?: boolean | Customer$transactionsArgs<ExtArgs>
+    sales?: boolean | Customer$salesArgs<ExtArgs>
     reminders?: boolean | Customer$remindersArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
@@ -3038,7 +3039,7 @@ export namespace Prisma {
   export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "retailerId" | "name" | "phone" | "colorCode" | "createdAt" | "updatedAt" | "deletedAt" | "syncStatus" | "lastSyncedAt" | "clientId", ExtArgs["result"]["customer"]>
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    transactions?: boolean | Customer$transactionsArgs<ExtArgs>
+    sales?: boolean | Customer$salesArgs<ExtArgs>
     reminders?: boolean | Customer$remindersArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3053,7 +3054,7 @@ export namespace Prisma {
     name: "Customer"
     objects: {
       retailer: Prisma.$RetailerPayload<ExtArgs>
-      transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      sales: Prisma.$SalePayload<ExtArgs>[]
       reminders: Prisma.$ReminderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3463,7 +3464,7 @@ export namespace Prisma {
   export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     retailer<T extends RetailerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RetailerDefaultArgs<ExtArgs>>): Prisma__RetailerClient<$Result.GetResult<Prisma.$RetailerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    transactions<T extends Customer$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sales<T extends Customer$salesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reminders<T extends Customer$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3901,27 +3902,27 @@ export namespace Prisma {
   }
 
   /**
-   * Customer.transactions
+   * Customer.sales
    */
-  export type Customer$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Customer$salesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
-    where?: TransactionWhereInput
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
-    cursor?: TransactionWhereUniqueInput
+    include?: SaleInclude<ExtArgs> | null
+    where?: SaleWhereInput
+    orderBy?: SaleOrderByWithRelationInput | SaleOrderByWithRelationInput[]
+    cursor?: SaleWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+    distinct?: SaleScalarFieldEnum | SaleScalarFieldEnum[]
   }
 
   /**
@@ -3968,30 +3969,30 @@ export namespace Prisma {
 
 
   /**
-   * Model Transaction
+   * Model Sale
    */
 
-  export type AggregateTransaction = {
-    _count: TransactionCountAggregateOutputType | null
-    _avg: TransactionAvgAggregateOutputType | null
-    _sum: TransactionSumAggregateOutputType | null
-    _min: TransactionMinAggregateOutputType | null
-    _max: TransactionMaxAggregateOutputType | null
+  export type AggregateSale = {
+    _count: SaleCountAggregateOutputType | null
+    _avg: SaleAvgAggregateOutputType | null
+    _sum: SaleSumAggregateOutputType | null
+    _min: SaleMinAggregateOutputType | null
+    _max: SaleMaxAggregateOutputType | null
   }
 
-  export type TransactionAvgAggregateOutputType = {
+  export type SaleAvgAggregateOutputType = {
     amount: number | null
   }
 
-  export type TransactionSumAggregateOutputType = {
+  export type SaleSumAggregateOutputType = {
     amount: number | null
   }
 
-  export type TransactionMinAggregateOutputType = {
+  export type SaleMinAggregateOutputType = {
     id: string | null
     retailerId: string | null
     customerId: string | null
-    type: $Enums.TransactionType | null
+    type: $Enums.SaleType | null
     amount: number | null
     note: string | null
     createdAt: Date | null
@@ -4001,11 +4002,11 @@ export namespace Prisma {
     clientId: string | null
   }
 
-  export type TransactionMaxAggregateOutputType = {
+  export type SaleMaxAggregateOutputType = {
     id: string | null
     retailerId: string | null
     customerId: string | null
-    type: $Enums.TransactionType | null
+    type: $Enums.SaleType | null
     amount: number | null
     note: string | null
     createdAt: Date | null
@@ -4015,7 +4016,7 @@ export namespace Prisma {
     clientId: string | null
   }
 
-  export type TransactionCountAggregateOutputType = {
+  export type SaleCountAggregateOutputType = {
     id: number
     retailerId: number
     customerId: number
@@ -4031,15 +4032,15 @@ export namespace Prisma {
   }
 
 
-  export type TransactionAvgAggregateInputType = {
+  export type SaleAvgAggregateInputType = {
     amount?: true
   }
 
-  export type TransactionSumAggregateInputType = {
+  export type SaleSumAggregateInputType = {
     amount?: true
   }
 
-  export type TransactionMinAggregateInputType = {
+  export type SaleMinAggregateInputType = {
     id?: true
     retailerId?: true
     customerId?: true
@@ -4053,7 +4054,7 @@ export namespace Prisma {
     clientId?: true
   }
 
-  export type TransactionMaxAggregateInputType = {
+  export type SaleMaxAggregateInputType = {
     id?: true
     retailerId?: true
     customerId?: true
@@ -4067,7 +4068,7 @@ export namespace Prisma {
     clientId?: true
   }
 
-  export type TransactionCountAggregateInputType = {
+  export type SaleCountAggregateInputType = {
     id?: true
     retailerId?: true
     customerId?: true
@@ -4082,97 +4083,97 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type TransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Transaction to aggregate.
+     * Filter which Sale to aggregate.
      */
-    where?: TransactionWhereInput
+    where?: SaleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transactions to fetch.
+     * Determine the order of Sales to fetch.
      */
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    orderBy?: SaleOrderByWithRelationInput | SaleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: TransactionWhereUniqueInput
+    cursor?: SaleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transactions from the position of the cursor.
+     * Take `±n` Sales from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transactions.
+     * Skip the first `n` Sales.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Transactions
+     * Count returned Sales
     **/
-    _count?: true | TransactionCountAggregateInputType
+    _count?: true | SaleCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: TransactionAvgAggregateInputType
+    _avg?: SaleAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: TransactionSumAggregateInputType
+    _sum?: SaleSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: TransactionMinAggregateInputType
+    _min?: SaleMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: TransactionMaxAggregateInputType
+    _max?: SaleMaxAggregateInputType
   }
 
-  export type GetTransactionAggregateType<T extends TransactionAggregateArgs> = {
-        [P in keyof T & keyof AggregateTransaction]: P extends '_count' | 'count'
+  export type GetSaleAggregateType<T extends SaleAggregateArgs> = {
+        [P in keyof T & keyof AggregateSale]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateTransaction[P]>
-      : GetScalarType<T[P], AggregateTransaction[P]>
+        : GetScalarType<T[P], AggregateSale[P]>
+      : GetScalarType<T[P], AggregateSale[P]>
   }
 
 
 
 
-  export type TransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionWhereInput
-    orderBy?: TransactionOrderByWithAggregationInput | TransactionOrderByWithAggregationInput[]
-    by: TransactionScalarFieldEnum[] | TransactionScalarFieldEnum
-    having?: TransactionScalarWhereWithAggregatesInput
+  export type SaleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaleWhereInput
+    orderBy?: SaleOrderByWithAggregationInput | SaleOrderByWithAggregationInput[]
+    by: SaleScalarFieldEnum[] | SaleScalarFieldEnum
+    having?: SaleScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: TransactionCountAggregateInputType | true
-    _avg?: TransactionAvgAggregateInputType
-    _sum?: TransactionSumAggregateInputType
-    _min?: TransactionMinAggregateInputType
-    _max?: TransactionMaxAggregateInputType
+    _count?: SaleCountAggregateInputType | true
+    _avg?: SaleAvgAggregateInputType
+    _sum?: SaleSumAggregateInputType
+    _min?: SaleMinAggregateInputType
+    _max?: SaleMaxAggregateInputType
   }
 
-  export type TransactionGroupByOutputType = {
+  export type SaleGroupByOutputType = {
     id: string
     retailerId: string
-    customerId: string
-    type: $Enums.TransactionType
+    customerId: string | null
+    type: $Enums.SaleType
     amount: number
     note: string | null
     createdAt: Date
@@ -4180,28 +4181,28 @@ export namespace Prisma {
     syncStatus: string
     lastSyncedAt: Date | null
     clientId: string | null
-    _count: TransactionCountAggregateOutputType | null
-    _avg: TransactionAvgAggregateOutputType | null
-    _sum: TransactionSumAggregateOutputType | null
-    _min: TransactionMinAggregateOutputType | null
-    _max: TransactionMaxAggregateOutputType | null
+    _count: SaleCountAggregateOutputType | null
+    _avg: SaleAvgAggregateOutputType | null
+    _sum: SaleSumAggregateOutputType | null
+    _min: SaleMinAggregateOutputType | null
+    _max: SaleMaxAggregateOutputType | null
   }
 
-  type GetTransactionGroupByPayload<T extends TransactionGroupByArgs> = Prisma.PrismaPromise<
+  type GetSaleGroupByPayload<T extends SaleGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<TransactionGroupByOutputType, T['by']> &
+      PickEnumerable<SaleGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof TransactionGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof SaleGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], TransactionGroupByOutputType[P]>
-            : GetScalarType<T[P], TransactionGroupByOutputType[P]>
+              : GetScalarType<T[P], SaleGroupByOutputType[P]>
+            : GetScalarType<T[P], SaleGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SaleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     retailerId?: boolean
     customerId?: boolean
@@ -4214,12 +4215,12 @@ export namespace Prisma {
     lastSyncedAt?: boolean
     clientId?: boolean
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
-    items?: boolean | Transaction$itemsArgs<ExtArgs>
-    _count?: boolean | TransactionCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["transaction"]>
+    customer?: boolean | Sale$customerArgs<ExtArgs>
+    items?: boolean | Sale$itemsArgs<ExtArgs>
+    _count?: boolean | SaleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sale"]>
 
-  export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SaleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     retailerId?: boolean
     customerId?: boolean
@@ -4232,10 +4233,10 @@ export namespace Prisma {
     lastSyncedAt?: boolean
     clientId?: boolean
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["transaction"]>
+    customer?: boolean | Sale$customerArgs<ExtArgs>
+  }, ExtArgs["result"]["sale"]>
 
-  export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SaleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     retailerId?: boolean
     customerId?: boolean
@@ -4248,10 +4249,10 @@ export namespace Prisma {
     lastSyncedAt?: boolean
     clientId?: boolean
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["transaction"]>
+    customer?: boolean | Sale$customerArgs<ExtArgs>
+  }, ExtArgs["result"]["sale"]>
 
-  export type TransactionSelectScalar = {
+  export type SaleSelectScalar = {
     id?: boolean
     retailerId?: boolean
     customerId?: boolean
@@ -4265,34 +4266,34 @@ export namespace Prisma {
     clientId?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "retailerId" | "customerId" | "type" | "amount" | "note" | "createdAt" | "updatedAt" | "syncStatus" | "lastSyncedAt" | "clientId", ExtArgs["result"]["transaction"]>
-  export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "retailerId" | "customerId" | "type" | "amount" | "note" | "createdAt" | "updatedAt" | "syncStatus" | "lastSyncedAt" | "clientId", ExtArgs["result"]["sale"]>
+  export type SaleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
-    items?: boolean | Transaction$itemsArgs<ExtArgs>
-    _count?: boolean | TransactionCountOutputTypeDefaultArgs<ExtArgs>
+    customer?: boolean | Sale$customerArgs<ExtArgs>
+    items?: boolean | Sale$itemsArgs<ExtArgs>
+    _count?: boolean | SaleCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    customer?: boolean | Sale$customerArgs<ExtArgs>
   }
-  export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     retailer?: boolean | RetailerDefaultArgs<ExtArgs>
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    customer?: boolean | Sale$customerArgs<ExtArgs>
   }
 
-  export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Transaction"
+  export type $SalePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Sale"
     objects: {
       retailer: Prisma.$RetailerPayload<ExtArgs>
-      customer: Prisma.$CustomerPayload<ExtArgs>
-      items: Prisma.$TransactionItemPayload<ExtArgs>[]
+      customer: Prisma.$CustomerPayload<ExtArgs> | null
+      items: Prisma.$SaleItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       retailerId: string
-      customerId: string
-      type: $Enums.TransactionType
+      customerId: string | null
+      type: $Enums.SaleType
       amount: number
       note: string | null
       createdAt: Date
@@ -4300,136 +4301,136 @@ export namespace Prisma {
       syncStatus: string
       lastSyncedAt: Date | null
       clientId: string | null
-    }, ExtArgs["result"]["transaction"]>
+    }, ExtArgs["result"]["sale"]>
     composites: {}
   }
 
-  type TransactionGetPayload<S extends boolean | null | undefined | TransactionDefaultArgs> = $Result.GetResult<Prisma.$TransactionPayload, S>
+  type SaleGetPayload<S extends boolean | null | undefined | SaleDefaultArgs> = $Result.GetResult<Prisma.$SalePayload, S>
 
-  type TransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<TransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: TransactionCountAggregateInputType | true
+  type SaleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SaleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SaleCountAggregateInputType | true
     }
 
-  export interface TransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transaction'], meta: { name: 'Transaction' } }
+  export interface SaleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Sale'], meta: { name: 'Sale' } }
     /**
-     * Find zero or one Transaction that matches the filter.
-     * @param {TransactionFindUniqueArgs} args - Arguments to find a Transaction
+     * Find zero or one Sale that matches the filter.
+     * @param {SaleFindUniqueArgs} args - Arguments to find a Sale
      * @example
-     * // Get one Transaction
-     * const transaction = await prisma.transaction.findUnique({
+     * // Get one Sale
+     * const sale = await prisma.sale.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends TransactionFindUniqueArgs>(args: SelectSubset<T, TransactionFindUniqueArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends SaleFindUniqueArgs>(args: SelectSubset<T, SaleFindUniqueArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Transaction that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Sale that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {TransactionFindUniqueOrThrowArgs} args - Arguments to find a Transaction
+     * @param {SaleFindUniqueOrThrowArgs} args - Arguments to find a Sale
      * @example
-     * // Get one Transaction
-     * const transaction = await prisma.transaction.findUniqueOrThrow({
+     * // Get one Sale
+     * const sale = await prisma.sale.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends TransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, TransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends SaleFindUniqueOrThrowArgs>(args: SelectSubset<T, SaleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Transaction that matches the filter.
+     * Find the first Sale that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionFindFirstArgs} args - Arguments to find a Transaction
+     * @param {SaleFindFirstArgs} args - Arguments to find a Sale
      * @example
-     * // Get one Transaction
-     * const transaction = await prisma.transaction.findFirst({
+     * // Get one Sale
+     * const sale = await prisma.sale.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends TransactionFindFirstArgs>(args?: SelectSubset<T, TransactionFindFirstArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends SaleFindFirstArgs>(args?: SelectSubset<T, SaleFindFirstArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Transaction that matches the filter or
+     * Find the first Sale that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionFindFirstOrThrowArgs} args - Arguments to find a Transaction
+     * @param {SaleFindFirstOrThrowArgs} args - Arguments to find a Sale
      * @example
-     * // Get one Transaction
-     * const transaction = await prisma.transaction.findFirstOrThrow({
+     * // Get one Sale
+     * const sale = await prisma.sale.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends TransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, TransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends SaleFindFirstOrThrowArgs>(args?: SelectSubset<T, SaleFindFirstOrThrowArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Transactions that matches the filter.
+     * Find zero or more Sales that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {SaleFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Transactions
-     * const transactions = await prisma.transaction.findMany()
+     * // Get all Sales
+     * const sales = await prisma.sale.findMany()
      * 
-     * // Get first 10 Transactions
-     * const transactions = await prisma.transaction.findMany({ take: 10 })
+     * // Get first 10 Sales
+     * const sales = await prisma.sale.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const transactionWithIdOnly = await prisma.transaction.findMany({ select: { id: true } })
+     * const saleWithIdOnly = await prisma.sale.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends TransactionFindManyArgs>(args?: SelectSubset<T, TransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends SaleFindManyArgs>(args?: SelectSubset<T, SaleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Transaction.
-     * @param {TransactionCreateArgs} args - Arguments to create a Transaction.
+     * Create a Sale.
+     * @param {SaleCreateArgs} args - Arguments to create a Sale.
      * @example
-     * // Create one Transaction
-     * const Transaction = await prisma.transaction.create({
+     * // Create one Sale
+     * const Sale = await prisma.sale.create({
      *   data: {
-     *     // ... data to create a Transaction
+     *     // ... data to create a Sale
      *   }
      * })
      * 
      */
-    create<T extends TransactionCreateArgs>(args: SelectSubset<T, TransactionCreateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends SaleCreateArgs>(args: SelectSubset<T, SaleCreateArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Transactions.
-     * @param {TransactionCreateManyArgs} args - Arguments to create many Transactions.
+     * Create many Sales.
+     * @param {SaleCreateManyArgs} args - Arguments to create many Sales.
      * @example
-     * // Create many Transactions
-     * const transaction = await prisma.transaction.createMany({
+     * // Create many Sales
+     * const sale = await prisma.sale.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends TransactionCreateManyArgs>(args?: SelectSubset<T, TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends SaleCreateManyArgs>(args?: SelectSubset<T, SaleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Transactions and returns the data saved in the database.
-     * @param {TransactionCreateManyAndReturnArgs} args - Arguments to create many Transactions.
+     * Create many Sales and returns the data saved in the database.
+     * @param {SaleCreateManyAndReturnArgs} args - Arguments to create many Sales.
      * @example
-     * // Create many Transactions
-     * const transaction = await prisma.transaction.createManyAndReturn({
+     * // Create many Sales
+     * const sale = await prisma.sale.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Transactions and only return the `id`
-     * const transactionWithIdOnly = await prisma.transaction.createManyAndReturn({
+     * // Create many Sales and only return the `id`
+     * const saleWithIdOnly = await prisma.sale.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -4439,28 +4440,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends TransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends SaleCreateManyAndReturnArgs>(args?: SelectSubset<T, SaleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Transaction.
-     * @param {TransactionDeleteArgs} args - Arguments to delete one Transaction.
+     * Delete a Sale.
+     * @param {SaleDeleteArgs} args - Arguments to delete one Sale.
      * @example
-     * // Delete one Transaction
-     * const Transaction = await prisma.transaction.delete({
+     * // Delete one Sale
+     * const Sale = await prisma.sale.delete({
      *   where: {
-     *     // ... filter to delete one Transaction
+     *     // ... filter to delete one Sale
      *   }
      * })
      * 
      */
-    delete<T extends TransactionDeleteArgs>(args: SelectSubset<T, TransactionDeleteArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends SaleDeleteArgs>(args: SelectSubset<T, SaleDeleteArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Transaction.
-     * @param {TransactionUpdateArgs} args - Arguments to update one Transaction.
+     * Update one Sale.
+     * @param {SaleUpdateArgs} args - Arguments to update one Sale.
      * @example
-     * // Update one Transaction
-     * const transaction = await prisma.transaction.update({
+     * // Update one Sale
+     * const sale = await prisma.sale.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4470,30 +4471,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends TransactionUpdateArgs>(args: SelectSubset<T, TransactionUpdateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends SaleUpdateArgs>(args: SelectSubset<T, SaleUpdateArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Transactions.
-     * @param {TransactionDeleteManyArgs} args - Arguments to filter Transactions to delete.
+     * Delete zero or more Sales.
+     * @param {SaleDeleteManyArgs} args - Arguments to filter Sales to delete.
      * @example
-     * // Delete a few Transactions
-     * const { count } = await prisma.transaction.deleteMany({
+     * // Delete a few Sales
+     * const { count } = await prisma.sale.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends TransactionDeleteManyArgs>(args?: SelectSubset<T, TransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends SaleDeleteManyArgs>(args?: SelectSubset<T, SaleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Transactions.
+     * Update zero or more Sales.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {SaleUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Transactions
-     * const transaction = await prisma.transaction.updateMany({
+     * // Update many Sales
+     * const sale = await prisma.sale.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4503,14 +4504,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends TransactionUpdateManyArgs>(args: SelectSubset<T, TransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends SaleUpdateManyArgs>(args: SelectSubset<T, SaleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Transactions and returns the data updated in the database.
-     * @param {TransactionUpdateManyAndReturnArgs} args - Arguments to update many Transactions.
+     * Update zero or more Sales and returns the data updated in the database.
+     * @param {SaleUpdateManyAndReturnArgs} args - Arguments to update many Sales.
      * @example
-     * // Update many Transactions
-     * const transaction = await prisma.transaction.updateManyAndReturn({
+     * // Update many Sales
+     * const sale = await prisma.sale.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4519,8 +4520,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Transactions and only return the `id`
-     * const transactionWithIdOnly = await prisma.transaction.updateManyAndReturn({
+     * // Update zero or more Sales and only return the `id`
+     * const saleWithIdOnly = await prisma.sale.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -4533,56 +4534,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends TransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, TransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends SaleUpdateManyAndReturnArgs>(args: SelectSubset<T, SaleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Transaction.
-     * @param {TransactionUpsertArgs} args - Arguments to update or create a Transaction.
+     * Create or update one Sale.
+     * @param {SaleUpsertArgs} args - Arguments to update or create a Sale.
      * @example
-     * // Update or create a Transaction
-     * const transaction = await prisma.transaction.upsert({
+     * // Update or create a Sale
+     * const sale = await prisma.sale.upsert({
      *   create: {
-     *     // ... data to create a Transaction
+     *     // ... data to create a Sale
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Transaction we want to update
+     *     // ... the filter for the Sale we want to update
      *   }
      * })
      */
-    upsert<T extends TransactionUpsertArgs>(args: SelectSubset<T, TransactionUpsertArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends SaleUpsertArgs>(args: SelectSubset<T, SaleUpsertArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Transactions.
+     * Count the number of Sales.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionCountArgs} args - Arguments to filter Transactions to count.
+     * @param {SaleCountArgs} args - Arguments to filter Sales to count.
      * @example
-     * // Count the number of Transactions
-     * const count = await prisma.transaction.count({
+     * // Count the number of Sales
+     * const count = await prisma.sale.count({
      *   where: {
-     *     // ... the filter for the Transactions we want to count
+     *     // ... the filter for the Sales we want to count
      *   }
      * })
     **/
-    count<T extends TransactionCountArgs>(
-      args?: Subset<T, TransactionCountArgs>,
+    count<T extends SaleCountArgs>(
+      args?: Subset<T, SaleCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], TransactionCountAggregateOutputType>
+          : GetScalarType<T['select'], SaleCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Transaction.
+     * Allows you to perform aggregations operations on a Sale.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {SaleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -4602,13 +4603,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends TransactionAggregateArgs>(args: Subset<T, TransactionAggregateArgs>): Prisma.PrismaPromise<GetTransactionAggregateType<T>>
+    aggregate<T extends SaleAggregateArgs>(args: Subset<T, SaleAggregateArgs>): Prisma.PrismaPromise<GetSaleAggregateType<T>>
 
     /**
-     * Group by Transaction.
+     * Group by Sale.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionGroupByArgs} args - Group by arguments.
+     * @param {SaleGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -4623,14 +4624,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends TransactionGroupByArgs,
+      T extends SaleGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TransactionGroupByArgs['orderBy'] }
-        : { orderBy?: TransactionGroupByArgs['orderBy'] },
+        ? { orderBy: SaleGroupByArgs['orderBy'] }
+        : { orderBy?: SaleGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -4679,24 +4680,24 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, TransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, SaleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSaleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Transaction model
+   * Fields of the Sale model
    */
-  readonly fields: TransactionFieldRefs;
+  readonly fields: SaleFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Transaction.
+   * The delegate class that acts as a "Promise-like" for Sale.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__SaleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     retailer<T extends RetailerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RetailerDefaultArgs<ExtArgs>>): Prisma__RetailerClient<$Result.GetResult<Prisma.$RetailerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    items<T extends Transaction$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customer<T extends Sale$customerArgs<ExtArgs> = {}>(args?: Subset<T, Sale$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    items<T extends Sale$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Sale$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4723,825 +4724,844 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Transaction model
+   * Fields of the Sale model
    */
-  interface TransactionFieldRefs {
-    readonly id: FieldRef<"Transaction", 'String'>
-    readonly retailerId: FieldRef<"Transaction", 'String'>
-    readonly customerId: FieldRef<"Transaction", 'String'>
-    readonly type: FieldRef<"Transaction", 'TransactionType'>
-    readonly amount: FieldRef<"Transaction", 'Int'>
-    readonly note: FieldRef<"Transaction", 'String'>
-    readonly createdAt: FieldRef<"Transaction", 'DateTime'>
-    readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
-    readonly syncStatus: FieldRef<"Transaction", 'String'>
-    readonly lastSyncedAt: FieldRef<"Transaction", 'DateTime'>
-    readonly clientId: FieldRef<"Transaction", 'String'>
+  interface SaleFieldRefs {
+    readonly id: FieldRef<"Sale", 'String'>
+    readonly retailerId: FieldRef<"Sale", 'String'>
+    readonly customerId: FieldRef<"Sale", 'String'>
+    readonly type: FieldRef<"Sale", 'SaleType'>
+    readonly amount: FieldRef<"Sale", 'Int'>
+    readonly note: FieldRef<"Sale", 'String'>
+    readonly createdAt: FieldRef<"Sale", 'DateTime'>
+    readonly updatedAt: FieldRef<"Sale", 'DateTime'>
+    readonly syncStatus: FieldRef<"Sale", 'String'>
+    readonly lastSyncedAt: FieldRef<"Sale", 'DateTime'>
+    readonly clientId: FieldRef<"Sale", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * Transaction findUnique
+   * Sale findUnique
    */
-  export type TransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * Filter, which Transaction to fetch.
+     * Filter, which Sale to fetch.
      */
-    where: TransactionWhereUniqueInput
+    where: SaleWhereUniqueInput
   }
 
   /**
-   * Transaction findUniqueOrThrow
+   * Sale findUniqueOrThrow
    */
-  export type TransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * Filter, which Transaction to fetch.
+     * Filter, which Sale to fetch.
      */
-    where: TransactionWhereUniqueInput
+    where: SaleWhereUniqueInput
   }
 
   /**
-   * Transaction findFirst
+   * Sale findFirst
    */
-  export type TransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * Filter, which Transaction to fetch.
+     * Filter, which Sale to fetch.
      */
-    where?: TransactionWhereInput
+    where?: SaleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transactions to fetch.
+     * Determine the order of Sales to fetch.
      */
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    orderBy?: SaleOrderByWithRelationInput | SaleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Transactions.
+     * Sets the position for searching for Sales.
      */
-    cursor?: TransactionWhereUniqueInput
+    cursor?: SaleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transactions from the position of the cursor.
+     * Take `±n` Sales from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transactions.
+     * Skip the first `n` Sales.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Transactions.
+     * Filter by unique combinations of Sales.
      */
-    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+    distinct?: SaleScalarFieldEnum | SaleScalarFieldEnum[]
   }
 
   /**
-   * Transaction findFirstOrThrow
+   * Sale findFirstOrThrow
    */
-  export type TransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * Filter, which Transaction to fetch.
+     * Filter, which Sale to fetch.
      */
-    where?: TransactionWhereInput
+    where?: SaleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transactions to fetch.
+     * Determine the order of Sales to fetch.
      */
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    orderBy?: SaleOrderByWithRelationInput | SaleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Transactions.
+     * Sets the position for searching for Sales.
      */
-    cursor?: TransactionWhereUniqueInput
+    cursor?: SaleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transactions from the position of the cursor.
+     * Take `±n` Sales from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transactions.
+     * Skip the first `n` Sales.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Transactions.
+     * Filter by unique combinations of Sales.
      */
-    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+    distinct?: SaleScalarFieldEnum | SaleScalarFieldEnum[]
   }
 
   /**
-   * Transaction findMany
+   * Sale findMany
    */
-  export type TransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * Filter, which Transactions to fetch.
+     * Filter, which Sales to fetch.
      */
-    where?: TransactionWhereInput
+    where?: SaleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Transactions to fetch.
+     * Determine the order of Sales to fetch.
      */
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    orderBy?: SaleOrderByWithRelationInput | SaleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Transactions.
+     * Sets the position for listing Sales.
      */
-    cursor?: TransactionWhereUniqueInput
+    cursor?: SaleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Transactions from the position of the cursor.
+     * Take `±n` Sales from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Transactions.
+     * Skip the first `n` Sales.
      */
     skip?: number
-    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+    distinct?: SaleScalarFieldEnum | SaleScalarFieldEnum[]
   }
 
   /**
-   * Transaction create
+   * Sale create
    */
-  export type TransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * The data needed to create a Transaction.
+     * The data needed to create a Sale.
      */
-    data: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
+    data: XOR<SaleCreateInput, SaleUncheckedCreateInput>
   }
 
   /**
-   * Transaction createMany
+   * Sale createMany
    */
-  export type TransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Transactions.
+     * The data used to create many Sales.
      */
-    data: TransactionCreateManyInput | TransactionCreateManyInput[]
+    data: SaleCreateManyInput | SaleCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Transaction createManyAndReturn
+   * Sale createManyAndReturn
    */
-  export type TransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelectCreateManyAndReturn<ExtArgs> | null
+    select?: SaleSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
-     * The data used to create many Transactions.
+     * The data used to create many Sales.
      */
-    data: TransactionCreateManyInput | TransactionCreateManyInput[]
+    data: SaleCreateManyInput | SaleCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: SaleIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Transaction update
+   * Sale update
    */
-  export type TransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * The data needed to update a Transaction.
+     * The data needed to update a Sale.
      */
-    data: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
+    data: XOR<SaleUpdateInput, SaleUncheckedUpdateInput>
     /**
-     * Choose, which Transaction to update.
+     * Choose, which Sale to update.
      */
-    where: TransactionWhereUniqueInput
+    where: SaleWhereUniqueInput
   }
 
   /**
-   * Transaction updateMany
+   * Sale updateMany
    */
-  export type TransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Transactions.
+     * The data used to update Sales.
      */
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyInput>
+    data: XOR<SaleUpdateManyMutationInput, SaleUncheckedUpdateManyInput>
     /**
-     * Filter which Transactions to update
+     * Filter which Sales to update
      */
-    where?: TransactionWhereInput
+    where?: SaleWhereInput
     /**
-     * Limit how many Transactions to update.
+     * Limit how many Sales to update.
      */
     limit?: number
   }
 
   /**
-   * Transaction updateManyAndReturn
+   * Sale updateManyAndReturn
    */
-  export type TransactionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: SaleSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
-     * The data used to update Transactions.
+     * The data used to update Sales.
      */
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyInput>
+    data: XOR<SaleUpdateManyMutationInput, SaleUncheckedUpdateManyInput>
     /**
-     * Filter which Transactions to update
+     * Filter which Sales to update
      */
-    where?: TransactionWhereInput
+    where?: SaleWhereInput
     /**
-     * Limit how many Transactions to update.
+     * Limit how many Sales to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: SaleIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Transaction upsert
+   * Sale upsert
    */
-  export type TransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * The filter to search for the Transaction to update in case it exists.
+     * The filter to search for the Sale to update in case it exists.
      */
-    where: TransactionWhereUniqueInput
+    where: SaleWhereUniqueInput
     /**
-     * In case the Transaction found by the `where` argument doesn't exist, create a new Transaction with this data.
+     * In case the Sale found by the `where` argument doesn't exist, create a new Sale with this data.
      */
-    create: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
+    create: XOR<SaleCreateInput, SaleUncheckedCreateInput>
     /**
-     * In case the Transaction was found with the provided `where` argument, update it with this data.
+     * In case the Sale was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
+    update: XOR<SaleUpdateInput, SaleUncheckedUpdateInput>
   }
 
   /**
-   * Transaction delete
+   * Sale delete
    */
-  export type TransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
     /**
-     * Filter which Transaction to delete.
+     * Filter which Sale to delete.
      */
-    where: TransactionWhereUniqueInput
+    where: SaleWhereUniqueInput
   }
 
   /**
-   * Transaction deleteMany
+   * Sale deleteMany
    */
-  export type TransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Transactions to delete
+     * Filter which Sales to delete
      */
-    where?: TransactionWhereInput
+    where?: SaleWhereInput
     /**
-     * Limit how many Transactions to delete.
+     * Limit how many Sales to delete.
      */
     limit?: number
   }
 
   /**
-   * Transaction.items
+   * Sale.customer
    */
-  export type Transaction$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Sale$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the Customer
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: CustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the Customer
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: CustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
-    where?: TransactionItemWhereInput
-    orderBy?: TransactionItemOrderByWithRelationInput | TransactionItemOrderByWithRelationInput[]
-    cursor?: TransactionItemWhereUniqueInput
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
+  }
+
+  /**
+   * Sale.items
+   */
+  export type Sale$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaleItem
+     */
+    select?: SaleItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaleItem
+     */
+    omit?: SaleItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaleItemInclude<ExtArgs> | null
+    where?: SaleItemWhereInput
+    orderBy?: SaleItemOrderByWithRelationInput | SaleItemOrderByWithRelationInput[]
+    cursor?: SaleItemWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TransactionItemScalarFieldEnum | TransactionItemScalarFieldEnum[]
+    distinct?: SaleItemScalarFieldEnum | SaleItemScalarFieldEnum[]
   }
 
   /**
-   * Transaction without action
+   * Sale without action
    */
-  export type TransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the Sale
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: SaleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the Sale
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: SaleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
+    include?: SaleInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model TransactionItem
+   * Model SaleItem
    */
 
-  export type AggregateTransactionItem = {
-    _count: TransactionItemCountAggregateOutputType | null
-    _avg: TransactionItemAvgAggregateOutputType | null
-    _sum: TransactionItemSumAggregateOutputType | null
-    _min: TransactionItemMinAggregateOutputType | null
-    _max: TransactionItemMaxAggregateOutputType | null
+  export type AggregateSaleItem = {
+    _count: SaleItemCountAggregateOutputType | null
+    _avg: SaleItemAvgAggregateOutputType | null
+    _sum: SaleItemSumAggregateOutputType | null
+    _min: SaleItemMinAggregateOutputType | null
+    _max: SaleItemMaxAggregateOutputType | null
   }
 
-  export type TransactionItemAvgAggregateOutputType = {
+  export type SaleItemAvgAggregateOutputType = {
     amount: number | null
   }
 
-  export type TransactionItemSumAggregateOutputType = {
+  export type SaleItemSumAggregateOutputType = {
     amount: number | null
   }
 
-  export type TransactionItemMinAggregateOutputType = {
+  export type SaleItemMinAggregateOutputType = {
     id: string | null
-    transactionId: string | null
+    saleId: string | null
     description: string | null
     amount: number | null
   }
 
-  export type TransactionItemMaxAggregateOutputType = {
+  export type SaleItemMaxAggregateOutputType = {
     id: string | null
-    transactionId: string | null
+    saleId: string | null
     description: string | null
     amount: number | null
   }
 
-  export type TransactionItemCountAggregateOutputType = {
+  export type SaleItemCountAggregateOutputType = {
     id: number
-    transactionId: number
+    saleId: number
     description: number
     amount: number
     _all: number
   }
 
 
-  export type TransactionItemAvgAggregateInputType = {
+  export type SaleItemAvgAggregateInputType = {
     amount?: true
   }
 
-  export type TransactionItemSumAggregateInputType = {
+  export type SaleItemSumAggregateInputType = {
     amount?: true
   }
 
-  export type TransactionItemMinAggregateInputType = {
+  export type SaleItemMinAggregateInputType = {
     id?: true
-    transactionId?: true
+    saleId?: true
     description?: true
     amount?: true
   }
 
-  export type TransactionItemMaxAggregateInputType = {
+  export type SaleItemMaxAggregateInputType = {
     id?: true
-    transactionId?: true
+    saleId?: true
     description?: true
     amount?: true
   }
 
-  export type TransactionItemCountAggregateInputType = {
+  export type SaleItemCountAggregateInputType = {
     id?: true
-    transactionId?: true
+    saleId?: true
     description?: true
     amount?: true
     _all?: true
   }
 
-  export type TransactionItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which TransactionItem to aggregate.
+     * Filter which SaleItem to aggregate.
      */
-    where?: TransactionItemWhereInput
+    where?: SaleItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TransactionItems to fetch.
+     * Determine the order of SaleItems to fetch.
      */
-    orderBy?: TransactionItemOrderByWithRelationInput | TransactionItemOrderByWithRelationInput[]
+    orderBy?: SaleItemOrderByWithRelationInput | SaleItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: TransactionItemWhereUniqueInput
+    cursor?: SaleItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TransactionItems from the position of the cursor.
+     * Take `±n` SaleItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TransactionItems.
+     * Skip the first `n` SaleItems.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned TransactionItems
+     * Count returned SaleItems
     **/
-    _count?: true | TransactionItemCountAggregateInputType
+    _count?: true | SaleItemCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: TransactionItemAvgAggregateInputType
+    _avg?: SaleItemAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: TransactionItemSumAggregateInputType
+    _sum?: SaleItemSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: TransactionItemMinAggregateInputType
+    _min?: SaleItemMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: TransactionItemMaxAggregateInputType
+    _max?: SaleItemMaxAggregateInputType
   }
 
-  export type GetTransactionItemAggregateType<T extends TransactionItemAggregateArgs> = {
-        [P in keyof T & keyof AggregateTransactionItem]: P extends '_count' | 'count'
+  export type GetSaleItemAggregateType<T extends SaleItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateSaleItem]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateTransactionItem[P]>
-      : GetScalarType<T[P], AggregateTransactionItem[P]>
+        : GetScalarType<T[P], AggregateSaleItem[P]>
+      : GetScalarType<T[P], AggregateSaleItem[P]>
   }
 
 
 
 
-  export type TransactionItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionItemWhereInput
-    orderBy?: TransactionItemOrderByWithAggregationInput | TransactionItemOrderByWithAggregationInput[]
-    by: TransactionItemScalarFieldEnum[] | TransactionItemScalarFieldEnum
-    having?: TransactionItemScalarWhereWithAggregatesInput
+  export type SaleItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaleItemWhereInput
+    orderBy?: SaleItemOrderByWithAggregationInput | SaleItemOrderByWithAggregationInput[]
+    by: SaleItemScalarFieldEnum[] | SaleItemScalarFieldEnum
+    having?: SaleItemScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: TransactionItemCountAggregateInputType | true
-    _avg?: TransactionItemAvgAggregateInputType
-    _sum?: TransactionItemSumAggregateInputType
-    _min?: TransactionItemMinAggregateInputType
-    _max?: TransactionItemMaxAggregateInputType
+    _count?: SaleItemCountAggregateInputType | true
+    _avg?: SaleItemAvgAggregateInputType
+    _sum?: SaleItemSumAggregateInputType
+    _min?: SaleItemMinAggregateInputType
+    _max?: SaleItemMaxAggregateInputType
   }
 
-  export type TransactionItemGroupByOutputType = {
+  export type SaleItemGroupByOutputType = {
     id: string
-    transactionId: string
+    saleId: string
     description: string
     amount: number
-    _count: TransactionItemCountAggregateOutputType | null
-    _avg: TransactionItemAvgAggregateOutputType | null
-    _sum: TransactionItemSumAggregateOutputType | null
-    _min: TransactionItemMinAggregateOutputType | null
-    _max: TransactionItemMaxAggregateOutputType | null
+    _count: SaleItemCountAggregateOutputType | null
+    _avg: SaleItemAvgAggregateOutputType | null
+    _sum: SaleItemSumAggregateOutputType | null
+    _min: SaleItemMinAggregateOutputType | null
+    _max: SaleItemMaxAggregateOutputType | null
   }
 
-  type GetTransactionItemGroupByPayload<T extends TransactionItemGroupByArgs> = Prisma.PrismaPromise<
+  type GetSaleItemGroupByPayload<T extends SaleItemGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<TransactionItemGroupByOutputType, T['by']> &
+      PickEnumerable<SaleItemGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof TransactionItemGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof SaleItemGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], TransactionItemGroupByOutputType[P]>
-            : GetScalarType<T[P], TransactionItemGroupByOutputType[P]>
+              : GetScalarType<T[P], SaleItemGroupByOutputType[P]>
+            : GetScalarType<T[P], SaleItemGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type TransactionItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SaleItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    transactionId?: boolean
+    saleId?: boolean
     description?: boolean
     amount?: boolean
-    transaction?: boolean | TransactionDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["transactionItem"]>
+    sale?: boolean | SaleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["saleItem"]>
 
-  export type TransactionItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SaleItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    transactionId?: boolean
+    saleId?: boolean
     description?: boolean
     amount?: boolean
-    transaction?: boolean | TransactionDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["transactionItem"]>
+    sale?: boolean | SaleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["saleItem"]>
 
-  export type TransactionItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SaleItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    transactionId?: boolean
+    saleId?: boolean
     description?: boolean
     amount?: boolean
-    transaction?: boolean | TransactionDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["transactionItem"]>
+    sale?: boolean | SaleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["saleItem"]>
 
-  export type TransactionItemSelectScalar = {
+  export type SaleItemSelectScalar = {
     id?: boolean
-    transactionId?: boolean
+    saleId?: boolean
     description?: boolean
     amount?: boolean
   }
 
-  export type TransactionItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "description" | "amount", ExtArgs["result"]["transactionItem"]>
-  export type TransactionItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    transaction?: boolean | TransactionDefaultArgs<ExtArgs>
+  export type SaleItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saleId" | "description" | "amount", ExtArgs["result"]["saleItem"]>
+  export type SaleItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sale?: boolean | SaleDefaultArgs<ExtArgs>
   }
-  export type TransactionItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    transaction?: boolean | TransactionDefaultArgs<ExtArgs>
+  export type SaleItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sale?: boolean | SaleDefaultArgs<ExtArgs>
   }
-  export type TransactionItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    transaction?: boolean | TransactionDefaultArgs<ExtArgs>
+  export type SaleItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sale?: boolean | SaleDefaultArgs<ExtArgs>
   }
 
-  export type $TransactionItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "TransactionItem"
+  export type $SaleItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SaleItem"
     objects: {
-      transaction: Prisma.$TransactionPayload<ExtArgs>
+      sale: Prisma.$SalePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      transactionId: string
+      saleId: string
       description: string
       amount: number
-    }, ExtArgs["result"]["transactionItem"]>
+    }, ExtArgs["result"]["saleItem"]>
     composites: {}
   }
 
-  type TransactionItemGetPayload<S extends boolean | null | undefined | TransactionItemDefaultArgs> = $Result.GetResult<Prisma.$TransactionItemPayload, S>
+  type SaleItemGetPayload<S extends boolean | null | undefined | SaleItemDefaultArgs> = $Result.GetResult<Prisma.$SaleItemPayload, S>
 
-  type TransactionItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<TransactionItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: TransactionItemCountAggregateInputType | true
+  type SaleItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SaleItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SaleItemCountAggregateInputType | true
     }
 
-  export interface TransactionItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TransactionItem'], meta: { name: 'TransactionItem' } }
+  export interface SaleItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SaleItem'], meta: { name: 'SaleItem' } }
     /**
-     * Find zero or one TransactionItem that matches the filter.
-     * @param {TransactionItemFindUniqueArgs} args - Arguments to find a TransactionItem
+     * Find zero or one SaleItem that matches the filter.
+     * @param {SaleItemFindUniqueArgs} args - Arguments to find a SaleItem
      * @example
-     * // Get one TransactionItem
-     * const transactionItem = await prisma.transactionItem.findUnique({
+     * // Get one SaleItem
+     * const saleItem = await prisma.saleItem.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends TransactionItemFindUniqueArgs>(args: SelectSubset<T, TransactionItemFindUniqueArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends SaleItemFindUniqueArgs>(args: SelectSubset<T, SaleItemFindUniqueArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one TransactionItem that matches the filter or throw an error with `error.code='P2025'`
+     * Find one SaleItem that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {TransactionItemFindUniqueOrThrowArgs} args - Arguments to find a TransactionItem
+     * @param {SaleItemFindUniqueOrThrowArgs} args - Arguments to find a SaleItem
      * @example
-     * // Get one TransactionItem
-     * const transactionItem = await prisma.transactionItem.findUniqueOrThrow({
+     * // Get one SaleItem
+     * const saleItem = await prisma.saleItem.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends TransactionItemFindUniqueOrThrowArgs>(args: SelectSubset<T, TransactionItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends SaleItemFindUniqueOrThrowArgs>(args: SelectSubset<T, SaleItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first TransactionItem that matches the filter.
+     * Find the first SaleItem that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionItemFindFirstArgs} args - Arguments to find a TransactionItem
+     * @param {SaleItemFindFirstArgs} args - Arguments to find a SaleItem
      * @example
-     * // Get one TransactionItem
-     * const transactionItem = await prisma.transactionItem.findFirst({
+     * // Get one SaleItem
+     * const saleItem = await prisma.saleItem.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends TransactionItemFindFirstArgs>(args?: SelectSubset<T, TransactionItemFindFirstArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends SaleItemFindFirstArgs>(args?: SelectSubset<T, SaleItemFindFirstArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first TransactionItem that matches the filter or
+     * Find the first SaleItem that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionItemFindFirstOrThrowArgs} args - Arguments to find a TransactionItem
+     * @param {SaleItemFindFirstOrThrowArgs} args - Arguments to find a SaleItem
      * @example
-     * // Get one TransactionItem
-     * const transactionItem = await prisma.transactionItem.findFirstOrThrow({
+     * // Get one SaleItem
+     * const saleItem = await prisma.saleItem.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends TransactionItemFindFirstOrThrowArgs>(args?: SelectSubset<T, TransactionItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends SaleItemFindFirstOrThrowArgs>(args?: SelectSubset<T, SaleItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more TransactionItems that matches the filter.
+     * Find zero or more SaleItems that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {SaleItemFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all TransactionItems
-     * const transactionItems = await prisma.transactionItem.findMany()
+     * // Get all SaleItems
+     * const saleItems = await prisma.saleItem.findMany()
      * 
-     * // Get first 10 TransactionItems
-     * const transactionItems = await prisma.transactionItem.findMany({ take: 10 })
+     * // Get first 10 SaleItems
+     * const saleItems = await prisma.saleItem.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const transactionItemWithIdOnly = await prisma.transactionItem.findMany({ select: { id: true } })
+     * const saleItemWithIdOnly = await prisma.saleItem.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends TransactionItemFindManyArgs>(args?: SelectSubset<T, TransactionItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends SaleItemFindManyArgs>(args?: SelectSubset<T, SaleItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a TransactionItem.
-     * @param {TransactionItemCreateArgs} args - Arguments to create a TransactionItem.
+     * Create a SaleItem.
+     * @param {SaleItemCreateArgs} args - Arguments to create a SaleItem.
      * @example
-     * // Create one TransactionItem
-     * const TransactionItem = await prisma.transactionItem.create({
+     * // Create one SaleItem
+     * const SaleItem = await prisma.saleItem.create({
      *   data: {
-     *     // ... data to create a TransactionItem
+     *     // ... data to create a SaleItem
      *   }
      * })
      * 
      */
-    create<T extends TransactionItemCreateArgs>(args: SelectSubset<T, TransactionItemCreateArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends SaleItemCreateArgs>(args: SelectSubset<T, SaleItemCreateArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many TransactionItems.
-     * @param {TransactionItemCreateManyArgs} args - Arguments to create many TransactionItems.
+     * Create many SaleItems.
+     * @param {SaleItemCreateManyArgs} args - Arguments to create many SaleItems.
      * @example
-     * // Create many TransactionItems
-     * const transactionItem = await prisma.transactionItem.createMany({
+     * // Create many SaleItems
+     * const saleItem = await prisma.saleItem.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends TransactionItemCreateManyArgs>(args?: SelectSubset<T, TransactionItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends SaleItemCreateManyArgs>(args?: SelectSubset<T, SaleItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many TransactionItems and returns the data saved in the database.
-     * @param {TransactionItemCreateManyAndReturnArgs} args - Arguments to create many TransactionItems.
+     * Create many SaleItems and returns the data saved in the database.
+     * @param {SaleItemCreateManyAndReturnArgs} args - Arguments to create many SaleItems.
      * @example
-     * // Create many TransactionItems
-     * const transactionItem = await prisma.transactionItem.createManyAndReturn({
+     * // Create many SaleItems
+     * const saleItem = await prisma.saleItem.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many TransactionItems and only return the `id`
-     * const transactionItemWithIdOnly = await prisma.transactionItem.createManyAndReturn({
+     * // Create many SaleItems and only return the `id`
+     * const saleItemWithIdOnly = await prisma.saleItem.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -5551,28 +5571,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends TransactionItemCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends SaleItemCreateManyAndReturnArgs>(args?: SelectSubset<T, SaleItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a TransactionItem.
-     * @param {TransactionItemDeleteArgs} args - Arguments to delete one TransactionItem.
+     * Delete a SaleItem.
+     * @param {SaleItemDeleteArgs} args - Arguments to delete one SaleItem.
      * @example
-     * // Delete one TransactionItem
-     * const TransactionItem = await prisma.transactionItem.delete({
+     * // Delete one SaleItem
+     * const SaleItem = await prisma.saleItem.delete({
      *   where: {
-     *     // ... filter to delete one TransactionItem
+     *     // ... filter to delete one SaleItem
      *   }
      * })
      * 
      */
-    delete<T extends TransactionItemDeleteArgs>(args: SelectSubset<T, TransactionItemDeleteArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends SaleItemDeleteArgs>(args: SelectSubset<T, SaleItemDeleteArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one TransactionItem.
-     * @param {TransactionItemUpdateArgs} args - Arguments to update one TransactionItem.
+     * Update one SaleItem.
+     * @param {SaleItemUpdateArgs} args - Arguments to update one SaleItem.
      * @example
-     * // Update one TransactionItem
-     * const transactionItem = await prisma.transactionItem.update({
+     * // Update one SaleItem
+     * const saleItem = await prisma.saleItem.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5582,30 +5602,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends TransactionItemUpdateArgs>(args: SelectSubset<T, TransactionItemUpdateArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends SaleItemUpdateArgs>(args: SelectSubset<T, SaleItemUpdateArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more TransactionItems.
-     * @param {TransactionItemDeleteManyArgs} args - Arguments to filter TransactionItems to delete.
+     * Delete zero or more SaleItems.
+     * @param {SaleItemDeleteManyArgs} args - Arguments to filter SaleItems to delete.
      * @example
-     * // Delete a few TransactionItems
-     * const { count } = await prisma.transactionItem.deleteMany({
+     * // Delete a few SaleItems
+     * const { count } = await prisma.saleItem.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends TransactionItemDeleteManyArgs>(args?: SelectSubset<T, TransactionItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends SaleItemDeleteManyArgs>(args?: SelectSubset<T, SaleItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more TransactionItems.
+     * Update zero or more SaleItems.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {SaleItemUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many TransactionItems
-     * const transactionItem = await prisma.transactionItem.updateMany({
+     * // Update many SaleItems
+     * const saleItem = await prisma.saleItem.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5615,14 +5635,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends TransactionItemUpdateManyArgs>(args: SelectSubset<T, TransactionItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends SaleItemUpdateManyArgs>(args: SelectSubset<T, SaleItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more TransactionItems and returns the data updated in the database.
-     * @param {TransactionItemUpdateManyAndReturnArgs} args - Arguments to update many TransactionItems.
+     * Update zero or more SaleItems and returns the data updated in the database.
+     * @param {SaleItemUpdateManyAndReturnArgs} args - Arguments to update many SaleItems.
      * @example
-     * // Update many TransactionItems
-     * const transactionItem = await prisma.transactionItem.updateManyAndReturn({
+     * // Update many SaleItems
+     * const saleItem = await prisma.saleItem.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5631,8 +5651,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more TransactionItems and only return the `id`
-     * const transactionItemWithIdOnly = await prisma.transactionItem.updateManyAndReturn({
+     * // Update zero or more SaleItems and only return the `id`
+     * const saleItemWithIdOnly = await prisma.saleItem.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -5645,56 +5665,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends TransactionItemUpdateManyAndReturnArgs>(args: SelectSubset<T, TransactionItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends SaleItemUpdateManyAndReturnArgs>(args: SelectSubset<T, SaleItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one TransactionItem.
-     * @param {TransactionItemUpsertArgs} args - Arguments to update or create a TransactionItem.
+     * Create or update one SaleItem.
+     * @param {SaleItemUpsertArgs} args - Arguments to update or create a SaleItem.
      * @example
-     * // Update or create a TransactionItem
-     * const transactionItem = await prisma.transactionItem.upsert({
+     * // Update or create a SaleItem
+     * const saleItem = await prisma.saleItem.upsert({
      *   create: {
-     *     // ... data to create a TransactionItem
+     *     // ... data to create a SaleItem
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the TransactionItem we want to update
+     *     // ... the filter for the SaleItem we want to update
      *   }
      * })
      */
-    upsert<T extends TransactionItemUpsertArgs>(args: SelectSubset<T, TransactionItemUpsertArgs<ExtArgs>>): Prisma__TransactionItemClient<$Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends SaleItemUpsertArgs>(args: SelectSubset<T, SaleItemUpsertArgs<ExtArgs>>): Prisma__SaleItemClient<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of TransactionItems.
+     * Count the number of SaleItems.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionItemCountArgs} args - Arguments to filter TransactionItems to count.
+     * @param {SaleItemCountArgs} args - Arguments to filter SaleItems to count.
      * @example
-     * // Count the number of TransactionItems
-     * const count = await prisma.transactionItem.count({
+     * // Count the number of SaleItems
+     * const count = await prisma.saleItem.count({
      *   where: {
-     *     // ... the filter for the TransactionItems we want to count
+     *     // ... the filter for the SaleItems we want to count
      *   }
      * })
     **/
-    count<T extends TransactionItemCountArgs>(
-      args?: Subset<T, TransactionItemCountArgs>,
+    count<T extends SaleItemCountArgs>(
+      args?: Subset<T, SaleItemCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], TransactionItemCountAggregateOutputType>
+          : GetScalarType<T['select'], SaleItemCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a TransactionItem.
+     * Allows you to perform aggregations operations on a SaleItem.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {SaleItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -5714,13 +5734,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends TransactionItemAggregateArgs>(args: Subset<T, TransactionItemAggregateArgs>): Prisma.PrismaPromise<GetTransactionItemAggregateType<T>>
+    aggregate<T extends SaleItemAggregateArgs>(args: Subset<T, SaleItemAggregateArgs>): Prisma.PrismaPromise<GetSaleItemAggregateType<T>>
 
     /**
-     * Group by TransactionItem.
+     * Group by SaleItem.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TransactionItemGroupByArgs} args - Group by arguments.
+     * @param {SaleItemGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -5735,14 +5755,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends TransactionItemGroupByArgs,
+      T extends SaleItemGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TransactionItemGroupByArgs['orderBy'] }
-        : { orderBy?: TransactionItemGroupByArgs['orderBy'] },
+        ? { orderBy: SaleItemGroupByArgs['orderBy'] }
+        : { orderBy?: SaleItemGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -5791,22 +5811,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, TransactionItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, SaleItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSaleItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the TransactionItem model
+   * Fields of the SaleItem model
    */
-  readonly fields: TransactionItemFieldRefs;
+  readonly fields: SaleItemFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for TransactionItem.
+   * The delegate class that acts as a "Promise-like" for SaleItem.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__TransactionItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__SaleItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    transaction<T extends TransactionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TransactionDefaultArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sale<T extends SaleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SaleDefaultArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5833,424 +5853,424 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the TransactionItem model
+   * Fields of the SaleItem model
    */
-  interface TransactionItemFieldRefs {
-    readonly id: FieldRef<"TransactionItem", 'String'>
-    readonly transactionId: FieldRef<"TransactionItem", 'String'>
-    readonly description: FieldRef<"TransactionItem", 'String'>
-    readonly amount: FieldRef<"TransactionItem", 'Int'>
+  interface SaleItemFieldRefs {
+    readonly id: FieldRef<"SaleItem", 'String'>
+    readonly saleId: FieldRef<"SaleItem", 'String'>
+    readonly description: FieldRef<"SaleItem", 'String'>
+    readonly amount: FieldRef<"SaleItem", 'Int'>
   }
     
 
   // Custom InputTypes
   /**
-   * TransactionItem findUnique
+   * SaleItem findUnique
    */
-  export type TransactionItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * Filter, which TransactionItem to fetch.
+     * Filter, which SaleItem to fetch.
      */
-    where: TransactionItemWhereUniqueInput
+    where: SaleItemWhereUniqueInput
   }
 
   /**
-   * TransactionItem findUniqueOrThrow
+   * SaleItem findUniqueOrThrow
    */
-  export type TransactionItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * Filter, which TransactionItem to fetch.
+     * Filter, which SaleItem to fetch.
      */
-    where: TransactionItemWhereUniqueInput
+    where: SaleItemWhereUniqueInput
   }
 
   /**
-   * TransactionItem findFirst
+   * SaleItem findFirst
    */
-  export type TransactionItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * Filter, which TransactionItem to fetch.
+     * Filter, which SaleItem to fetch.
      */
-    where?: TransactionItemWhereInput
+    where?: SaleItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TransactionItems to fetch.
+     * Determine the order of SaleItems to fetch.
      */
-    orderBy?: TransactionItemOrderByWithRelationInput | TransactionItemOrderByWithRelationInput[]
+    orderBy?: SaleItemOrderByWithRelationInput | SaleItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for TransactionItems.
+     * Sets the position for searching for SaleItems.
      */
-    cursor?: TransactionItemWhereUniqueInput
+    cursor?: SaleItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TransactionItems from the position of the cursor.
+     * Take `±n` SaleItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TransactionItems.
+     * Skip the first `n` SaleItems.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of TransactionItems.
+     * Filter by unique combinations of SaleItems.
      */
-    distinct?: TransactionItemScalarFieldEnum | TransactionItemScalarFieldEnum[]
+    distinct?: SaleItemScalarFieldEnum | SaleItemScalarFieldEnum[]
   }
 
   /**
-   * TransactionItem findFirstOrThrow
+   * SaleItem findFirstOrThrow
    */
-  export type TransactionItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * Filter, which TransactionItem to fetch.
+     * Filter, which SaleItem to fetch.
      */
-    where?: TransactionItemWhereInput
+    where?: SaleItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TransactionItems to fetch.
+     * Determine the order of SaleItems to fetch.
      */
-    orderBy?: TransactionItemOrderByWithRelationInput | TransactionItemOrderByWithRelationInput[]
+    orderBy?: SaleItemOrderByWithRelationInput | SaleItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for TransactionItems.
+     * Sets the position for searching for SaleItems.
      */
-    cursor?: TransactionItemWhereUniqueInput
+    cursor?: SaleItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TransactionItems from the position of the cursor.
+     * Take `±n` SaleItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TransactionItems.
+     * Skip the first `n` SaleItems.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of TransactionItems.
+     * Filter by unique combinations of SaleItems.
      */
-    distinct?: TransactionItemScalarFieldEnum | TransactionItemScalarFieldEnum[]
+    distinct?: SaleItemScalarFieldEnum | SaleItemScalarFieldEnum[]
   }
 
   /**
-   * TransactionItem findMany
+   * SaleItem findMany
    */
-  export type TransactionItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * Filter, which TransactionItems to fetch.
+     * Filter, which SaleItems to fetch.
      */
-    where?: TransactionItemWhereInput
+    where?: SaleItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TransactionItems to fetch.
+     * Determine the order of SaleItems to fetch.
      */
-    orderBy?: TransactionItemOrderByWithRelationInput | TransactionItemOrderByWithRelationInput[]
+    orderBy?: SaleItemOrderByWithRelationInput | SaleItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing TransactionItems.
+     * Sets the position for listing SaleItems.
      */
-    cursor?: TransactionItemWhereUniqueInput
+    cursor?: SaleItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TransactionItems from the position of the cursor.
+     * Take `±n` SaleItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TransactionItems.
+     * Skip the first `n` SaleItems.
      */
     skip?: number
-    distinct?: TransactionItemScalarFieldEnum | TransactionItemScalarFieldEnum[]
+    distinct?: SaleItemScalarFieldEnum | SaleItemScalarFieldEnum[]
   }
 
   /**
-   * TransactionItem create
+   * SaleItem create
    */
-  export type TransactionItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * The data needed to create a TransactionItem.
+     * The data needed to create a SaleItem.
      */
-    data: XOR<TransactionItemCreateInput, TransactionItemUncheckedCreateInput>
+    data: XOR<SaleItemCreateInput, SaleItemUncheckedCreateInput>
   }
 
   /**
-   * TransactionItem createMany
+   * SaleItem createMany
    */
-  export type TransactionItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many TransactionItems.
+     * The data used to create many SaleItems.
      */
-    data: TransactionItemCreateManyInput | TransactionItemCreateManyInput[]
+    data: SaleItemCreateManyInput | SaleItemCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * TransactionItem createManyAndReturn
+   * SaleItem createManyAndReturn
    */
-  export type TransactionItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelectCreateManyAndReturn<ExtArgs> | null
+    select?: SaleItemSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
-     * The data used to create many TransactionItems.
+     * The data used to create many SaleItems.
      */
-    data: TransactionItemCreateManyInput | TransactionItemCreateManyInput[]
+    data: SaleItemCreateManyInput | SaleItemCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: SaleItemIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * TransactionItem update
+   * SaleItem update
    */
-  export type TransactionItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * The data needed to update a TransactionItem.
+     * The data needed to update a SaleItem.
      */
-    data: XOR<TransactionItemUpdateInput, TransactionItemUncheckedUpdateInput>
+    data: XOR<SaleItemUpdateInput, SaleItemUncheckedUpdateInput>
     /**
-     * Choose, which TransactionItem to update.
+     * Choose, which SaleItem to update.
      */
-    where: TransactionItemWhereUniqueInput
+    where: SaleItemWhereUniqueInput
   }
 
   /**
-   * TransactionItem updateMany
+   * SaleItem updateMany
    */
-  export type TransactionItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update TransactionItems.
+     * The data used to update SaleItems.
      */
-    data: XOR<TransactionItemUpdateManyMutationInput, TransactionItemUncheckedUpdateManyInput>
+    data: XOR<SaleItemUpdateManyMutationInput, SaleItemUncheckedUpdateManyInput>
     /**
-     * Filter which TransactionItems to update
+     * Filter which SaleItems to update
      */
-    where?: TransactionItemWhereInput
+    where?: SaleItemWhereInput
     /**
-     * Limit how many TransactionItems to update.
+     * Limit how many SaleItems to update.
      */
     limit?: number
   }
 
   /**
-   * TransactionItem updateManyAndReturn
+   * SaleItem updateManyAndReturn
    */
-  export type TransactionItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: SaleItemSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
-     * The data used to update TransactionItems.
+     * The data used to update SaleItems.
      */
-    data: XOR<TransactionItemUpdateManyMutationInput, TransactionItemUncheckedUpdateManyInput>
+    data: XOR<SaleItemUpdateManyMutationInput, SaleItemUncheckedUpdateManyInput>
     /**
-     * Filter which TransactionItems to update
+     * Filter which SaleItems to update
      */
-    where?: TransactionItemWhereInput
+    where?: SaleItemWhereInput
     /**
-     * Limit how many TransactionItems to update.
+     * Limit how many SaleItems to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: SaleItemIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * TransactionItem upsert
+   * SaleItem upsert
    */
-  export type TransactionItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * The filter to search for the TransactionItem to update in case it exists.
+     * The filter to search for the SaleItem to update in case it exists.
      */
-    where: TransactionItemWhereUniqueInput
+    where: SaleItemWhereUniqueInput
     /**
-     * In case the TransactionItem found by the `where` argument doesn't exist, create a new TransactionItem with this data.
+     * In case the SaleItem found by the `where` argument doesn't exist, create a new SaleItem with this data.
      */
-    create: XOR<TransactionItemCreateInput, TransactionItemUncheckedCreateInput>
+    create: XOR<SaleItemCreateInput, SaleItemUncheckedCreateInput>
     /**
-     * In case the TransactionItem was found with the provided `where` argument, update it with this data.
+     * In case the SaleItem was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<TransactionItemUpdateInput, TransactionItemUncheckedUpdateInput>
+    update: XOR<SaleItemUpdateInput, SaleItemUncheckedUpdateInput>
   }
 
   /**
-   * TransactionItem delete
+   * SaleItem delete
    */
-  export type TransactionItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
     /**
-     * Filter which TransactionItem to delete.
+     * Filter which SaleItem to delete.
      */
-    where: TransactionItemWhereUniqueInput
+    where: SaleItemWhereUniqueInput
   }
 
   /**
-   * TransactionItem deleteMany
+   * SaleItem deleteMany
    */
-  export type TransactionItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which TransactionItems to delete
+     * Filter which SaleItems to delete
      */
-    where?: TransactionItemWhereInput
+    where?: SaleItemWhereInput
     /**
-     * Limit how many TransactionItems to delete.
+     * Limit how many SaleItems to delete.
      */
     limit?: number
   }
 
   /**
-   * TransactionItem without action
+   * SaleItem without action
    */
-  export type TransactionItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaleItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TransactionItem
+     * Select specific fields to fetch from the SaleItem
      */
-    select?: TransactionItemSelect<ExtArgs> | null
+    select?: SaleItemSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TransactionItem
+     * Omit specific fields from the SaleItem
      */
-    omit?: TransactionItemOmit<ExtArgs> | null
+    omit?: SaleItemOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionItemInclude<ExtArgs> | null
+    include?: SaleItemInclude<ExtArgs> | null
   }
 
 
@@ -9542,7 +9562,7 @@ export namespace Prisma {
   export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
 
 
-  export const TransactionScalarFieldEnum: {
+  export const SaleScalarFieldEnum: {
     id: 'id',
     retailerId: 'retailerId',
     customerId: 'customerId',
@@ -9556,17 +9576,17 @@ export namespace Prisma {
     clientId: 'clientId'
   };
 
-  export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+  export type SaleScalarFieldEnum = (typeof SaleScalarFieldEnum)[keyof typeof SaleScalarFieldEnum]
 
 
-  export const TransactionItemScalarFieldEnum: {
+  export const SaleItemScalarFieldEnum: {
     id: 'id',
-    transactionId: 'transactionId',
+    saleId: 'saleId',
     description: 'description',
     amount: 'amount'
   };
 
-  export type TransactionItemScalarFieldEnum = (typeof TransactionItemScalarFieldEnum)[keyof typeof TransactionItemScalarFieldEnum]
+  export type SaleItemScalarFieldEnum = (typeof SaleItemScalarFieldEnum)[keyof typeof SaleItemScalarFieldEnum]
 
 
   export const ReminderScalarFieldEnum: {
@@ -9681,16 +9701,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'TransactionType'
+   * Reference to a field of type 'SaleType'
    */
-  export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
+  export type EnumSaleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaleType'>
     
 
 
   /**
-   * Reference to a field of type 'TransactionType[]'
+   * Reference to a field of type 'SaleType[]'
    */
-  export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
+  export type ListEnumSaleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaleType[]'>
     
 
 
@@ -9772,7 +9792,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Retailer"> | Date | string
     updatedAt?: DateTimeFilter<"Retailer"> | Date | string
     customers?: CustomerListRelationFilter
-    transactions?: TransactionListRelationFilter
+    sales?: SaleListRelationFilter
     reminders?: ReminderListRelationFilter
     sessions?: SessionListRelationFilter
   }
@@ -9786,7 +9806,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customers?: CustomerOrderByRelationAggregateInput
-    transactions?: TransactionOrderByRelationAggregateInput
+    sales?: SaleOrderByRelationAggregateInput
     reminders?: ReminderOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
   }
@@ -9803,7 +9823,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Retailer"> | Date | string
     updatedAt?: DateTimeFilter<"Retailer"> | Date | string
     customers?: CustomerListRelationFilter
-    transactions?: TransactionListRelationFilter
+    sales?: SaleListRelationFilter
     reminders?: ReminderListRelationFilter
     sessions?: SessionListRelationFilter
   }, "id" | "phone">
@@ -9850,7 +9870,7 @@ export namespace Prisma {
     lastSyncedAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
     clientId?: StringNullableFilter<"Customer"> | string | null
     retailer?: XOR<RetailerScalarRelationFilter, RetailerWhereInput>
-    transactions?: TransactionListRelationFilter
+    sales?: SaleListRelationFilter
     reminders?: ReminderListRelationFilter
   }
 
@@ -9867,7 +9887,7 @@ export namespace Prisma {
     lastSyncedAt?: SortOrderInput | SortOrder
     clientId?: SortOrderInput | SortOrder
     retailer?: RetailerOrderByWithRelationInput
-    transactions?: TransactionOrderByRelationAggregateInput
+    sales?: SaleOrderByRelationAggregateInput
     reminders?: ReminderOrderByRelationAggregateInput
   }
 
@@ -9887,7 +9907,7 @@ export namespace Prisma {
     lastSyncedAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
     clientId?: StringNullableFilter<"Customer"> | string | null
     retailer?: XOR<RetailerScalarRelationFilter, RetailerWhereInput>
-    transactions?: TransactionListRelationFilter
+    sales?: SaleListRelationFilter
     reminders?: ReminderListRelationFilter
   }, "id">
 
@@ -9925,30 +9945,30 @@ export namespace Prisma {
     clientId?: StringNullableWithAggregatesFilter<"Customer"> | string | null
   }
 
-  export type TransactionWhereInput = {
-    AND?: TransactionWhereInput | TransactionWhereInput[]
-    OR?: TransactionWhereInput[]
-    NOT?: TransactionWhereInput | TransactionWhereInput[]
-    id?: StringFilter<"Transaction"> | string
-    retailerId?: StringFilter<"Transaction"> | string
-    customerId?: StringFilter<"Transaction"> | string
-    type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
-    amount?: IntFilter<"Transaction"> | number
-    note?: StringNullableFilter<"Transaction"> | string | null
-    createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
-    syncStatus?: StringFilter<"Transaction"> | string
-    lastSyncedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    clientId?: StringNullableFilter<"Transaction"> | string | null
+  export type SaleWhereInput = {
+    AND?: SaleWhereInput | SaleWhereInput[]
+    OR?: SaleWhereInput[]
+    NOT?: SaleWhereInput | SaleWhereInput[]
+    id?: StringFilter<"Sale"> | string
+    retailerId?: StringFilter<"Sale"> | string
+    customerId?: StringNullableFilter<"Sale"> | string | null
+    type?: EnumSaleTypeFilter<"Sale"> | $Enums.SaleType
+    amount?: IntFilter<"Sale"> | number
+    note?: StringNullableFilter<"Sale"> | string | null
+    createdAt?: DateTimeFilter<"Sale"> | Date | string
+    updatedAt?: DateTimeFilter<"Sale"> | Date | string
+    syncStatus?: StringFilter<"Sale"> | string
+    lastSyncedAt?: DateTimeNullableFilter<"Sale"> | Date | string | null
+    clientId?: StringNullableFilter<"Sale"> | string | null
     retailer?: XOR<RetailerScalarRelationFilter, RetailerWhereInput>
-    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
-    items?: TransactionItemListRelationFilter
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    items?: SaleItemListRelationFilter
   }
 
-  export type TransactionOrderByWithRelationInput = {
+  export type SaleOrderByWithRelationInput = {
     id?: SortOrder
     retailerId?: SortOrder
-    customerId?: SortOrder
+    customerId?: SortOrderInput | SortOrder
     type?: SortOrder
     amount?: SortOrder
     note?: SortOrderInput | SortOrder
@@ -9959,33 +9979,33 @@ export namespace Prisma {
     clientId?: SortOrderInput | SortOrder
     retailer?: RetailerOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
-    items?: TransactionItemOrderByRelationAggregateInput
+    items?: SaleItemOrderByRelationAggregateInput
   }
 
-  export type TransactionWhereUniqueInput = Prisma.AtLeast<{
+  export type SaleWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: TransactionWhereInput | TransactionWhereInput[]
-    OR?: TransactionWhereInput[]
-    NOT?: TransactionWhereInput | TransactionWhereInput[]
-    retailerId?: StringFilter<"Transaction"> | string
-    customerId?: StringFilter<"Transaction"> | string
-    type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
-    amount?: IntFilter<"Transaction"> | number
-    note?: StringNullableFilter<"Transaction"> | string | null
-    createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
-    syncStatus?: StringFilter<"Transaction"> | string
-    lastSyncedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    clientId?: StringNullableFilter<"Transaction"> | string | null
+    AND?: SaleWhereInput | SaleWhereInput[]
+    OR?: SaleWhereInput[]
+    NOT?: SaleWhereInput | SaleWhereInput[]
+    retailerId?: StringFilter<"Sale"> | string
+    customerId?: StringNullableFilter<"Sale"> | string | null
+    type?: EnumSaleTypeFilter<"Sale"> | $Enums.SaleType
+    amount?: IntFilter<"Sale"> | number
+    note?: StringNullableFilter<"Sale"> | string | null
+    createdAt?: DateTimeFilter<"Sale"> | Date | string
+    updatedAt?: DateTimeFilter<"Sale"> | Date | string
+    syncStatus?: StringFilter<"Sale"> | string
+    lastSyncedAt?: DateTimeNullableFilter<"Sale"> | Date | string | null
+    clientId?: StringNullableFilter<"Sale"> | string | null
     retailer?: XOR<RetailerScalarRelationFilter, RetailerWhereInput>
-    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
-    items?: TransactionItemListRelationFilter
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    items?: SaleItemListRelationFilter
   }, "id">
 
-  export type TransactionOrderByWithAggregationInput = {
+  export type SaleOrderByWithAggregationInput = {
     id?: SortOrder
     retailerId?: SortOrder
-    customerId?: SortOrder
+    customerId?: SortOrderInput | SortOrder
     type?: SortOrder
     amount?: SortOrder
     note?: SortOrderInput | SortOrder
@@ -9994,80 +10014,80 @@ export namespace Prisma {
     syncStatus?: SortOrder
     lastSyncedAt?: SortOrderInput | SortOrder
     clientId?: SortOrderInput | SortOrder
-    _count?: TransactionCountOrderByAggregateInput
-    _avg?: TransactionAvgOrderByAggregateInput
-    _max?: TransactionMaxOrderByAggregateInput
-    _min?: TransactionMinOrderByAggregateInput
-    _sum?: TransactionSumOrderByAggregateInput
+    _count?: SaleCountOrderByAggregateInput
+    _avg?: SaleAvgOrderByAggregateInput
+    _max?: SaleMaxOrderByAggregateInput
+    _min?: SaleMinOrderByAggregateInput
+    _sum?: SaleSumOrderByAggregateInput
   }
 
-  export type TransactionScalarWhereWithAggregatesInput = {
-    AND?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
-    OR?: TransactionScalarWhereWithAggregatesInput[]
-    NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Transaction"> | string
-    retailerId?: StringWithAggregatesFilter<"Transaction"> | string
-    customerId?: StringWithAggregatesFilter<"Transaction"> | string
-    type?: EnumTransactionTypeWithAggregatesFilter<"Transaction"> | $Enums.TransactionType
-    amount?: IntWithAggregatesFilter<"Transaction"> | number
-    note?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
-    syncStatus?: StringWithAggregatesFilter<"Transaction"> | string
-    lastSyncedAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
-    clientId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  export type SaleScalarWhereWithAggregatesInput = {
+    AND?: SaleScalarWhereWithAggregatesInput | SaleScalarWhereWithAggregatesInput[]
+    OR?: SaleScalarWhereWithAggregatesInput[]
+    NOT?: SaleScalarWhereWithAggregatesInput | SaleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Sale"> | string
+    retailerId?: StringWithAggregatesFilter<"Sale"> | string
+    customerId?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    type?: EnumSaleTypeWithAggregatesFilter<"Sale"> | $Enums.SaleType
+    amount?: IntWithAggregatesFilter<"Sale"> | number
+    note?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Sale"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Sale"> | Date | string
+    syncStatus?: StringWithAggregatesFilter<"Sale"> | string
+    lastSyncedAt?: DateTimeNullableWithAggregatesFilter<"Sale"> | Date | string | null
+    clientId?: StringNullableWithAggregatesFilter<"Sale"> | string | null
   }
 
-  export type TransactionItemWhereInput = {
-    AND?: TransactionItemWhereInput | TransactionItemWhereInput[]
-    OR?: TransactionItemWhereInput[]
-    NOT?: TransactionItemWhereInput | TransactionItemWhereInput[]
-    id?: StringFilter<"TransactionItem"> | string
-    transactionId?: StringFilter<"TransactionItem"> | string
-    description?: StringFilter<"TransactionItem"> | string
-    amount?: IntFilter<"TransactionItem"> | number
-    transaction?: XOR<TransactionScalarRelationFilter, TransactionWhereInput>
+  export type SaleItemWhereInput = {
+    AND?: SaleItemWhereInput | SaleItemWhereInput[]
+    OR?: SaleItemWhereInput[]
+    NOT?: SaleItemWhereInput | SaleItemWhereInput[]
+    id?: StringFilter<"SaleItem"> | string
+    saleId?: StringFilter<"SaleItem"> | string
+    description?: StringFilter<"SaleItem"> | string
+    amount?: IntFilter<"SaleItem"> | number
+    sale?: XOR<SaleScalarRelationFilter, SaleWhereInput>
   }
 
-  export type TransactionItemOrderByWithRelationInput = {
+  export type SaleItemOrderByWithRelationInput = {
     id?: SortOrder
-    transactionId?: SortOrder
+    saleId?: SortOrder
     description?: SortOrder
     amount?: SortOrder
-    transaction?: TransactionOrderByWithRelationInput
+    sale?: SaleOrderByWithRelationInput
   }
 
-  export type TransactionItemWhereUniqueInput = Prisma.AtLeast<{
+  export type SaleItemWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: TransactionItemWhereInput | TransactionItemWhereInput[]
-    OR?: TransactionItemWhereInput[]
-    NOT?: TransactionItemWhereInput | TransactionItemWhereInput[]
-    transactionId?: StringFilter<"TransactionItem"> | string
-    description?: StringFilter<"TransactionItem"> | string
-    amount?: IntFilter<"TransactionItem"> | number
-    transaction?: XOR<TransactionScalarRelationFilter, TransactionWhereInput>
+    AND?: SaleItemWhereInput | SaleItemWhereInput[]
+    OR?: SaleItemWhereInput[]
+    NOT?: SaleItemWhereInput | SaleItemWhereInput[]
+    saleId?: StringFilter<"SaleItem"> | string
+    description?: StringFilter<"SaleItem"> | string
+    amount?: IntFilter<"SaleItem"> | number
+    sale?: XOR<SaleScalarRelationFilter, SaleWhereInput>
   }, "id">
 
-  export type TransactionItemOrderByWithAggregationInput = {
+  export type SaleItemOrderByWithAggregationInput = {
     id?: SortOrder
-    transactionId?: SortOrder
+    saleId?: SortOrder
     description?: SortOrder
     amount?: SortOrder
-    _count?: TransactionItemCountOrderByAggregateInput
-    _avg?: TransactionItemAvgOrderByAggregateInput
-    _max?: TransactionItemMaxOrderByAggregateInput
-    _min?: TransactionItemMinOrderByAggregateInput
-    _sum?: TransactionItemSumOrderByAggregateInput
+    _count?: SaleItemCountOrderByAggregateInput
+    _avg?: SaleItemAvgOrderByAggregateInput
+    _max?: SaleItemMaxOrderByAggregateInput
+    _min?: SaleItemMinOrderByAggregateInput
+    _sum?: SaleItemSumOrderByAggregateInput
   }
 
-  export type TransactionItemScalarWhereWithAggregatesInput = {
-    AND?: TransactionItemScalarWhereWithAggregatesInput | TransactionItemScalarWhereWithAggregatesInput[]
-    OR?: TransactionItemScalarWhereWithAggregatesInput[]
-    NOT?: TransactionItemScalarWhereWithAggregatesInput | TransactionItemScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"TransactionItem"> | string
-    transactionId?: StringWithAggregatesFilter<"TransactionItem"> | string
-    description?: StringWithAggregatesFilter<"TransactionItem"> | string
-    amount?: IntWithAggregatesFilter<"TransactionItem"> | number
+  export type SaleItemScalarWhereWithAggregatesInput = {
+    AND?: SaleItemScalarWhereWithAggregatesInput | SaleItemScalarWhereWithAggregatesInput[]
+    OR?: SaleItemScalarWhereWithAggregatesInput[]
+    NOT?: SaleItemScalarWhereWithAggregatesInput | SaleItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SaleItem"> | string
+    saleId?: StringWithAggregatesFilter<"SaleItem"> | string
+    description?: StringWithAggregatesFilter<"SaleItem"> | string
+    amount?: IntWithAggregatesFilter<"SaleItem"> | number
   }
 
   export type ReminderWhereInput = {
@@ -10281,7 +10301,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerCreateNestedManyWithoutRetailerInput
-    transactions?: TransactionCreateNestedManyWithoutRetailerInput
+    sales?: SaleCreateNestedManyWithoutRetailerInput
     reminders?: ReminderCreateNestedManyWithoutRetailerInput
     sessions?: SessionCreateNestedManyWithoutRetailerInput
   }
@@ -10295,7 +10315,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutRetailerInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutRetailerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutRetailerInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutRetailerInput
     sessions?: SessionUncheckedCreateNestedManyWithoutRetailerInput
   }
@@ -10309,7 +10329,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUpdateManyWithoutRetailerNestedInput
-    transactions?: TransactionUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUpdateManyWithoutRetailerNestedInput
     reminders?: ReminderUpdateManyWithoutRetailerNestedInput
     sessions?: SessionUpdateManyWithoutRetailerNestedInput
   }
@@ -10323,7 +10343,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutRetailerNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutRetailerNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutRetailerNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutRetailerNestedInput
   }
@@ -10370,7 +10390,7 @@ export namespace Prisma {
     lastSyncedAt?: Date | string | null
     clientId?: string | null
     retailer: RetailerCreateNestedOneWithoutCustomersInput
-    transactions?: TransactionCreateNestedManyWithoutCustomerInput
+    sales?: SaleCreateNestedManyWithoutCustomerInput
     reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
@@ -10386,7 +10406,7 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    transactions?: TransactionUncheckedCreateNestedManyWithoutCustomerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
@@ -10402,7 +10422,7 @@ export namespace Prisma {
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
     retailer?: RetailerUpdateOneRequiredWithoutCustomersNestedInput
-    transactions?: TransactionUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUpdateManyWithoutCustomerNestedInput
     reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
@@ -10418,7 +10438,7 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    transactions?: TransactionUncheckedUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
@@ -10463,9 +10483,9 @@ export namespace Prisma {
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TransactionCreateInput = {
+  export type SaleCreateInput = {
     id?: string
-    type: $Enums.TransactionType
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -10473,16 +10493,16 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    retailer: RetailerCreateNestedOneWithoutTransactionsInput
-    customer: CustomerCreateNestedOneWithoutTransactionsInput
-    items?: TransactionItemCreateNestedManyWithoutTransactionInput
+    retailer: RetailerCreateNestedOneWithoutSalesInput
+    customer?: CustomerCreateNestedOneWithoutSalesInput
+    items?: SaleItemCreateNestedManyWithoutSaleInput
   }
 
-  export type TransactionUncheckedCreateInput = {
+  export type SaleUncheckedCreateInput = {
     id?: string
     retailerId: string
-    customerId: string
-    type: $Enums.TransactionType
+    customerId?: string | null
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -10490,12 +10510,12 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    items?: TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
+    items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
   }
 
-  export type TransactionUpdateInput = {
+  export type SaleUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10503,16 +10523,16 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    retailer?: RetailerUpdateOneRequiredWithoutTransactionsNestedInput
-    customer?: CustomerUpdateOneRequiredWithoutTransactionsNestedInput
-    items?: TransactionItemUpdateManyWithoutTransactionNestedInput
+    retailer?: RetailerUpdateOneRequiredWithoutSalesNestedInput
+    customer?: CustomerUpdateOneWithoutSalesNestedInput
+    items?: SaleItemUpdateManyWithoutSaleNestedInput
   }
 
-  export type TransactionUncheckedUpdateInput = {
+  export type SaleUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     retailerId?: StringFieldUpdateOperationsInput | string
-    customerId?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10520,14 +10540,14 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
+    items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   }
 
-  export type TransactionCreateManyInput = {
+  export type SaleCreateManyInput = {
     id?: string
     retailerId: string
-    customerId: string
-    type: $Enums.TransactionType
+    customerId?: string | null
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -10537,9 +10557,9 @@ export namespace Prisma {
     clientId?: string | null
   }
 
-  export type TransactionUpdateManyMutationInput = {
+  export type SaleUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10549,11 +10569,11 @@ export namespace Prisma {
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TransactionUncheckedUpdateManyInput = {
+  export type SaleUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     retailerId?: StringFieldUpdateOperationsInput | string
-    customerId?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10563,50 +10583,50 @@ export namespace Prisma {
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TransactionItemCreateInput = {
+  export type SaleItemCreateInput = {
     id?: string
     description: string
     amount: number
-    transaction: TransactionCreateNestedOneWithoutItemsInput
+    sale: SaleCreateNestedOneWithoutItemsInput
   }
 
-  export type TransactionItemUncheckedCreateInput = {
+  export type SaleItemUncheckedCreateInput = {
     id?: string
-    transactionId: string
-    description: string
-    amount: number
-  }
-
-  export type TransactionItemUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    amount?: IntFieldUpdateOperationsInput | number
-    transaction?: TransactionUpdateOneRequiredWithoutItemsNestedInput
-  }
-
-  export type TransactionItemUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    amount?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type TransactionItemCreateManyInput = {
-    id?: string
-    transactionId: string
+    saleId: string
     description: string
     amount: number
   }
 
-  export type TransactionItemUpdateManyMutationInput = {
+  export type SaleItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    sale?: SaleUpdateOneRequiredWithoutItemsNestedInput
+  }
+
+  export type SaleItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    saleId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SaleItemCreateManyInput = {
+    id?: string
+    saleId: string
+    description: string
+    amount: number
+  }
+
+  export type SaleItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
   }
 
-  export type TransactionItemUncheckedUpdateManyInput = {
+  export type SaleItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    saleId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
   }
@@ -10879,10 +10899,10 @@ export namespace Prisma {
     none?: CustomerWhereInput
   }
 
-  export type TransactionListRelationFilter = {
-    every?: TransactionWhereInput
-    some?: TransactionWhereInput
-    none?: TransactionWhereInput
+  export type SaleListRelationFilter = {
+    every?: SaleWhereInput
+    some?: SaleWhereInput
+    none?: SaleWhereInput
   }
 
   export type ReminderListRelationFilter = {
@@ -10906,7 +10926,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type TransactionOrderByRelationAggregateInput = {
+  export type SaleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11080,11 +11100,11 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type EnumTransactionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  export type EnumSaleTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaleType | EnumSaleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaleTypeFilter<$PrismaModel> | $Enums.SaleType
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11098,22 +11118,22 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type CustomerScalarRelationFilter = {
-    is?: CustomerWhereInput
-    isNot?: CustomerWhereInput
+  export type CustomerNullableScalarRelationFilter = {
+    is?: CustomerWhereInput | null
+    isNot?: CustomerWhereInput | null
   }
 
-  export type TransactionItemListRelationFilter = {
-    every?: TransactionItemWhereInput
-    some?: TransactionItemWhereInput
-    none?: TransactionItemWhereInput
+  export type SaleItemListRelationFilter = {
+    every?: SaleItemWhereInput
+    some?: SaleItemWhereInput
+    none?: SaleItemWhereInput
   }
 
-  export type TransactionItemOrderByRelationAggregateInput = {
+  export type SaleItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type TransactionCountOrderByAggregateInput = {
+  export type SaleCountOrderByAggregateInput = {
     id?: SortOrder
     retailerId?: SortOrder
     customerId?: SortOrder
@@ -11127,11 +11147,11 @@ export namespace Prisma {
     clientId?: SortOrder
   }
 
-  export type TransactionAvgOrderByAggregateInput = {
+  export type SaleAvgOrderByAggregateInput = {
     amount?: SortOrder
   }
 
-  export type TransactionMaxOrderByAggregateInput = {
+  export type SaleMaxOrderByAggregateInput = {
     id?: SortOrder
     retailerId?: SortOrder
     customerId?: SortOrder
@@ -11145,7 +11165,7 @@ export namespace Prisma {
     clientId?: SortOrder
   }
 
-  export type TransactionMinOrderByAggregateInput = {
+  export type SaleMinOrderByAggregateInput = {
     id?: SortOrder
     retailerId?: SortOrder
     customerId?: SortOrder
@@ -11159,18 +11179,18 @@ export namespace Prisma {
     clientId?: SortOrder
   }
 
-  export type TransactionSumOrderByAggregateInput = {
+  export type SaleSumOrderByAggregateInput = {
     amount?: SortOrder
   }
 
-  export type EnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+  export type EnumSaleTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaleType | EnumSaleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaleTypeWithAggregatesFilter<$PrismaModel> | $Enums.SaleType
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
-    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _min?: NestedEnumSaleTypeFilter<$PrismaModel>
+    _max?: NestedEnumSaleTypeFilter<$PrismaModel>
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -11189,37 +11209,37 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type TransactionScalarRelationFilter = {
-    is?: TransactionWhereInput
-    isNot?: TransactionWhereInput
+  export type SaleScalarRelationFilter = {
+    is?: SaleWhereInput
+    isNot?: SaleWhereInput
   }
 
-  export type TransactionItemCountOrderByAggregateInput = {
+  export type SaleItemCountOrderByAggregateInput = {
     id?: SortOrder
-    transactionId?: SortOrder
+    saleId?: SortOrder
     description?: SortOrder
     amount?: SortOrder
   }
 
-  export type TransactionItemAvgOrderByAggregateInput = {
+  export type SaleItemAvgOrderByAggregateInput = {
     amount?: SortOrder
   }
 
-  export type TransactionItemMaxOrderByAggregateInput = {
+  export type SaleItemMaxOrderByAggregateInput = {
     id?: SortOrder
-    transactionId?: SortOrder
+    saleId?: SortOrder
     description?: SortOrder
     amount?: SortOrder
   }
 
-  export type TransactionItemMinOrderByAggregateInput = {
+  export type SaleItemMinOrderByAggregateInput = {
     id?: SortOrder
-    transactionId?: SortOrder
+    saleId?: SortOrder
     description?: SortOrder
     amount?: SortOrder
   }
 
-  export type TransactionItemSumOrderByAggregateInput = {
+  export type SaleItemSumOrderByAggregateInput = {
     amount?: SortOrder
   }
 
@@ -11235,6 +11255,11 @@ export namespace Prisma {
     in?: $Enums.ReminderStatus[] | ListEnumReminderStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ReminderStatus[] | ListEnumReminderStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumReminderStatusFilter<$PrismaModel> | $Enums.ReminderStatus
+  }
+
+  export type CustomerScalarRelationFilter = {
+    is?: CustomerWhereInput
+    isNot?: CustomerWhereInput
   }
 
   export type ReminderCountOrderByAggregateInput = {
@@ -11378,11 +11403,11 @@ export namespace Prisma {
     connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
-  export type TransactionCreateNestedManyWithoutRetailerInput = {
-    create?: XOR<TransactionCreateWithoutRetailerInput, TransactionUncheckedCreateWithoutRetailerInput> | TransactionCreateWithoutRetailerInput[] | TransactionUncheckedCreateWithoutRetailerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutRetailerInput | TransactionCreateOrConnectWithoutRetailerInput[]
-    createMany?: TransactionCreateManyRetailerInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  export type SaleCreateNestedManyWithoutRetailerInput = {
+    create?: XOR<SaleCreateWithoutRetailerInput, SaleUncheckedCreateWithoutRetailerInput> | SaleCreateWithoutRetailerInput[] | SaleUncheckedCreateWithoutRetailerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutRetailerInput | SaleCreateOrConnectWithoutRetailerInput[]
+    createMany?: SaleCreateManyRetailerInputEnvelope
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
   }
 
   export type ReminderCreateNestedManyWithoutRetailerInput = {
@@ -11406,11 +11431,11 @@ export namespace Prisma {
     connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
-  export type TransactionUncheckedCreateNestedManyWithoutRetailerInput = {
-    create?: XOR<TransactionCreateWithoutRetailerInput, TransactionUncheckedCreateWithoutRetailerInput> | TransactionCreateWithoutRetailerInput[] | TransactionUncheckedCreateWithoutRetailerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutRetailerInput | TransactionCreateOrConnectWithoutRetailerInput[]
-    createMany?: TransactionCreateManyRetailerInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  export type SaleUncheckedCreateNestedManyWithoutRetailerInput = {
+    create?: XOR<SaleCreateWithoutRetailerInput, SaleUncheckedCreateWithoutRetailerInput> | SaleCreateWithoutRetailerInput[] | SaleUncheckedCreateWithoutRetailerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutRetailerInput | SaleCreateOrConnectWithoutRetailerInput[]
+    createMany?: SaleCreateManyRetailerInputEnvelope
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
   }
 
   export type ReminderUncheckedCreateNestedManyWithoutRetailerInput = {
@@ -11457,18 +11482,18 @@ export namespace Prisma {
     deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
   }
 
-  export type TransactionUpdateManyWithoutRetailerNestedInput = {
-    create?: XOR<TransactionCreateWithoutRetailerInput, TransactionUncheckedCreateWithoutRetailerInput> | TransactionCreateWithoutRetailerInput[] | TransactionUncheckedCreateWithoutRetailerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutRetailerInput | TransactionCreateOrConnectWithoutRetailerInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutRetailerInput | TransactionUpsertWithWhereUniqueWithoutRetailerInput[]
-    createMany?: TransactionCreateManyRetailerInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutRetailerInput | TransactionUpdateWithWhereUniqueWithoutRetailerInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutRetailerInput | TransactionUpdateManyWithWhereWithoutRetailerInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type SaleUpdateManyWithoutRetailerNestedInput = {
+    create?: XOR<SaleCreateWithoutRetailerInput, SaleUncheckedCreateWithoutRetailerInput> | SaleCreateWithoutRetailerInput[] | SaleUncheckedCreateWithoutRetailerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutRetailerInput | SaleCreateOrConnectWithoutRetailerInput[]
+    upsert?: SaleUpsertWithWhereUniqueWithoutRetailerInput | SaleUpsertWithWhereUniqueWithoutRetailerInput[]
+    createMany?: SaleCreateManyRetailerInputEnvelope
+    set?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    disconnect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    delete?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    update?: SaleUpdateWithWhereUniqueWithoutRetailerInput | SaleUpdateWithWhereUniqueWithoutRetailerInput[]
+    updateMany?: SaleUpdateManyWithWhereWithoutRetailerInput | SaleUpdateManyWithWhereWithoutRetailerInput[]
+    deleteMany?: SaleScalarWhereInput | SaleScalarWhereInput[]
   }
 
   export type ReminderUpdateManyWithoutRetailerNestedInput = {
@@ -11513,18 +11538,18 @@ export namespace Prisma {
     deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
   }
 
-  export type TransactionUncheckedUpdateManyWithoutRetailerNestedInput = {
-    create?: XOR<TransactionCreateWithoutRetailerInput, TransactionUncheckedCreateWithoutRetailerInput> | TransactionCreateWithoutRetailerInput[] | TransactionUncheckedCreateWithoutRetailerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutRetailerInput | TransactionCreateOrConnectWithoutRetailerInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutRetailerInput | TransactionUpsertWithWhereUniqueWithoutRetailerInput[]
-    createMany?: TransactionCreateManyRetailerInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutRetailerInput | TransactionUpdateWithWhereUniqueWithoutRetailerInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutRetailerInput | TransactionUpdateManyWithWhereWithoutRetailerInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type SaleUncheckedUpdateManyWithoutRetailerNestedInput = {
+    create?: XOR<SaleCreateWithoutRetailerInput, SaleUncheckedCreateWithoutRetailerInput> | SaleCreateWithoutRetailerInput[] | SaleUncheckedCreateWithoutRetailerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutRetailerInput | SaleCreateOrConnectWithoutRetailerInput[]
+    upsert?: SaleUpsertWithWhereUniqueWithoutRetailerInput | SaleUpsertWithWhereUniqueWithoutRetailerInput[]
+    createMany?: SaleCreateManyRetailerInputEnvelope
+    set?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    disconnect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    delete?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    update?: SaleUpdateWithWhereUniqueWithoutRetailerInput | SaleUpdateWithWhereUniqueWithoutRetailerInput[]
+    updateMany?: SaleUpdateManyWithWhereWithoutRetailerInput | SaleUpdateManyWithWhereWithoutRetailerInput[]
+    deleteMany?: SaleScalarWhereInput | SaleScalarWhereInput[]
   }
 
   export type ReminderUncheckedUpdateManyWithoutRetailerNestedInput = {
@@ -11561,11 +11586,11 @@ export namespace Prisma {
     connect?: RetailerWhereUniqueInput
   }
 
-  export type TransactionCreateNestedManyWithoutCustomerInput = {
-    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
-    createMany?: TransactionCreateManyCustomerInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  export type SaleCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<SaleCreateWithoutCustomerInput, SaleUncheckedCreateWithoutCustomerInput> | SaleCreateWithoutCustomerInput[] | SaleUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutCustomerInput | SaleCreateOrConnectWithoutCustomerInput[]
+    createMany?: SaleCreateManyCustomerInputEnvelope
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
   }
 
   export type ReminderCreateNestedManyWithoutCustomerInput = {
@@ -11575,11 +11600,11 @@ export namespace Prisma {
     connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
   }
 
-  export type TransactionUncheckedCreateNestedManyWithoutCustomerInput = {
-    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
-    createMany?: TransactionCreateManyCustomerInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  export type SaleUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<SaleCreateWithoutCustomerInput, SaleUncheckedCreateWithoutCustomerInput> | SaleCreateWithoutCustomerInput[] | SaleUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutCustomerInput | SaleCreateOrConnectWithoutCustomerInput[]
+    createMany?: SaleCreateManyCustomerInputEnvelope
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
   }
 
   export type ReminderUncheckedCreateNestedManyWithoutCustomerInput = {
@@ -11601,18 +11626,18 @@ export namespace Prisma {
     update?: XOR<XOR<RetailerUpdateToOneWithWhereWithoutCustomersInput, RetailerUpdateWithoutCustomersInput>, RetailerUncheckedUpdateWithoutCustomersInput>
   }
 
-  export type TransactionUpdateManyWithoutCustomerNestedInput = {
-    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutCustomerInput | TransactionUpsertWithWhereUniqueWithoutCustomerInput[]
-    createMany?: TransactionCreateManyCustomerInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutCustomerInput | TransactionUpdateWithWhereUniqueWithoutCustomerInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutCustomerInput | TransactionUpdateManyWithWhereWithoutCustomerInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type SaleUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<SaleCreateWithoutCustomerInput, SaleUncheckedCreateWithoutCustomerInput> | SaleCreateWithoutCustomerInput[] | SaleUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutCustomerInput | SaleCreateOrConnectWithoutCustomerInput[]
+    upsert?: SaleUpsertWithWhereUniqueWithoutCustomerInput | SaleUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: SaleCreateManyCustomerInputEnvelope
+    set?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    disconnect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    delete?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    update?: SaleUpdateWithWhereUniqueWithoutCustomerInput | SaleUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: SaleUpdateManyWithWhereWithoutCustomerInput | SaleUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: SaleScalarWhereInput | SaleScalarWhereInput[]
   }
 
   export type ReminderUpdateManyWithoutCustomerNestedInput = {
@@ -11629,18 +11654,18 @@ export namespace Prisma {
     deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
   }
 
-  export type TransactionUncheckedUpdateManyWithoutCustomerNestedInput = {
-    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutCustomerInput | TransactionUpsertWithWhereUniqueWithoutCustomerInput[]
-    createMany?: TransactionCreateManyCustomerInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutCustomerInput | TransactionUpdateWithWhereUniqueWithoutCustomerInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutCustomerInput | TransactionUpdateManyWithWhereWithoutCustomerInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type SaleUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<SaleCreateWithoutCustomerInput, SaleUncheckedCreateWithoutCustomerInput> | SaleCreateWithoutCustomerInput[] | SaleUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutCustomerInput | SaleCreateOrConnectWithoutCustomerInput[]
+    upsert?: SaleUpsertWithWhereUniqueWithoutCustomerInput | SaleUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: SaleCreateManyCustomerInputEnvelope
+    set?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    disconnect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    delete?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    update?: SaleUpdateWithWhereUniqueWithoutCustomerInput | SaleUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: SaleUpdateManyWithWhereWithoutCustomerInput | SaleUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: SaleScalarWhereInput | SaleScalarWhereInput[]
   }
 
   export type ReminderUncheckedUpdateManyWithoutCustomerNestedInput = {
@@ -11657,34 +11682,34 @@ export namespace Prisma {
     deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
   }
 
-  export type RetailerCreateNestedOneWithoutTransactionsInput = {
-    create?: XOR<RetailerCreateWithoutTransactionsInput, RetailerUncheckedCreateWithoutTransactionsInput>
-    connectOrCreate?: RetailerCreateOrConnectWithoutTransactionsInput
+  export type RetailerCreateNestedOneWithoutSalesInput = {
+    create?: XOR<RetailerCreateWithoutSalesInput, RetailerUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: RetailerCreateOrConnectWithoutSalesInput
     connect?: RetailerWhereUniqueInput
   }
 
-  export type CustomerCreateNestedOneWithoutTransactionsInput = {
-    create?: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutTransactionsInput
+  export type CustomerCreateNestedOneWithoutSalesInput = {
+    create?: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutSalesInput
     connect?: CustomerWhereUniqueInput
   }
 
-  export type TransactionItemCreateNestedManyWithoutTransactionInput = {
-    create?: XOR<TransactionItemCreateWithoutTransactionInput, TransactionItemUncheckedCreateWithoutTransactionInput> | TransactionItemCreateWithoutTransactionInput[] | TransactionItemUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: TransactionItemCreateOrConnectWithoutTransactionInput | TransactionItemCreateOrConnectWithoutTransactionInput[]
-    createMany?: TransactionItemCreateManyTransactionInputEnvelope
-    connect?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
+  export type SaleItemCreateNestedManyWithoutSaleInput = {
+    create?: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput> | SaleItemCreateWithoutSaleInput[] | SaleItemUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: SaleItemCreateOrConnectWithoutSaleInput | SaleItemCreateOrConnectWithoutSaleInput[]
+    createMany?: SaleItemCreateManySaleInputEnvelope
+    connect?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
   }
 
-  export type TransactionItemUncheckedCreateNestedManyWithoutTransactionInput = {
-    create?: XOR<TransactionItemCreateWithoutTransactionInput, TransactionItemUncheckedCreateWithoutTransactionInput> | TransactionItemCreateWithoutTransactionInput[] | TransactionItemUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: TransactionItemCreateOrConnectWithoutTransactionInput | TransactionItemCreateOrConnectWithoutTransactionInput[]
-    createMany?: TransactionItemCreateManyTransactionInputEnvelope
-    connect?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
+  export type SaleItemUncheckedCreateNestedManyWithoutSaleInput = {
+    create?: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput> | SaleItemCreateWithoutSaleInput[] | SaleItemUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: SaleItemCreateOrConnectWithoutSaleInput | SaleItemCreateOrConnectWithoutSaleInput[]
+    createMany?: SaleItemCreateManySaleInputEnvelope
+    connect?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
   }
 
-  export type EnumTransactionTypeFieldUpdateOperationsInput = {
-    set?: $Enums.TransactionType
+  export type EnumSaleTypeFieldUpdateOperationsInput = {
+    set?: $Enums.SaleType
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -11695,62 +11720,64 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type RetailerUpdateOneRequiredWithoutTransactionsNestedInput = {
-    create?: XOR<RetailerCreateWithoutTransactionsInput, RetailerUncheckedCreateWithoutTransactionsInput>
-    connectOrCreate?: RetailerCreateOrConnectWithoutTransactionsInput
-    upsert?: RetailerUpsertWithoutTransactionsInput
+  export type RetailerUpdateOneRequiredWithoutSalesNestedInput = {
+    create?: XOR<RetailerCreateWithoutSalesInput, RetailerUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: RetailerCreateOrConnectWithoutSalesInput
+    upsert?: RetailerUpsertWithoutSalesInput
     connect?: RetailerWhereUniqueInput
-    update?: XOR<XOR<RetailerUpdateToOneWithWhereWithoutTransactionsInput, RetailerUpdateWithoutTransactionsInput>, RetailerUncheckedUpdateWithoutTransactionsInput>
+    update?: XOR<XOR<RetailerUpdateToOneWithWhereWithoutSalesInput, RetailerUpdateWithoutSalesInput>, RetailerUncheckedUpdateWithoutSalesInput>
   }
 
-  export type CustomerUpdateOneRequiredWithoutTransactionsNestedInput = {
-    create?: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutTransactionsInput
-    upsert?: CustomerUpsertWithoutTransactionsInput
+  export type CustomerUpdateOneWithoutSalesNestedInput = {
+    create?: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutSalesInput
+    upsert?: CustomerUpsertWithoutSalesInput
+    disconnect?: CustomerWhereInput | boolean
+    delete?: CustomerWhereInput | boolean
     connect?: CustomerWhereUniqueInput
-    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutTransactionsInput, CustomerUpdateWithoutTransactionsInput>, CustomerUncheckedUpdateWithoutTransactionsInput>
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutSalesInput, CustomerUpdateWithoutSalesInput>, CustomerUncheckedUpdateWithoutSalesInput>
   }
 
-  export type TransactionItemUpdateManyWithoutTransactionNestedInput = {
-    create?: XOR<TransactionItemCreateWithoutTransactionInput, TransactionItemUncheckedCreateWithoutTransactionInput> | TransactionItemCreateWithoutTransactionInput[] | TransactionItemUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: TransactionItemCreateOrConnectWithoutTransactionInput | TransactionItemCreateOrConnectWithoutTransactionInput[]
-    upsert?: TransactionItemUpsertWithWhereUniqueWithoutTransactionInput | TransactionItemUpsertWithWhereUniqueWithoutTransactionInput[]
-    createMany?: TransactionItemCreateManyTransactionInputEnvelope
-    set?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    disconnect?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    delete?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    connect?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    update?: TransactionItemUpdateWithWhereUniqueWithoutTransactionInput | TransactionItemUpdateWithWhereUniqueWithoutTransactionInput[]
-    updateMany?: TransactionItemUpdateManyWithWhereWithoutTransactionInput | TransactionItemUpdateManyWithWhereWithoutTransactionInput[]
-    deleteMany?: TransactionItemScalarWhereInput | TransactionItemScalarWhereInput[]
+  export type SaleItemUpdateManyWithoutSaleNestedInput = {
+    create?: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput> | SaleItemCreateWithoutSaleInput[] | SaleItemUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: SaleItemCreateOrConnectWithoutSaleInput | SaleItemCreateOrConnectWithoutSaleInput[]
+    upsert?: SaleItemUpsertWithWhereUniqueWithoutSaleInput | SaleItemUpsertWithWhereUniqueWithoutSaleInput[]
+    createMany?: SaleItemCreateManySaleInputEnvelope
+    set?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    disconnect?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    delete?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    connect?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    update?: SaleItemUpdateWithWhereUniqueWithoutSaleInput | SaleItemUpdateWithWhereUniqueWithoutSaleInput[]
+    updateMany?: SaleItemUpdateManyWithWhereWithoutSaleInput | SaleItemUpdateManyWithWhereWithoutSaleInput[]
+    deleteMany?: SaleItemScalarWhereInput | SaleItemScalarWhereInput[]
   }
 
-  export type TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput = {
-    create?: XOR<TransactionItemCreateWithoutTransactionInput, TransactionItemUncheckedCreateWithoutTransactionInput> | TransactionItemCreateWithoutTransactionInput[] | TransactionItemUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: TransactionItemCreateOrConnectWithoutTransactionInput | TransactionItemCreateOrConnectWithoutTransactionInput[]
-    upsert?: TransactionItemUpsertWithWhereUniqueWithoutTransactionInput | TransactionItemUpsertWithWhereUniqueWithoutTransactionInput[]
-    createMany?: TransactionItemCreateManyTransactionInputEnvelope
-    set?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    disconnect?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    delete?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    connect?: TransactionItemWhereUniqueInput | TransactionItemWhereUniqueInput[]
-    update?: TransactionItemUpdateWithWhereUniqueWithoutTransactionInput | TransactionItemUpdateWithWhereUniqueWithoutTransactionInput[]
-    updateMany?: TransactionItemUpdateManyWithWhereWithoutTransactionInput | TransactionItemUpdateManyWithWhereWithoutTransactionInput[]
-    deleteMany?: TransactionItemScalarWhereInput | TransactionItemScalarWhereInput[]
+  export type SaleItemUncheckedUpdateManyWithoutSaleNestedInput = {
+    create?: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput> | SaleItemCreateWithoutSaleInput[] | SaleItemUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: SaleItemCreateOrConnectWithoutSaleInput | SaleItemCreateOrConnectWithoutSaleInput[]
+    upsert?: SaleItemUpsertWithWhereUniqueWithoutSaleInput | SaleItemUpsertWithWhereUniqueWithoutSaleInput[]
+    createMany?: SaleItemCreateManySaleInputEnvelope
+    set?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    disconnect?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    delete?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    connect?: SaleItemWhereUniqueInput | SaleItemWhereUniqueInput[]
+    update?: SaleItemUpdateWithWhereUniqueWithoutSaleInput | SaleItemUpdateWithWhereUniqueWithoutSaleInput[]
+    updateMany?: SaleItemUpdateManyWithWhereWithoutSaleInput | SaleItemUpdateManyWithWhereWithoutSaleInput[]
+    deleteMany?: SaleItemScalarWhereInput | SaleItemScalarWhereInput[]
   }
 
-  export type TransactionCreateNestedOneWithoutItemsInput = {
-    create?: XOR<TransactionCreateWithoutItemsInput, TransactionUncheckedCreateWithoutItemsInput>
-    connectOrCreate?: TransactionCreateOrConnectWithoutItemsInput
-    connect?: TransactionWhereUniqueInput
+  export type SaleCreateNestedOneWithoutItemsInput = {
+    create?: XOR<SaleCreateWithoutItemsInput, SaleUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: SaleCreateOrConnectWithoutItemsInput
+    connect?: SaleWhereUniqueInput
   }
 
-  export type TransactionUpdateOneRequiredWithoutItemsNestedInput = {
-    create?: XOR<TransactionCreateWithoutItemsInput, TransactionUncheckedCreateWithoutItemsInput>
-    connectOrCreate?: TransactionCreateOrConnectWithoutItemsInput
-    upsert?: TransactionUpsertWithoutItemsInput
-    connect?: TransactionWhereUniqueInput
-    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutItemsInput, TransactionUpdateWithoutItemsInput>, TransactionUncheckedUpdateWithoutItemsInput>
+  export type SaleUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<SaleCreateWithoutItemsInput, SaleUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: SaleCreateOrConnectWithoutItemsInput
+    upsert?: SaleUpsertWithoutItemsInput
+    connect?: SaleWhereUniqueInput
+    update?: XOR<XOR<SaleUpdateToOneWithWhereWithoutItemsInput, SaleUpdateWithoutItemsInput>, SaleUncheckedUpdateWithoutItemsInput>
   }
 
   export type RetailerCreateNestedOneWithoutRemindersInput = {
@@ -11958,21 +11985,21 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumTransactionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  export type NestedEnumSaleTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaleType | EnumSaleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaleTypeFilter<$PrismaModel> | $Enums.SaleType
   }
 
-  export type NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+  export type NestedEnumSaleTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaleType | EnumSaleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaleType[] | ListEnumSaleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaleTypeWithAggregatesFilter<$PrismaModel> | $Enums.SaleType
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
-    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _min?: NestedEnumSaleTypeFilter<$PrismaModel>
+    _max?: NestedEnumSaleTypeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12060,7 +12087,7 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    transactions?: TransactionCreateNestedManyWithoutCustomerInput
+    sales?: SaleCreateNestedManyWithoutCustomerInput
     reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
@@ -12075,7 +12102,7 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    transactions?: TransactionUncheckedCreateNestedManyWithoutCustomerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
@@ -12089,9 +12116,9 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TransactionCreateWithoutRetailerInput = {
+  export type SaleCreateWithoutRetailerInput = {
     id?: string
-    type: $Enums.TransactionType
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -12099,14 +12126,14 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    customer: CustomerCreateNestedOneWithoutTransactionsInput
-    items?: TransactionItemCreateNestedManyWithoutTransactionInput
+    customer?: CustomerCreateNestedOneWithoutSalesInput
+    items?: SaleItemCreateNestedManyWithoutSaleInput
   }
 
-  export type TransactionUncheckedCreateWithoutRetailerInput = {
+  export type SaleUncheckedCreateWithoutRetailerInput = {
     id?: string
-    customerId: string
-    type: $Enums.TransactionType
+    customerId?: string | null
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -12114,16 +12141,16 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    items?: TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
+    items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
   }
 
-  export type TransactionCreateOrConnectWithoutRetailerInput = {
-    where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutRetailerInput, TransactionUncheckedCreateWithoutRetailerInput>
+  export type SaleCreateOrConnectWithoutRetailerInput = {
+    where: SaleWhereUniqueInput
+    create: XOR<SaleCreateWithoutRetailerInput, SaleUncheckedCreateWithoutRetailerInput>
   }
 
-  export type TransactionCreateManyRetailerInputEnvelope = {
-    data: TransactionCreateManyRetailerInput | TransactionCreateManyRetailerInput[]
+  export type SaleCreateManyRetailerInputEnvelope = {
+    data: SaleCreateManyRetailerInput | SaleCreateManyRetailerInput[]
     skipDuplicates?: boolean
   }
 
@@ -12218,37 +12245,37 @@ export namespace Prisma {
     clientId?: StringNullableFilter<"Customer"> | string | null
   }
 
-  export type TransactionUpsertWithWhereUniqueWithoutRetailerInput = {
-    where: TransactionWhereUniqueInput
-    update: XOR<TransactionUpdateWithoutRetailerInput, TransactionUncheckedUpdateWithoutRetailerInput>
-    create: XOR<TransactionCreateWithoutRetailerInput, TransactionUncheckedCreateWithoutRetailerInput>
+  export type SaleUpsertWithWhereUniqueWithoutRetailerInput = {
+    where: SaleWhereUniqueInput
+    update: XOR<SaleUpdateWithoutRetailerInput, SaleUncheckedUpdateWithoutRetailerInput>
+    create: XOR<SaleCreateWithoutRetailerInput, SaleUncheckedCreateWithoutRetailerInput>
   }
 
-  export type TransactionUpdateWithWhereUniqueWithoutRetailerInput = {
-    where: TransactionWhereUniqueInput
-    data: XOR<TransactionUpdateWithoutRetailerInput, TransactionUncheckedUpdateWithoutRetailerInput>
+  export type SaleUpdateWithWhereUniqueWithoutRetailerInput = {
+    where: SaleWhereUniqueInput
+    data: XOR<SaleUpdateWithoutRetailerInput, SaleUncheckedUpdateWithoutRetailerInput>
   }
 
-  export type TransactionUpdateManyWithWhereWithoutRetailerInput = {
-    where: TransactionScalarWhereInput
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutRetailerInput>
+  export type SaleUpdateManyWithWhereWithoutRetailerInput = {
+    where: SaleScalarWhereInput
+    data: XOR<SaleUpdateManyMutationInput, SaleUncheckedUpdateManyWithoutRetailerInput>
   }
 
-  export type TransactionScalarWhereInput = {
-    AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-    OR?: TransactionScalarWhereInput[]
-    NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-    id?: StringFilter<"Transaction"> | string
-    retailerId?: StringFilter<"Transaction"> | string
-    customerId?: StringFilter<"Transaction"> | string
-    type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
-    amount?: IntFilter<"Transaction"> | number
-    note?: StringNullableFilter<"Transaction"> | string | null
-    createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
-    syncStatus?: StringFilter<"Transaction"> | string
-    lastSyncedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    clientId?: StringNullableFilter<"Transaction"> | string | null
+  export type SaleScalarWhereInput = {
+    AND?: SaleScalarWhereInput | SaleScalarWhereInput[]
+    OR?: SaleScalarWhereInput[]
+    NOT?: SaleScalarWhereInput | SaleScalarWhereInput[]
+    id?: StringFilter<"Sale"> | string
+    retailerId?: StringFilter<"Sale"> | string
+    customerId?: StringNullableFilter<"Sale"> | string | null
+    type?: EnumSaleTypeFilter<"Sale"> | $Enums.SaleType
+    amount?: IntFilter<"Sale"> | number
+    note?: StringNullableFilter<"Sale"> | string | null
+    createdAt?: DateTimeFilter<"Sale"> | Date | string
+    updatedAt?: DateTimeFilter<"Sale"> | Date | string
+    syncStatus?: StringFilter<"Sale"> | string
+    lastSyncedAt?: DateTimeNullableFilter<"Sale"> | Date | string | null
+    clientId?: StringNullableFilter<"Sale"> | string | null
   }
 
   export type ReminderUpsertWithWhereUniqueWithoutRetailerInput = {
@@ -12318,7 +12345,7 @@ export namespace Prisma {
     neighborhood?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    transactions?: TransactionCreateNestedManyWithoutRetailerInput
+    sales?: SaleCreateNestedManyWithoutRetailerInput
     reminders?: ReminderCreateNestedManyWithoutRetailerInput
     sessions?: SessionCreateNestedManyWithoutRetailerInput
   }
@@ -12331,7 +12358,7 @@ export namespace Prisma {
     neighborhood?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    transactions?: TransactionUncheckedCreateNestedManyWithoutRetailerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutRetailerInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutRetailerInput
     sessions?: SessionUncheckedCreateNestedManyWithoutRetailerInput
   }
@@ -12341,9 +12368,9 @@ export namespace Prisma {
     create: XOR<RetailerCreateWithoutCustomersInput, RetailerUncheckedCreateWithoutCustomersInput>
   }
 
-  export type TransactionCreateWithoutCustomerInput = {
+  export type SaleCreateWithoutCustomerInput = {
     id?: string
-    type: $Enums.TransactionType
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -12351,14 +12378,14 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    retailer: RetailerCreateNestedOneWithoutTransactionsInput
-    items?: TransactionItemCreateNestedManyWithoutTransactionInput
+    retailer: RetailerCreateNestedOneWithoutSalesInput
+    items?: SaleItemCreateNestedManyWithoutSaleInput
   }
 
-  export type TransactionUncheckedCreateWithoutCustomerInput = {
+  export type SaleUncheckedCreateWithoutCustomerInput = {
     id?: string
     retailerId: string
-    type: $Enums.TransactionType
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -12366,16 +12393,16 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    items?: TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
+    items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
   }
 
-  export type TransactionCreateOrConnectWithoutCustomerInput = {
-    where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput>
+  export type SaleCreateOrConnectWithoutCustomerInput = {
+    where: SaleWhereUniqueInput
+    create: XOR<SaleCreateWithoutCustomerInput, SaleUncheckedCreateWithoutCustomerInput>
   }
 
-  export type TransactionCreateManyCustomerInputEnvelope = {
-    data: TransactionCreateManyCustomerInput | TransactionCreateManyCustomerInput[]
+  export type SaleCreateManyCustomerInputEnvelope = {
+    data: SaleCreateManyCustomerInput | SaleCreateManyCustomerInput[]
     skipDuplicates?: boolean
   }
 
@@ -12432,7 +12459,7 @@ export namespace Prisma {
     neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUpdateManyWithoutRetailerNestedInput
     reminders?: ReminderUpdateManyWithoutRetailerNestedInput
     sessions?: SessionUpdateManyWithoutRetailerNestedInput
   }
@@ -12445,25 +12472,25 @@ export namespace Prisma {
     neighborhood?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUncheckedUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutRetailerNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutRetailerNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutRetailerNestedInput
   }
 
-  export type TransactionUpsertWithWhereUniqueWithoutCustomerInput = {
-    where: TransactionWhereUniqueInput
-    update: XOR<TransactionUpdateWithoutCustomerInput, TransactionUncheckedUpdateWithoutCustomerInput>
-    create: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput>
+  export type SaleUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: SaleWhereUniqueInput
+    update: XOR<SaleUpdateWithoutCustomerInput, SaleUncheckedUpdateWithoutCustomerInput>
+    create: XOR<SaleCreateWithoutCustomerInput, SaleUncheckedCreateWithoutCustomerInput>
   }
 
-  export type TransactionUpdateWithWhereUniqueWithoutCustomerInput = {
-    where: TransactionWhereUniqueInput
-    data: XOR<TransactionUpdateWithoutCustomerInput, TransactionUncheckedUpdateWithoutCustomerInput>
+  export type SaleUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: SaleWhereUniqueInput
+    data: XOR<SaleUpdateWithoutCustomerInput, SaleUncheckedUpdateWithoutCustomerInput>
   }
 
-  export type TransactionUpdateManyWithWhereWithoutCustomerInput = {
-    where: TransactionScalarWhereInput
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutCustomerInput>
+  export type SaleUpdateManyWithWhereWithoutCustomerInput = {
+    where: SaleScalarWhereInput
+    data: XOR<SaleUpdateManyMutationInput, SaleUncheckedUpdateManyWithoutCustomerInput>
   }
 
   export type ReminderUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -12482,7 +12509,7 @@ export namespace Prisma {
     data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyWithoutCustomerInput>
   }
 
-  export type RetailerCreateWithoutTransactionsInput = {
+  export type RetailerCreateWithoutSalesInput = {
     id?: string
     phone: string
     language?: $Enums.Language
@@ -12495,7 +12522,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutRetailerInput
   }
 
-  export type RetailerUncheckedCreateWithoutTransactionsInput = {
+  export type RetailerUncheckedCreateWithoutSalesInput = {
     id?: string
     phone: string
     language?: $Enums.Language
@@ -12508,12 +12535,12 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutRetailerInput
   }
 
-  export type RetailerCreateOrConnectWithoutTransactionsInput = {
+  export type RetailerCreateOrConnectWithoutSalesInput = {
     where: RetailerWhereUniqueInput
-    create: XOR<RetailerCreateWithoutTransactionsInput, RetailerUncheckedCreateWithoutTransactionsInput>
+    create: XOR<RetailerCreateWithoutSalesInput, RetailerUncheckedCreateWithoutSalesInput>
   }
 
-  export type CustomerCreateWithoutTransactionsInput = {
+  export type CustomerCreateWithoutSalesInput = {
     id?: string
     name: string
     phone?: string | null
@@ -12528,7 +12555,7 @@ export namespace Prisma {
     reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
-  export type CustomerUncheckedCreateWithoutTransactionsInput = {
+  export type CustomerUncheckedCreateWithoutSalesInput = {
     id?: string
     retailerId: string
     name: string
@@ -12543,45 +12570,45 @@ export namespace Prisma {
     reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
-  export type CustomerCreateOrConnectWithoutTransactionsInput = {
+  export type CustomerCreateOrConnectWithoutSalesInput = {
     where: CustomerWhereUniqueInput
-    create: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
+    create: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
   }
 
-  export type TransactionItemCreateWithoutTransactionInput = {
+  export type SaleItemCreateWithoutSaleInput = {
     id?: string
     description: string
     amount: number
   }
 
-  export type TransactionItemUncheckedCreateWithoutTransactionInput = {
+  export type SaleItemUncheckedCreateWithoutSaleInput = {
     id?: string
     description: string
     amount: number
   }
 
-  export type TransactionItemCreateOrConnectWithoutTransactionInput = {
-    where: TransactionItemWhereUniqueInput
-    create: XOR<TransactionItemCreateWithoutTransactionInput, TransactionItemUncheckedCreateWithoutTransactionInput>
+  export type SaleItemCreateOrConnectWithoutSaleInput = {
+    where: SaleItemWhereUniqueInput
+    create: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput>
   }
 
-  export type TransactionItemCreateManyTransactionInputEnvelope = {
-    data: TransactionItemCreateManyTransactionInput | TransactionItemCreateManyTransactionInput[]
+  export type SaleItemCreateManySaleInputEnvelope = {
+    data: SaleItemCreateManySaleInput | SaleItemCreateManySaleInput[]
     skipDuplicates?: boolean
   }
 
-  export type RetailerUpsertWithoutTransactionsInput = {
-    update: XOR<RetailerUpdateWithoutTransactionsInput, RetailerUncheckedUpdateWithoutTransactionsInput>
-    create: XOR<RetailerCreateWithoutTransactionsInput, RetailerUncheckedCreateWithoutTransactionsInput>
+  export type RetailerUpsertWithoutSalesInput = {
+    update: XOR<RetailerUpdateWithoutSalesInput, RetailerUncheckedUpdateWithoutSalesInput>
+    create: XOR<RetailerCreateWithoutSalesInput, RetailerUncheckedCreateWithoutSalesInput>
     where?: RetailerWhereInput
   }
 
-  export type RetailerUpdateToOneWithWhereWithoutTransactionsInput = {
+  export type RetailerUpdateToOneWithWhereWithoutSalesInput = {
     where?: RetailerWhereInput
-    data: XOR<RetailerUpdateWithoutTransactionsInput, RetailerUncheckedUpdateWithoutTransactionsInput>
+    data: XOR<RetailerUpdateWithoutSalesInput, RetailerUncheckedUpdateWithoutSalesInput>
   }
 
-  export type RetailerUpdateWithoutTransactionsInput = {
+  export type RetailerUpdateWithoutSalesInput = {
     id?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     language?: EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -12594,7 +12621,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutRetailerNestedInput
   }
 
-  export type RetailerUncheckedUpdateWithoutTransactionsInput = {
+  export type RetailerUncheckedUpdateWithoutSalesInput = {
     id?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     language?: EnumLanguageFieldUpdateOperationsInput | $Enums.Language
@@ -12607,18 +12634,18 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutRetailerNestedInput
   }
 
-  export type CustomerUpsertWithoutTransactionsInput = {
-    update: XOR<CustomerUpdateWithoutTransactionsInput, CustomerUncheckedUpdateWithoutTransactionsInput>
-    create: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
+  export type CustomerUpsertWithoutSalesInput = {
+    update: XOR<CustomerUpdateWithoutSalesInput, CustomerUncheckedUpdateWithoutSalesInput>
+    create: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
     where?: CustomerWhereInput
   }
 
-  export type CustomerUpdateToOneWithWhereWithoutTransactionsInput = {
+  export type CustomerUpdateToOneWithWhereWithoutSalesInput = {
     where?: CustomerWhereInput
-    data: XOR<CustomerUpdateWithoutTransactionsInput, CustomerUncheckedUpdateWithoutTransactionsInput>
+    data: XOR<CustomerUpdateWithoutSalesInput, CustomerUncheckedUpdateWithoutSalesInput>
   }
 
-  export type CustomerUpdateWithoutTransactionsInput = {
+  export type CustomerUpdateWithoutSalesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12633,7 +12660,7 @@ export namespace Prisma {
     reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
-  export type CustomerUncheckedUpdateWithoutTransactionsInput = {
+  export type CustomerUncheckedUpdateWithoutSalesInput = {
     id?: StringFieldUpdateOperationsInput | string
     retailerId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -12648,35 +12675,35 @@ export namespace Prisma {
     reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
-  export type TransactionItemUpsertWithWhereUniqueWithoutTransactionInput = {
-    where: TransactionItemWhereUniqueInput
-    update: XOR<TransactionItemUpdateWithoutTransactionInput, TransactionItemUncheckedUpdateWithoutTransactionInput>
-    create: XOR<TransactionItemCreateWithoutTransactionInput, TransactionItemUncheckedCreateWithoutTransactionInput>
+  export type SaleItemUpsertWithWhereUniqueWithoutSaleInput = {
+    where: SaleItemWhereUniqueInput
+    update: XOR<SaleItemUpdateWithoutSaleInput, SaleItemUncheckedUpdateWithoutSaleInput>
+    create: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput>
   }
 
-  export type TransactionItemUpdateWithWhereUniqueWithoutTransactionInput = {
-    where: TransactionItemWhereUniqueInput
-    data: XOR<TransactionItemUpdateWithoutTransactionInput, TransactionItemUncheckedUpdateWithoutTransactionInput>
+  export type SaleItemUpdateWithWhereUniqueWithoutSaleInput = {
+    where: SaleItemWhereUniqueInput
+    data: XOR<SaleItemUpdateWithoutSaleInput, SaleItemUncheckedUpdateWithoutSaleInput>
   }
 
-  export type TransactionItemUpdateManyWithWhereWithoutTransactionInput = {
-    where: TransactionItemScalarWhereInput
-    data: XOR<TransactionItemUpdateManyMutationInput, TransactionItemUncheckedUpdateManyWithoutTransactionInput>
+  export type SaleItemUpdateManyWithWhereWithoutSaleInput = {
+    where: SaleItemScalarWhereInput
+    data: XOR<SaleItemUpdateManyMutationInput, SaleItemUncheckedUpdateManyWithoutSaleInput>
   }
 
-  export type TransactionItemScalarWhereInput = {
-    AND?: TransactionItemScalarWhereInput | TransactionItemScalarWhereInput[]
-    OR?: TransactionItemScalarWhereInput[]
-    NOT?: TransactionItemScalarWhereInput | TransactionItemScalarWhereInput[]
-    id?: StringFilter<"TransactionItem"> | string
-    transactionId?: StringFilter<"TransactionItem"> | string
-    description?: StringFilter<"TransactionItem"> | string
-    amount?: IntFilter<"TransactionItem"> | number
+  export type SaleItemScalarWhereInput = {
+    AND?: SaleItemScalarWhereInput | SaleItemScalarWhereInput[]
+    OR?: SaleItemScalarWhereInput[]
+    NOT?: SaleItemScalarWhereInput | SaleItemScalarWhereInput[]
+    id?: StringFilter<"SaleItem"> | string
+    saleId?: StringFilter<"SaleItem"> | string
+    description?: StringFilter<"SaleItem"> | string
+    amount?: IntFilter<"SaleItem"> | number
   }
 
-  export type TransactionCreateWithoutItemsInput = {
+  export type SaleCreateWithoutItemsInput = {
     id?: string
-    type: $Enums.TransactionType
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -12684,15 +12711,15 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    retailer: RetailerCreateNestedOneWithoutTransactionsInput
-    customer: CustomerCreateNestedOneWithoutTransactionsInput
+    retailer: RetailerCreateNestedOneWithoutSalesInput
+    customer?: CustomerCreateNestedOneWithoutSalesInput
   }
 
-  export type TransactionUncheckedCreateWithoutItemsInput = {
+  export type SaleUncheckedCreateWithoutItemsInput = {
     id?: string
     retailerId: string
-    customerId: string
-    type: $Enums.TransactionType
+    customerId?: string | null
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -12702,25 +12729,25 @@ export namespace Prisma {
     clientId?: string | null
   }
 
-  export type TransactionCreateOrConnectWithoutItemsInput = {
-    where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutItemsInput, TransactionUncheckedCreateWithoutItemsInput>
+  export type SaleCreateOrConnectWithoutItemsInput = {
+    where: SaleWhereUniqueInput
+    create: XOR<SaleCreateWithoutItemsInput, SaleUncheckedCreateWithoutItemsInput>
   }
 
-  export type TransactionUpsertWithoutItemsInput = {
-    update: XOR<TransactionUpdateWithoutItemsInput, TransactionUncheckedUpdateWithoutItemsInput>
-    create: XOR<TransactionCreateWithoutItemsInput, TransactionUncheckedCreateWithoutItemsInput>
-    where?: TransactionWhereInput
+  export type SaleUpsertWithoutItemsInput = {
+    update: XOR<SaleUpdateWithoutItemsInput, SaleUncheckedUpdateWithoutItemsInput>
+    create: XOR<SaleCreateWithoutItemsInput, SaleUncheckedCreateWithoutItemsInput>
+    where?: SaleWhereInput
   }
 
-  export type TransactionUpdateToOneWithWhereWithoutItemsInput = {
-    where?: TransactionWhereInput
-    data: XOR<TransactionUpdateWithoutItemsInput, TransactionUncheckedUpdateWithoutItemsInput>
+  export type SaleUpdateToOneWithWhereWithoutItemsInput = {
+    where?: SaleWhereInput
+    data: XOR<SaleUpdateWithoutItemsInput, SaleUncheckedUpdateWithoutItemsInput>
   }
 
-  export type TransactionUpdateWithoutItemsInput = {
+  export type SaleUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12728,15 +12755,15 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    retailer?: RetailerUpdateOneRequiredWithoutTransactionsNestedInput
-    customer?: CustomerUpdateOneRequiredWithoutTransactionsNestedInput
+    retailer?: RetailerUpdateOneRequiredWithoutSalesNestedInput
+    customer?: CustomerUpdateOneWithoutSalesNestedInput
   }
 
-  export type TransactionUncheckedUpdateWithoutItemsInput = {
+  export type SaleUncheckedUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     retailerId?: StringFieldUpdateOperationsInput | string
-    customerId?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12755,7 +12782,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerCreateNestedManyWithoutRetailerInput
-    transactions?: TransactionCreateNestedManyWithoutRetailerInput
+    sales?: SaleCreateNestedManyWithoutRetailerInput
     sessions?: SessionCreateNestedManyWithoutRetailerInput
   }
 
@@ -12768,7 +12795,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutRetailerInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutRetailerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutRetailerInput
     sessions?: SessionUncheckedCreateNestedManyWithoutRetailerInput
   }
 
@@ -12789,7 +12816,7 @@ export namespace Prisma {
     lastSyncedAt?: Date | string | null
     clientId?: string | null
     retailer: RetailerCreateNestedOneWithoutCustomersInput
-    transactions?: TransactionCreateNestedManyWithoutCustomerInput
+    sales?: SaleCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutRemindersInput = {
@@ -12804,7 +12831,7 @@ export namespace Prisma {
     syncStatus?: string
     lastSyncedAt?: Date | string | null
     clientId?: string | null
-    transactions?: TransactionUncheckedCreateNestedManyWithoutCustomerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutRemindersInput = {
@@ -12832,7 +12859,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUpdateManyWithoutRetailerNestedInput
-    transactions?: TransactionUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUpdateManyWithoutRetailerNestedInput
     sessions?: SessionUpdateManyWithoutRetailerNestedInput
   }
 
@@ -12845,7 +12872,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutRetailerNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutRetailerNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutRetailerNestedInput
   }
 
@@ -12872,7 +12899,7 @@ export namespace Prisma {
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
     retailer?: RetailerUpdateOneRequiredWithoutCustomersNestedInput
-    transactions?: TransactionUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutRemindersInput = {
@@ -12887,7 +12914,7 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    transactions?: TransactionUncheckedUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type RetailerCreateWithoutSessionsInput = {
@@ -12899,7 +12926,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerCreateNestedManyWithoutRetailerInput
-    transactions?: TransactionCreateNestedManyWithoutRetailerInput
+    sales?: SaleCreateNestedManyWithoutRetailerInput
     reminders?: ReminderCreateNestedManyWithoutRetailerInput
   }
 
@@ -12912,7 +12939,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customers?: CustomerUncheckedCreateNestedManyWithoutRetailerInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutRetailerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutRetailerInput
     reminders?: ReminderUncheckedCreateNestedManyWithoutRetailerInput
   }
 
@@ -12941,7 +12968,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUpdateManyWithoutRetailerNestedInput
-    transactions?: TransactionUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUpdateManyWithoutRetailerNestedInput
     reminders?: ReminderUpdateManyWithoutRetailerNestedInput
   }
 
@@ -12954,7 +12981,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customers?: CustomerUncheckedUpdateManyWithoutRetailerNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutRetailerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutRetailerNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutRetailerNestedInput
   }
 
@@ -12971,10 +12998,10 @@ export namespace Prisma {
     clientId?: string | null
   }
 
-  export type TransactionCreateManyRetailerInput = {
+  export type SaleCreateManyRetailerInput = {
     id?: string
-    customerId: string
-    type: $Enums.TransactionType
+    customerId?: string | null
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -13014,7 +13041,7 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    transactions?: TransactionUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUpdateManyWithoutCustomerNestedInput
     reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
@@ -13029,7 +13056,7 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    transactions?: TransactionUncheckedUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
@@ -13046,9 +13073,9 @@ export namespace Prisma {
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TransactionUpdateWithoutRetailerInput = {
+  export type SaleUpdateWithoutRetailerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13056,14 +13083,14 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    customer?: CustomerUpdateOneRequiredWithoutTransactionsNestedInput
-    items?: TransactionItemUpdateManyWithoutTransactionNestedInput
+    customer?: CustomerUpdateOneWithoutSalesNestedInput
+    items?: SaleItemUpdateManyWithoutSaleNestedInput
   }
 
-  export type TransactionUncheckedUpdateWithoutRetailerInput = {
+  export type SaleUncheckedUpdateWithoutRetailerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    customerId?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13071,13 +13098,13 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
+    items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   }
 
-  export type TransactionUncheckedUpdateManyWithoutRetailerInput = {
+  export type SaleUncheckedUpdateManyWithoutRetailerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    customerId?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13144,10 +13171,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransactionCreateManyCustomerInput = {
+  export type SaleCreateManyCustomerInput = {
     id?: string
     retailerId: string
-    type: $Enums.TransactionType
+    type: $Enums.SaleType
     amount: number
     note?: string | null
     createdAt?: Date | string
@@ -13169,9 +13196,9 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type TransactionUpdateWithoutCustomerInput = {
+  export type SaleUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13179,14 +13206,14 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    retailer?: RetailerUpdateOneRequiredWithoutTransactionsNestedInput
-    items?: TransactionItemUpdateManyWithoutTransactionNestedInput
+    retailer?: RetailerUpdateOneRequiredWithoutSalesNestedInput
+    items?: SaleItemUpdateManyWithoutSaleNestedInput
   }
 
-  export type TransactionUncheckedUpdateWithoutCustomerInput = {
+  export type SaleUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     retailerId?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13194,13 +13221,13 @@ export namespace Prisma {
     syncStatus?: StringFieldUpdateOperationsInput | string
     lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
+    items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   }
 
-  export type TransactionUncheckedUpdateManyWithoutCustomerInput = {
+  export type SaleUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     retailerId?: StringFieldUpdateOperationsInput | string
-    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    type?: EnumSaleTypeFieldUpdateOperationsInput | $Enums.SaleType
     amount?: IntFieldUpdateOperationsInput | number
     note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13246,25 +13273,25 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransactionItemCreateManyTransactionInput = {
+  export type SaleItemCreateManySaleInput = {
     id?: string
     description: string
     amount: number
   }
 
-  export type TransactionItemUpdateWithoutTransactionInput = {
+  export type SaleItemUpdateWithoutSaleInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
   }
 
-  export type TransactionItemUncheckedUpdateWithoutTransactionInput = {
+  export type SaleItemUncheckedUpdateWithoutSaleInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
   }
 
-  export type TransactionItemUncheckedUpdateManyWithoutTransactionInput = {
+  export type SaleItemUncheckedUpdateManyWithoutSaleInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number

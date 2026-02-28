@@ -33,9 +33,9 @@ export function getInitial(name: string): string {
 /** Debt age color coding per product spec. */
 export type DebtAge = "green" | "yellow" | "red";
 
-export function getDebtAge(lastTransactionDate: Date): DebtAge {
+export function getDebtAge(lastSaleDate: Date): DebtAge {
   const days = Math.floor(
-    (Date.now() - lastTransactionDate.getTime()) / (1000 * 60 * 60 * 24)
+    (Date.now() - lastSaleDate.getTime()) / (1000 * 60 * 60 * 24)
   );
   if (days < 7) return "green";
   if (days < 14) return "yellow";

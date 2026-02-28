@@ -9,9 +9,9 @@
 
 ## Executive Summary
 
-Déftar targets the informal retail economy in Guinea — a market of hundreds of thousands of small kiosks and boutiques that run on handwritten notebooks, mental math, and trust. These retailers are the last-mile distribution point for daily essentials in every neighborhood across Conakry and beyond. They operate with no digital tools, lose money to forgotten debts, and have zero financial visibility. Déftar replaces their paper notebook with a radically simple mobile ledger.
+Déftar targets the informal retail economy in Guinea — a market of hundreds of thousands of small kiosks, boutiques, and walking vendors (ambulants) that run on handwritten notebooks, mental math, and trust. These retailers are the last-mile distribution point for daily essentials in every neighborhood across Conakry and beyond. They operate with no digital tools, have zero visibility into their daily sales, and lose money to forgotten debts. Déftar replaces their paper notebook with a radically simple mobile sales ledger.
 
-This document defines three primary personas based on field research, market data, and behavioral analysis of similar markets (India's kirana stores, Morocco's traditional retailers, Nigeria's informal kiosks).
+This document defines four primary personas based on field research, market data, and behavioral analysis of similar markets (India's kirana stores, Morocco's traditional retailers, Nigeria's informal kiosks).
 
 ---
 
@@ -257,13 +257,101 @@ This document defines three primary personas based on field research, market dat
 
 ---
 
+## Persona 4: Amadou — The Ambulant (Walking Vendor)
+
+### Profile
+
+| Attribute | Detail |
+|-----------|--------|
+| **Name** | Amadou Soumah |
+| **Age** | 22 |
+| **Location** | Roams Matoto, Ratoma, and Kaloum communes, Conakry |
+| **Ethnicity / Language** | Susu — speaks Susu natively, basic French for commerce |
+| **Education** | Completed middle school (collège) — reads and writes basic French |
+| **Business** | Walking vendor selling phone accessories, household goods, and small electronics from a basket/cart |
+| **Revenue** | ~1-2 million GNF/month (~$115-230 USD) |
+| **Phone** | Itel A05s, Android Go, 1GB RAM, cracked screen protector |
+| **Connectivity** | Prepaid Orange data — buys small bundles, intermittent 3G/4G |
+| **Mobile Money** | Uses Orange Money for receiving payments from some customers |
+| **Family** | Single, supports his mother and younger sister |
+
+### Empathy Map
+
+#### 👁️ SEES
+
+- Customers buying small items throughout the day — 500 GNF charger, 2000 GNF earphones, 5000 GNF phone case
+- Cash flowing in and out in tiny amounts that blur together by evening
+- Other ambulants who gave up because they couldn't tell if they were making money
+- Fixed-shop boutiquiers who seem to have a better handle on their business
+- Neighborhoods where he sells well and others where he wastes time walking
+
+#### 👂 HEARS
+
+- Regular customers saying "I'll pay you next time I see you" — and he may not see them for days
+- His mother asking how much he made today — and he can't give a clear answer
+- Other ambulants talking about good selling spots and bad days
+- Stories of ambulants who saved enough to open a fixed shop
+
+#### 💭 THINKS & BELIEVES
+
+- "I sell a lot of small things but I don't know if I'm actually making money"
+- "If I could see my numbers, I could figure out which products to stock more of"
+- "I give credit to a few regulars but it's small amounts — I mostly forget"
+- "I need something quick — I can't stop to write things down while walking"
+- "An app could work if it's really fast — I'm comfortable with my phone"
+
+#### 😔 FEELS (Pain Points)
+
+- **Blindness** — Sells 50+ items a day in small amounts; has no idea what the total is until he counts cash at night (and the count is never right)
+- **Doubt** — Can't tell if his business is growing, shrinking, or breaking even
+- **Frustration** — Knows he loses track of small credits given to regulars in neighborhoods
+- **Restocking anxiety** — Buys stock based on gut feel; sometimes overstocks items that don't sell, runs out of popular ones
+- **Fatigue** — Long days walking; wants a simple tool, not another chore
+
+#### 🗣️ SAYS & DOES
+
+- Sells from a basket or pushcart, moving between neighborhoods, bus stations, and markets
+- Handles 30-60 small transactions a day, almost all in cash
+- Gives occasional credit to regulars he encounters repeatedly in certain neighborhoods
+- Counts cash at end of day but the total never matches his memory of sales
+- Uses WhatsApp confidently; navigates apps but prefers minimal text and fast interactions
+- Dreams of saving enough to open a fixed kiosk or boutique
+
+### Key Insight
+
+> Amadou's #1 pain is **not knowing if he made money today**. He sells dozens of small items daily but has zero visibility into his totals, margins, or trends. He doesn't need a debt ledger — he needs a **pocket sales counter** that lets him tap each sale as it happens and shows him the daily total. Credit tracking is secondary for him; sales visibility is everything.
+
+### Jobs to Be Done
+
+| Job | Current Solution | Frustration Level |
+|-----|-----------------|-------------------|
+| Know how much I sold today | Mental math, counting cash at night | 🔴 Critical — never accurate |
+| Track which items sell best | Gut feel | 🟡 High — bad restocking decisions |
+| Record credit to regulars | Memory | 🟡 Medium — smaller credit volume than kiosk |
+| Know if I'm profitable | No idea | 🟡 High — can't tell if he should continue |
+
+### Technology Comfort Level
+
+| Capability | Comfort |
+|-----------|---------|
+| Make/receive calls | ✅ Confident |
+| WhatsApp messaging | ✅ Confident |
+| WhatsApp voice notes | ✅ Confident |
+| Take photos | ✅ Confident |
+| Browse internet | ✅ Basic |
+| Install apps from Play Store | ✅ Basic |
+| Navigate app with icons | ✅ Confident |
+| Type on keyboard | ⚠️ Slow but functional |
+
+---
+
 ## Cross-Persona Empathy Synthesis
 
-### Universal Pain Points (All Three Personas Share)
+### Universal Pain Points (All Four Personas Share)
 
-1. **Debt tracking is broken** — Paper, memory, and mental math all fail at scale
-2. **Debt collection is socially painful** — Asking for money creates friction in tight-knit communities
-3. **No financial visibility** — None of them truly know if their business is profitable
+1. **No financial visibility** — None of them truly know how much they sell in a day or if their business is profitable
+2. **Debt tracking is broken** — Paper, memory, and mental math all fail at scale
+3. **Debt collection is socially painful** — Asking for money creates friction in tight-knit communities
 4. **Technology feels exclusionary** — Apps are designed for educated, connected, French-speaking users
 5. **Trust is everything** — They won't adopt anything that feels risky or exposes their business data
 
@@ -272,14 +360,15 @@ This document defines three primary personas based on field research, market dat
 | Persona | Adoption Difficulty | Impact if Served | Virality Potential | **MVP Priority** |
 |---------|-------------------|-----------------|-------------------|-----------------|
 | **Ousmane** (Connected) | 🟢 Low | 🟡 Medium | 🔴 **High** — will evangelize | **🥇 Seed user** |
+| **Amadou** (Ambulant) | 🟢 Low | 🟡 Medium | 🔴 **High** — evangelizes in ambulant networks | **🥇 Seed user** |
 | **Ibrahima** (Typical) | 🟡 Medium | 🔴 **High** — largest segment | 🟡 Medium — word of mouth | **🥈 Primary target** |
 | **Mariama** (Zero-literacy) | 🔴 High | 🔴 **High** — most underserved | 🟡 Medium — market networks | **🥉 V2 expansion** |
 
 ### Recommended Adoption Strategy
 
-**Phase 1 — Seed (Month 1-2):** Recruit 30-50 Ousmanes in 2-3 Conakry neighborhoods (Matoto, Ratoma, Dixinn). They onboard themselves, provide feedback, and start telling other shopkeepers.
+**Phase 1 — Seed (Month 1-2):** Recruit 30-50 Ousmanes in 2-3 Conakry neighborhoods (Matoto, Ratoma, Dixinn) AND 20-30 Amadous in ambulant networks around bus stations and markets. Two entry points: connected boutiquiers adopt for full ledger functionality, ambulants adopt for the quick sales counter. Both groups onboard themselves, provide feedback, and evangelize in their networks.
 
-**Phase 2 — Bridge (Month 2-4):** Ousmanes help onboard Ibrahimas in their networks. The app must be simple enough that Ousmane can teach Ibrahima in 5 minutes at the kiosk.
+**Phase 2 — Bridge (Month 2-4):** Ousmanes help onboard Ibrahimas in their networks. Amadous spread the word to fellow ambulants. The app must be simple enough that Ousmane can teach Ibrahima in 5 minutes at the kiosk, and that an ambulant can record a sale while walking.
 
 **Phase 3 — Expand (Month 4-8):** With voice/icon features mature, begin reaching Mariamas through market women's associations and radio promotion in Susu.
 
@@ -294,10 +383,10 @@ This document defines three primary personas based on field research, market dat
 | **Icon-first, text-second** | 60%+ of target users have limited literacy | Every action has a visual icon; text is supplementary |
 | **Voice input/output** | Mariama can't type; Ibrahima types very slowly | Record customer names via voice; hear balances read aloud |
 | **Offline-native** | Connectivity is intermittent and expensive | All core features work without internet; sync when available |
-| **2-tap maximum for core action** | Attention span is short; interruptions are constant | Record a debt: Tap customer → Tap amount → Done |
+| **1-2 tap maximum for core action** | Attention span is short; interruptions are constant | Quick cash sale: Tap amount → Done (1 tap). Credit sale: Tap customer → Tap amount → Done (2 taps) |
 | **No registration wall** | Any friction at entry = abandonment | Start using immediately; optional account creation later |
 | **GNF-native** | All amounts in Guinean Francs, no decimals | Large round numbers (500, 1000, 5000, 10000 GNF) |
-| **WhatsApp integration** | Only universal digital channel in Guinea | Send debt reminders via WhatsApp (low social friction) |
+| **WhatsApp integration** | Only universal digital channel in Guinea | Send debt reminders via WhatsApp (low social friction) (V2) |
 | **Dark mode default** | Many users charge phones infrequently; saves battery | Default to dark theme on AMOLED screens |
 
 ### Emotional Design Considerations

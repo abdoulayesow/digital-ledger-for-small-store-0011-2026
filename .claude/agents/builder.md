@@ -75,7 +75,7 @@ new Intl.NumberFormat("fr-GN", {
 ### i18n Usage
 ```tsx
 const { t, locale } = useI18n()
-return <h1>{t.customers.addDebt}</h1>
+return <h1>{t.sales.addCreditSale}</h1>
 ```
 
 ### Dexie.js Client-Side Database
@@ -83,10 +83,10 @@ return <h1>{t.customers.addDebt}</h1>
 import { db } from "@/lib/db"
 
 // Write to IndexedDB first (offline-first)
-await db.transactions.add({ id: crypto.randomUUID(), ...data })
+await db.sales.add({ id: crypto.randomUUID(), ...data })
 
 // Queue for sync
-await db.syncQueue.add({ table: "transactions", action: "create", data })
+await db.syncQueue.add({ table: "sales", action: "create", data })
 ```
 
 ## Working Directories

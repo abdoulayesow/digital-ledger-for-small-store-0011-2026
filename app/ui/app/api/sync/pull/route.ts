@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   const retailerId = session!.retailerId;
   const serverTime = new Date().toISOString();
 
-  const [customers, transactions] = await Promise.all([
+  const [customers, sales] = await Promise.all([
     prisma.customer.findMany({
       where: {
         retailerId,
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
       orderBy: { updatedAt: "asc" },
       take: MAX_RECORDS_PER_TABLE,
     }),
-    prisma.transaction.findMany({
+    prisma.sale.findMany({
       where: {
         retailerId,
         updatedAt: { gt: since },
@@ -40,9 +40,14 @@ export async function GET(req: NextRequest) {
     }),
   ]);
 
+  const hasMore =
+    customers.length >= MAX_RECORDS_PER_TABLE ||
+    sales.length >= MAX_RECORDS_PER_TABLE;
+
   return NextResponse.json({
     customers,
-    transactions,
+    sales,
     serverTime,
+    hasMore,
   });
 }

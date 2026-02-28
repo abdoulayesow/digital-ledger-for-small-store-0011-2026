@@ -58,9 +58,9 @@ npx prisma studio        # Visual database browser
 - `Retailer` — App user (boutiquier/market woman), authenticated by phone number (+224)
 - `Customer` — Person who owes money to a retailer
 
-**Transactions:**
-- `Transaction` — A debt (credit given) or payment (money received), amounts in GNF (integer, no decimals)
-- `TransactionItem` — Line items within a transaction (optional detail)
+**Sales:**
+- `Sale` — A cash sale or credit sale, amounts in GNF (integer, no decimals). customerId is nullable for anonymous cash sales.
+- `SaleItem` — Line items within a sale (optional detail)
 
 **Engagement:**
 - `Reminder` — WhatsApp/SMS debt collection message template
@@ -123,7 +123,7 @@ const customers = await prisma.customer.findMany({
 })
 
 // Good: Include relations in one query
-const transaction = await prisma.transaction.findUnique({
+const sale = await prisma.sale.findUnique({
   where: { id },
   include: {
     customer: true,
@@ -132,8 +132,8 @@ const transaction = await prisma.transaction.findUnique({
 })
 
 // Avoid: N+1 queries
-// BAD: for each customer, separate query for transactions
-// GOOD: include transactions in initial query
+// BAD: for each customer, separate query for sales
+// GOOD: include sales in initial query
 ```
 
 ### Safe Migrations
@@ -166,11 +166,11 @@ model Example {
 }
 ```
 
-### Transaction Types
+### Sale Types
 ```prisma
-enum TransactionType {
-  debt
-  payment
+enum SaleType {
+  cash
+  credit
 }
 ```
 

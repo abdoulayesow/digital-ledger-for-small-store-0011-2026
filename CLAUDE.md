@@ -2,8 +2,9 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-- Déftar: offline-first digital ledger PWA for small Guinean retailers
-- Replaces paper notebooks (cahiers) for credit/debt tracking
+- Déftar: offline-first digital ledger PWA for small Guinean retailers and walking vendors
+- Tracks daily sales, manages customer credit, and provides business visibility
+- Replaces paper notebooks (cahiers) for sales tracking and credit management
 - Target: non-literate users on low-end Android (Itel A18, 1GB RAM)
 - Architecture principle: "The phone is the database. The server is the backup."
 
@@ -48,17 +49,24 @@ app/
 
 ## Domain Model
 ### Core Entities
-- Retailer — App user (boutiquier/market woman), authenticated by phone
-- Customer — Person who owes money to the retailer
-- Transaction — Debt (credit given) or Payment (money received)
-- Reminder — WhatsApp/SMS debt collection message
+- Retailer — App user (boutiquier/market woman/ambulant), authenticated by phone
+- Sale — Primary record of commerce:
+  - Cash sale: amount recorded, money received, optionally linked to a customer
+  - Credit sale: must be linked to a customer, creates a receivable
+  - Anonymous sale: no customer required (quick cash sale)
+- Payment — Customer repaying a credit sale (reduces their balance)
+- Customer — Person who buys from the retailer; optional for cash sales, required for credit sales
+- Reminder — WhatsApp/SMS debt collection message (V2 scope)
 
 ### Key Business Rules
+- "Quick sale" is the #1 action — 1-2 taps max
+- Cash sales don't require a customer
+- Credit sales require a customer (creates receivable)
 - All amounts in GNF (Guinean Franc), no decimals, large round numbers
 - Common amounts: 500, 1000, 2000, 5000, 10000, 25000 GNF
-- Debts age-coded: green (<7 days), yellow (7-14 days), red (>14 days)
-- 2-tap maximum for core actions (record debt, record payment)
-- Reminders sent from the app, not from the user (reduces social friction)
+- Dashboard shows: today's sales, cash collected, credit given, total receivables
+- 1-2 tap maximum for core actions (quick cash sale: 1 tap, customer sale/credit/payment: 2 taps)
+- Debts age-coded in credit tracking view: green (<7 days), yellow (7-14 days), red (>14 days)
 
 ## Conventions
 

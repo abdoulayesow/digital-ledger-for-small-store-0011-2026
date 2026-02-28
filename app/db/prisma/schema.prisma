@@ -9,8 +9,9 @@ datasource db {
 
 // ─── Enums ──────────────────────────────────────────────────
 
-enum TransactionType {
-  debt
+enum SaleType {
+  cash
+  credit
   payment
 }
 
@@ -45,7 +46,7 @@ model Retailer {
   updatedAt    DateTime  @updatedAt
 
   customers    Customer[]
-  transactions Transaction[]
+  sales        Sale[]
   reminders    Reminder[]
   sessions     Session[]
 }
@@ -66,7 +67,7 @@ model Customer {
   clientId     String?
 
   retailer     Retailer      @relation(fields: [retailerId], references: [id], onDelete: Cascade)
-  transactions Transaction[]
+  sales        Sale[]
   reminders    Reminder[]
 
   @@index([retailerId])
@@ -74,11 +75,11 @@ model Customer {
   @@index([syncStatus])
 }
 
-model Transaction {
+model Sale {
   id           String          @id @default(uuid())
   retailerId   String
-  customerId   String
-  type         TransactionType
+  customerId   String?
+  type         SaleType
   amount       Int             // GNF, no decimals
   note         String?
   createdAt    DateTime        @default(now())
@@ -90,8 +91,8 @@ model Transaction {
   clientId     String?
 
   retailer     Retailer          @relation(fields: [retailerId], references: [id], onDelete: Cascade)
-  customer     Customer          @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  items        TransactionItem[]
+  customer     Customer?         @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  items        SaleItem[]
 
   @@index([retailerId])
   @@index([customerId])
@@ -99,15 +100,15 @@ model Transaction {
   @@index([syncStatus])
 }
 
-model TransactionItem {
+model SaleItem {
   id            String @id @default(uuid())
-  transactionId String
+  saleId        String
   description   String
   amount        Int    // GNF
 
-  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  sale Sale @relation(fields: [saleId], references: [id], onDelete: Cascade)
 
-  @@index([transactionId])
+  @@index([saleId])
 }
 
 // ─── Engagement ─────────────────────────────────────────────

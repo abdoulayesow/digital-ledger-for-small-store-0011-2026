@@ -50,11 +50,11 @@ export function useTotalReceivables(
 }
 
 /**
- * Live-query daily summary (debts given vs payments received today).
+ * Live-query daily summary (credit sales given vs cash received today).
  */
 export function useDailySummary(
   retailerId: string | undefined
-): { totalDebts: number; totalPayments: number; transactionCount: number } | undefined {
+): { totalCashSales: number; totalCreditSales: number; totalPayments: number; saleCount: number } | undefined {
   return useLiveQuery(
     () => (retailerId ? getDailySummary(retailerId) : undefined),
     [retailerId]

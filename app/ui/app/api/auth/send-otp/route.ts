@@ -12,6 +12,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  if (process.env.DEV_BYPASS_AUTH === "true") {
+    console.log(`[DEV BYPASS] OTP for ${phone}: use code 123456`);
+    return NextResponse.json({ success: true });
+  }
+
   const { default: prisma } = await import("@/lib/prisma");
 
   // Generate 6-digit OTP

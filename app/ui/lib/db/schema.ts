@@ -1,6 +1,6 @@
 /** Client-side database types mirroring the Prisma schema for offline-first storage. */
 
-export type TransactionType = "debt" | "payment";
+export type SaleType = "cash" | "credit" | "payment";
 export type SyncStatus = "pending" | "synced" | "conflict";
 export type Language = "su" | "ff" | "man" | "fr";
 
@@ -18,11 +18,11 @@ export interface Customer {
   clientId: string | null;
 }
 
-export interface Transaction {
+export interface Sale {
   id: string;
   retailerId: string;
-  customerId: string;
-  type: TransactionType;
+  customerId: string | null;
+  type: SaleType;
   amount: number; // GNF, integer
   note: string | null;
   createdAt: Date;
@@ -32,9 +32,9 @@ export interface Transaction {
   clientId: string | null;
 }
 
-export interface TransactionItem {
+export interface SaleItem {
   id: string;
-  transactionId: string;
+  saleId: string;
   description: string;
   amount: number; // GNF
 }

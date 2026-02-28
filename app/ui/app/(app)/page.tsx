@@ -2,13 +2,13 @@
 
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { useTotalReceivables, useDailySummary } from "@/lib/hooks/use-balance";
-import { useRecentTransactions } from "@/lib/hooks/use-transactions";
+import { useRecentSales } from "@/lib/hooks/use-sales";
 import { useCustomers } from "@/lib/hooks/use-customers";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { SyncStatusBadge } from "@/components/layout/SyncStatusBadge";
 import { Card } from "@/components/ui/Card";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
-import { TransactionList } from "@/components/transaction/TransactionList";
+import { SaleList } from "@/components/sale/SaleList";
 import { DeftarLogo } from "@/components/brand/DeftarLogo";
 import { IconDebt, IconPayment } from "@/components/icons";
 import { formatGNF } from "@/lib/utils";
@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const retailerId = useRetailerId();
   const totalReceivables = useTotalReceivables(retailerId);
   const dailySummary = useDailySummary(retailerId);
-  const recentTransactions = useRecentTransactions(retailerId, 10);
+  const recentSales = useRecentSales(retailerId, 10);
   const customers = useCustomers(retailerId);
 
   return (
@@ -37,7 +37,7 @@ export default function DashboardPage() {
 
         {/* Total receivables */}
         <Card className="text-center py-5">
-          <p className="text-sm text-text-secondary mb-1">{t.transactions.totalReceivables}</p>
+          <p className="text-sm text-text-secondary mb-1">{t.sales.totalReceivables}</p>
           <AmountDisplay
             amount={totalReceivables ?? 0}
             type={totalReceivables && totalReceivables > 0 ? "debt" : "neutral"}
@@ -55,10 +55,10 @@ export default function DashboardPage() {
               <div className="w-8 h-8 rounded-full bg-debt/10 flex items-center justify-center">
                 <IconDebt size={16} className="text-debt" />
               </div>
-              <span className="text-xs text-text-muted">{t.transactions.creditGiven}</span>
+              <span className="text-xs text-text-muted">{t.sales.creditGiven}</span>
             </div>
             <p className="text-lg font-semibold text-debt tabular-nums">
-              {formatGNF(dailySummary?.totalDebts ?? 0)}
+              {formatGNF(dailySummary?.totalCreditSales ?? 0)}
             </p>
           </Card>
 
@@ -67,7 +67,7 @@ export default function DashboardPage() {
               <div className="w-8 h-8 rounded-full bg-payment/10 flex items-center justify-center">
                 <IconPayment size={16} className="text-payment" />
               </div>
-              <span className="text-xs text-text-muted">{t.transactions.cashCollected}</span>
+              <span className="text-xs text-text-muted">{t.sales.cashCollected}</span>
             </div>
             <p className="text-lg font-semibold text-payment tabular-nums">
               {formatGNF(dailySummary?.totalPayments ?? 0)}
@@ -75,15 +75,15 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Recent transactions */}
+        {/* Recent sales */}
         <div>
           <h2
             className="text-sm font-semibold text-text-secondary mb-2 px-1"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            {t.transactions.todaySummary}
+            {t.sales.todaySummary}
           </h2>
-          <TransactionList transactions={recentTransactions ?? []} />
+          <SaleList sales={recentSales ?? []} />
         </div>
       </div>
     </div>
