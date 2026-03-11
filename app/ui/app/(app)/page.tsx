@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { useTotalReceivables, useDailySummary } from "@/lib/hooks/use-balance";
 import { useRecentSales } from "@/lib/hooks/use-sales";
@@ -10,7 +11,7 @@ import { Card } from "@/components/ui/Card";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
 import { SaleList } from "@/components/sale/SaleList";
 import { DeftarLogo } from "@/components/brand/DeftarLogo";
-import { IconDebt, IconPayment } from "@/components/icons";
+import { IconDebt, IconPayment, IconCoin } from "@/components/icons";
 import { formatGNF } from "@/lib/utils";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
 
@@ -34,6 +35,24 @@ export default function DashboardPage() {
         <div className="flex justify-center py-2">
           <DeftarLogo size={40} />
         </div>
+
+        {/* Quick Sale — primary action */}
+        <Link
+          href="/sales/quick"
+          className={[
+            "relative overflow-hidden flex items-center justify-center gap-3",
+            "min-h-16 rounded-2xl",
+            "bg-brand text-surface-0 font-display font-bold text-lg",
+            "border-2 border-brand-light/30",
+            "active:scale-[0.98] transition-transform duration-100",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0",
+          ].join(" ")}
+        >
+          {/* Subtle radial glow */}
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/0 via-brand-light/20 to-brand-dark/0 pointer-events-none" />
+          <IconCoin size={24} className="relative text-surface-0" />
+          <span className="relative">{t.sales.quickSale}</span>
+        </Link>
 
         {/* Total receivables */}
         <Card className="text-center py-5">
