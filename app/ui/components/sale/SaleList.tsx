@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import type { Sale } from "@/lib/db/schema";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
 import { IconDebt, IconPayment, IconCoin } from "@/components/icons";
@@ -54,7 +55,7 @@ export function SaleList({ sales, className = "" }: SaleListProps) {
     );
   }
 
-  const grouped = groupByDate(sales);
+  const grouped = useMemo(() => groupByDate(sales), [sales]);
 
   return (
     <div className={`flex flex-col ${className}`}>

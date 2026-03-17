@@ -11,7 +11,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
 import { BalanceSummary } from "@/components/customer/BalanceSummary";
 import { SaleList } from "@/components/sale/SaleList";
-import { IconDebt, IconPayment } from "@/components/icons";
+import { IconCoin, IconDebt, IconPayment } from "@/components/icons";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
 
 export default function CustomerDetailPage() {
@@ -60,7 +60,16 @@ export default function CustomerDetailPage() {
         {balance && <BalanceSummary balance={balance} />}
 
         {/* Action buttons — 2-tap entry points */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-3">
+          <Button
+            variant="secondary"
+            size="lg"
+            onClick={() => router.push(`/customers/${customerId}/cash-sale`)}
+            className="flex-col gap-1 py-4"
+          >
+            <IconCoin size={24} />
+            <span>{t.sales.addCashSale}</span>
+          </Button>
           <Button
             variant="debt"
             size="lg"
@@ -84,8 +93,7 @@ export default function CustomerDetailPage() {
         {/* Sale history */}
         <div>
           <h2
-            className="text-sm font-semibold text-text-secondary mb-2"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="text-sm font-semibold text-text-secondary mb-2 font-display"
           >
             {t.customers.saleHistory}
           </h2>

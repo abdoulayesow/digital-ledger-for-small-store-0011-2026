@@ -22,6 +22,8 @@ export const ff: Translations = {
     yesterday: "Haŋki",
     close: "Uddu",
     clear: "Momtu",
+    sessionError: "Horiima loowde ceŋol",
+    connectionCheck: "Ƴeewtu ceŋol maa nde fuɗɗitaa.",
   },
   auth: {
     phoneNumber: "Tonngoode telefon",
@@ -80,6 +82,7 @@ export const ff: Translations = {
     shopName: "Innde butik",
     help: "Ballal",
     about: "Baɗte",
+    logoutWarning: "Aɗa jogii keɓe ɗe sinkroneɗaaka. Yaltude majjinay ɗe.",
   },
   creditAge: {
     green: "Kesam",

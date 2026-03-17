@@ -3,7 +3,7 @@
  * Produces high-contrast pastel colors suitable for dark backgrounds.
  */
 const AVATAR_COLORS = [
-  "#EF4444", // red
+  "#A855F7", // purple
   "#F97316", // orange
   "#EAB308", // yellow
   "#22C55E", // green

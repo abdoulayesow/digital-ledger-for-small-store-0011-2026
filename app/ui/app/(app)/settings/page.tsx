@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/Card";
 import { IconCheck } from "@/components/icons";
 import { DeftarLogo } from "@/components/brand/DeftarLogo";
 import { clearSessionCache } from "@/lib/hooks/use-session";
-import { db } from "@/lib/db";
+import { db, getPendingSyncEntries } from "@/lib/db";
 import { Button } from "@/components/ui/Button";
 
 const LANGUAGES: Language[] = ["fr", "su", "ff", "man"];
@@ -24,8 +24,7 @@ export default function SettingsPage() {
         {/* Language selection */}
         <div>
           <h2
-            className="text-sm font-semibold text-text-secondary mb-3"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="text-sm font-semibold text-text-secondary mb-3 font-display"
           >
             {t.settings.chooseLanguage}
           </h2>
@@ -54,8 +53,7 @@ export default function SettingsPage() {
         {/* About */}
         <div>
           <h2
-            className="text-sm font-semibold text-text-secondary mb-3"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="text-sm font-semibold text-text-secondary mb-3 font-display"
           >
             {t.settings.about}
           </h2>
@@ -74,6 +72,10 @@ export default function SettingsPage() {
           size="lg"
           className="w-full"
           onClick={async () => {
+            const pending = await getPendingSyncEntries();
+            if (pending.length > 0) {
+              if (!window.confirm(t.settings.logoutWarning)) return;
+            }
             try {
               await fetch("/api/auth/logout", { method: "POST" });
             } catch {

@@ -1,9 +1,11 @@
 "use client";
 
 import { useSession, SessionContext } from "@/lib/hooks/use-session";
+import { useI18n } from "@/lib/hooks/use-i18n";
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const { session, loading, error, retry } = useSession();
+  const { t } = useI18n();
 
   if (loading) {
     return (
@@ -11,7 +13,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         <div
           className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin"
           role="status"
-          aria-label="Loading"
+          aria-label={t.common.loading}
         />
       </div>
     );
@@ -21,14 +23,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-surface-0 px-6">
         <div className="flex flex-col items-center gap-4 text-center">
-          <p className="text-text-primary font-semibold">Unable to load session</p>
-          <p className="text-sm text-text-muted">Check your connection and try again.</p>
+          <p className="text-text-primary font-semibold">{t.common.sessionError}</p>
+          <p className="text-sm text-text-muted">{t.common.connectionCheck}</p>
           <button
             type="button"
             onClick={retry}
             className="min-h-12 px-6 rounded-xl bg-brand text-white font-semibold cursor-pointer"
           >
-            Retry
+            {t.common.retry}
           </button>
         </div>
       </div>

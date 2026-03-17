@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
@@ -21,6 +21,7 @@ export default function QuickCashSalePage() {
   const [done, setDone] = useState(false);
   const [savedAmount, setSavedAmount] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
+  const submitting = useRef(false);
 
   useEffect(() => {
     if (done) {
@@ -30,8 +31,10 @@ export default function QuickCashSalePage() {
   }, [done, router]);
 
   async function handleConfirm() {
+    if (submitting.current) return;
     if (!selectedAmount || saving) return;
 
+    submitting.current = true;
     setSaving(true);
     setError(null);
     try {
@@ -47,6 +50,7 @@ export default function QuickCashSalePage() {
       setError(t.common.error);
     } finally {
       setSaving(false);
+      submitting.current = false;
     }
   }
 
@@ -98,25 +102,24 @@ export default function QuickCashSalePage() {
 
         {error && <p className="text-sm text-debt text-center">{error}</p>}
 
-        {/* Confirm section — sticks to bottom when amount is selected */}
-        {selectedAmount && (
-          <div className="flex flex-col items-center gap-3 mt-auto pt-4">
-            {/* Amount preview with gold accent line */}
+        {/* Confirm section — sticks to bottom */}
+        <div className="flex flex-col items-center gap-3 mt-auto pt-4">
+          {selectedAmount && (
             <div className="flex flex-col items-center gap-1">
               <div className="w-8 h-0.5 rounded-full bg-brand/40 mb-1" />
               <AmountDisplay amount={selectedAmount} type="neutral" size="lg" />
             </div>
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={handleConfirm}
-              disabled={saving}
-              className="w-full"
-            >
-              {saving ? t.common.loading : t.common.confirm}
-            </Button>
-          </div>
-        )}
+          )}
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={handleConfirm}
+            disabled={!selectedAmount || saving}
+            className="w-full"
+          >
+            {saving ? t.common.loading : t.common.confirm}
+          </Button>
+        </div>
       </div>
     </div>
   );

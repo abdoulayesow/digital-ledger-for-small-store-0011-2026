@@ -52,8 +52,7 @@ export default function RemindersPage() {
 
       <div className="px-4 pb-4">
         <h2
-          className="text-sm font-semibold text-text-secondary mb-3"
-          style={{ fontFamily: "var(--font-display)" }}
+          className="text-sm font-semibold text-text-secondary mb-3 font-display"
         >
           {t.reminders.overdueDebts}
         </h2>

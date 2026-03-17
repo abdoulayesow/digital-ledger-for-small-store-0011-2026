@@ -22,6 +22,8 @@ export const su: Translations = {
     yesterday: "Kunu",
     close: "A bala",
     clear: "A ba",
+    sessionError: "Sesiɔn mu nɔma rasɛnɛde",
+    connectionCheck: "I xa nɛti mato, i mato tugu.",
   },
   auth: {
     phoneNumber: "Telefɔni kɔntɔ",
@@ -80,6 +82,7 @@ export const su: Translations = {
     shopName: "Butiki xili",
     help: "Mali",
     about: "Fe yi ma",
+    logoutWarning: "I xa fe dɔxɔ naxanye mu xɛɛmaxi. Mini na e birin bama.",
   },
   creditAge: {
     green: "Nɛɛnɛ",

@@ -22,6 +22,8 @@ export const fr: Translations = {
     yesterday: "Hier",
     close: "Fermer",
     clear: "Effacer",
+    sessionError: "Impossible de charger la session",
+    connectionCheck: "Vérifiez votre connexion et réessayez.",
   },
   auth: {
     phoneNumber: "Numéro de téléphone",
@@ -80,6 +82,7 @@ export const fr: Translations = {
     shopName: "Nom de la boutique",
     help: "Aide",
     about: "À propos",
+    logoutWarning: "Vous avez des données non synchronisées. La déconnexion les supprimera.",
   },
   creditAge: {
     green: "Récent",

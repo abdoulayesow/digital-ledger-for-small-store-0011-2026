@@ -5,6 +5,7 @@ import type { Sale } from "@/lib/db/schema";
 import {
   getSalesByCustomer,
   getRecentSales,
+  recordCashSale,
   recordCreditSale,
   recordPayment,
 } from "@/lib/db/sales";
@@ -39,4 +40,4 @@ export function useRecentSales(
 }
 
 // Re-export mutations for convenience
-export { recordCreditSale, recordPayment };
+export { recordCashSale, recordCreditSale, recordPayment };

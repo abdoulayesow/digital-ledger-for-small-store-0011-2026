@@ -19,6 +19,10 @@ export async function createSale({
   amount: number;
   note?: string | null;
 }): Promise<Sale> {
+  if (amount <= 0) {
+    throw new Error("Amount must be positive");
+  }
+
   if (type === "credit" && !customerId) {
     throw new Error("Credit sales require a customerId");
   }
@@ -38,8 +42,10 @@ export async function createSale({
     clientId: null,
   };
 
-  await db.sales.add(sale);
-  await enqueueSync("sales", sale.id, "create", sale as unknown as Record<string, unknown>);
+  await db.transaction("rw", db.sales, db.syncQueue, async () => {
+    await db.sales.add(sale);
+    await enqueueSync("sales", sale.id, "create", sale as unknown as Record<string, unknown>);
+  });
 
   return sale;
 }
@@ -54,6 +60,18 @@ export async function recordCreditSale(
   note?: string | null
 ): Promise<Sale> {
   return createSale({ retailerId, customerId, type: "credit", amount, note });
+}
+
+/**
+ * Record a cash sale to a known customer.
+ */
+export async function recordCashSale(
+  retailerId: string,
+  customerId: string,
+  amount: number,
+  note?: string | null
+): Promise<Sale> {
+  return createSale({ retailerId, customerId, type: "cash", amount, note });
 }
 
 /**
@@ -75,11 +93,11 @@ export async function getSalesByCustomer(
   retailerId: string,
   customerId: string
 ): Promise<Sale[]> {
-  return db.sales
+  const results = await db.sales
     .where("[retailerId+customerId]")
     .equals([retailerId, customerId])
-    .reverse()
-    .sortBy("createdAt");
+    .toArray();
+  return results.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 }
 
 /**

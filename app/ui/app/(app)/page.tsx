@@ -10,7 +10,6 @@ import { SyncStatusBadge } from "@/components/layout/SyncStatusBadge";
 import { Card } from "@/components/ui/Card";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
 import { SaleList } from "@/components/sale/SaleList";
-import { DeftarLogo } from "@/components/brand/DeftarLogo";
 import { IconDebt, IconPayment, IconCoin } from "@/components/icons";
 import { formatGNF } from "@/lib/utils";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
@@ -31,11 +30,6 @@ export default function DashboardPage() {
       />
 
       <div className="px-4 flex flex-col gap-4 pb-4">
-        {/* Logo welcome */}
-        <div className="flex justify-center py-2">
-          <DeftarLogo size={40} />
-        </div>
-
         {/* Quick Sale — primary action */}
         <Link
           href="/sales/quick"
@@ -55,17 +49,19 @@ export default function DashboardPage() {
         </Link>
 
         {/* Total receivables */}
-        <Card className="text-center py-5">
-          <p className="text-sm text-text-secondary mb-1">{t.sales.totalReceivables}</p>
-          <AmountDisplay
-            amount={totalReceivables ?? 0}
-            type={totalReceivables && totalReceivables > 0 ? "debt" : "neutral"}
-            size="lg"
-          />
-          <p className="text-xs text-text-muted mt-2">
-            {customers?.length ?? 0} {t.nav.customers.toLowerCase()}
-          </p>
-        </Card>
+        <Link href="/customers">
+          <Card className="text-center py-5">
+            <p className="text-sm text-text-secondary mb-1">{t.sales.totalReceivables}</p>
+            <AmountDisplay
+              amount={totalReceivables ?? 0}
+              type={totalReceivables && totalReceivables > 0 ? "debt" : "neutral"}
+              size="lg"
+            />
+            <p className="text-xs text-text-muted mt-2">
+              {customers?.length ?? 0} {t.nav.customers.toLowerCase()}
+            </p>
+          </Card>
+        </Link>
 
         {/* Daily summary */}
         <div className="grid grid-cols-2 gap-3">
@@ -97,8 +93,7 @@ export default function DashboardPage() {
         {/* Recent sales */}
         <div>
           <h2
-            className="text-sm font-semibold text-text-secondary mb-2 px-1"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="text-sm font-semibold text-text-secondary mb-2 px-1 font-display"
           >
             {t.sales.todaySummary}
           </h2>

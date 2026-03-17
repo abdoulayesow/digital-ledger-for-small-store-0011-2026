@@ -71,7 +71,7 @@ export function AmountPicker({ onSelect, selectedAmount, className = "" }: Amoun
             onClick={handleCustomSubmit}
             className="min-h-12 px-4 rounded-xl bg-surface-2 text-brand font-semibold hover:bg-surface-3 transition-colors cursor-pointer"
           >
-            OK
+            {t.common.confirm}
           </button>
         )}
       </div>

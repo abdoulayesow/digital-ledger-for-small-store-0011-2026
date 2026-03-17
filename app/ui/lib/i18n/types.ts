@@ -21,6 +21,8 @@ export interface Translations {
     yesterday: string;
     close: string;
     clear: string;
+    sessionError: string;
+    connectionCheck: string;
   };
   auth: {
     phoneNumber: string;
@@ -79,6 +81,7 @@ export interface Translations {
     shopName: string;
     help: string;
     about: string;
+    logoutWarning: string;
   };
   creditAge: {
     green: string;

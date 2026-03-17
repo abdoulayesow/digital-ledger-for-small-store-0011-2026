@@ -29,8 +29,10 @@ export async function createCustomer({
     clientId: null,
   };
 
-  await db.customers.add(customer);
-  await enqueueSync("customers", customer.id, "create", customer as unknown as Record<string, unknown>);
+  await db.transaction("rw", db.customers, db.syncQueue, async () => {
+    await db.customers.add(customer);
+    await enqueueSync("customers", customer.id, "create", customer as unknown as Record<string, unknown>);
+  });
 
   return customer;
 }
@@ -108,10 +110,11 @@ export async function updateCustomer(
     changes.phone = updates.phone?.trim() || null;
   }
 
-  await db.customers.update(id, changes);
-
-  const updated = await db.customers.get(id);
-  await enqueueSync("customers", id, "update", updated as unknown as Record<string, unknown>);
+  await db.transaction("rw", db.customers, db.syncQueue, async () => {
+    await db.customers.update(id, changes);
+    const updated = await db.customers.get(id);
+    await enqueueSync("customers", id, "update", updated as unknown as Record<string, unknown>);
+  });
 }
 
 /**
@@ -120,12 +123,13 @@ export async function updateCustomer(
 export async function deleteCustomer(id: string): Promise<void> {
   const now = new Date();
 
-  await db.customers.update(id, {
-    deletedAt: now,
-    updatedAt: now,
-    syncStatus: "pending",
+  await db.transaction("rw", db.customers, db.syncQueue, async () => {
+    await db.customers.update(id, {
+      deletedAt: now,
+      updatedAt: now,
+      syncStatus: "pending",
+    });
+    const updated = await db.customers.get(id);
+    await enqueueSync("customers", id, "delete", updated as unknown as Record<string, unknown>);
   });
-
-  const updated = await db.customers.get(id);
-  await enqueueSync("customers", id, "delete", updated as unknown as Record<string, unknown>);
 }

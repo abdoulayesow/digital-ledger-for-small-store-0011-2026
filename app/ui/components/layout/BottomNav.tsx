@@ -13,7 +13,7 @@ interface NavTab {
 }
 
 const TABS: NavTab[] = [
-  { href: "/", icon: IconHome, labelKey: "home" },
+  { href: "/", icon: IconHome, labelKey: "home", matchPrefix: "/sales" },
   { href: "/customers", icon: IconUsers, labelKey: "customers", matchPrefix: "/customers" },
   { href: "/reminders", icon: IconBell, labelKey: "reminders", matchPrefix: "/reminders" },
   { href: "/settings", icon: IconSettings, labelKey: "settings", matchPrefix: "/settings" },
