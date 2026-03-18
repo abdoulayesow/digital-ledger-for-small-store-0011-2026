@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { DeftarLogo } from "@/components/brand/DeftarLogo";
 import { Button } from "@/components/ui/Button";
+import { enterDemoMode, exitDemoMode } from "@/lib/demo-session";
+import { seedDemoData } from "@/lib/db/dev-seed";
 
 type Channel = "whatsapp" | "sms";
 
@@ -142,6 +144,30 @@ export default function LoginPage() {
           >
             {t.auth.sendViaSms}
           </button>
+
+          {/* Demo mode */}
+          <div className="pt-4 border-t border-surface-3/30">
+            <button
+              type="button"
+              disabled={loading}
+              onClick={async () => {
+                setLoading(true);
+                try {
+                  enterDemoMode();
+                  await seedDemoData();
+                  router.push("/");
+                } catch {
+                  exitDemoMode();
+                  setError(t.common.error);
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              className="w-full text-sm text-brand font-medium hover:text-brand-light transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {t.auth.tryDemo}
+            </button>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleVerifyOtp} className="w-full max-w-sm flex flex-col gap-4">

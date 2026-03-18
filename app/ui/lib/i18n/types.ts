@@ -39,6 +39,8 @@ export interface Translations {
     tooManyAttempts: string;
     networkRequired: string;
     logout: string;
+    tryDemo: string;
+    demoMode: string;
   };
   nav: {
     home: string;
@@ -72,6 +74,8 @@ export interface Translations {
     creditGiven: string;
     totalReceivables: string;
     saleCount: string;
+    undoSale: string;
+    saleUndone: string;
   };
   reminders: {
     sendReminder: string;

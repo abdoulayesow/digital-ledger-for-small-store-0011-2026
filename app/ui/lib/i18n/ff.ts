@@ -40,6 +40,8 @@ export const ff: Translations = {
     tooManyAttempts: "Ƴeewtagol keewii. Ɲaago kode kesam.",
     networkRequired: "Ceŋol ina sokla ngam naatde",
     logout: "Yaltu",
+    tryDemo: "Ƴeewto demo",
+    demoMode: "Fannu demo",
   },
   nav: {
     home: "Jaɓɓorgo",
@@ -73,6 +75,8 @@ export const ff: Translations = {
     creditGiven: "Ɲamaande hokkaande",
     totalReceivables: "Ɲamaande fof",
     saleCount: "njuɓɓudi",
+    undoSale: "Firtu njuɓɓudi",
+    saleUndone: "Njuɓɓudi firtaama",
   },
   reminders: {
     sendReminder: "Neldu miccitaari",

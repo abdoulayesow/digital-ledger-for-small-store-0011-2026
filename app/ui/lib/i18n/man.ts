@@ -40,6 +40,8 @@ export const man: Translations = {
     tooManyAttempts: "I ye a lajɛ siɲɛ caman. Kode kura ɲini.",
     networkRequired: "Rezo ka kan ka don beɲin i ka so",
     logout: "Bɔ",
+    tryDemo: "Demo lajɛ",
+    demoMode: "Demo fɛn",
   },
   nav: {
     home: "So",
@@ -73,6 +75,8 @@ export const man: Translations = {
     creditGiven: "Juru dira",
     totalReceivables: "Juru bɛɛ ka sɔrɔ",
     saleCount: "fɛɛrɛ(w)",
+    undoSale: "Fɛɛrɛ dabila",
+    saleUndone: "Fɛɛrɛ dabilara",
   },
   reminders: {
     sendReminder: "Hakili lajɛ ci",

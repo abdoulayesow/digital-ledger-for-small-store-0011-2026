@@ -5,8 +5,7 @@ import { useI18n } from "@/lib/hooks/use-i18n";
 import { useTotalReceivables, useDailySummary } from "@/lib/hooks/use-balance";
 import { useRecentSales } from "@/lib/hooks/use-sales";
 import { useCustomers } from "@/lib/hooks/use-customers";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { SyncStatusBadge } from "@/components/layout/SyncStatusBadge";
+import { AppHeader } from "@/components/layout/AppHeader";
 import { Card } from "@/components/ui/Card";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
 import { SaleList } from "@/components/sale/SaleList";
@@ -24,10 +23,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col">
-      <PageHeader
-        title={t.common.appName}
-        rightAction={<SyncStatusBadge />}
-      />
+      <AppHeader />
 
       <div className="px-4 flex flex-col gap-4 pb-4">
         {/* Quick Sale — primary action */}

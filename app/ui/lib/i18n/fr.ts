@@ -40,6 +40,8 @@ export const fr: Translations = {
     tooManyAttempts: "Trop de tentatives. Demandez un nouveau code.",
     networkRequired: "Connexion internet nécessaire pour se connecter",
     logout: "Déconnexion",
+    tryDemo: "Essayer la démo",
+    demoMode: "Mode démo",
   },
   nav: {
     home: "Accueil",
@@ -73,6 +75,8 @@ export const fr: Translations = {
     creditGiven: "Crédits donnés",
     totalReceivables: "Total à recevoir",
     saleCount: "vente(s)",
+    undoSale: "Annuler la vente",
+    saleUndone: "Vente annulée",
   },
   reminders: {
     sendReminder: "Envoyer un rappel",

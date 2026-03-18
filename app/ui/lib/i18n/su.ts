@@ -40,6 +40,8 @@ export const su: Translations = {
     tooManyAttempts: "I bara a mato sanmaya wuyaxi. Kode nɛɛnɛ maxɔrin.",
     networkRequired: "Nɛti xa na beɲin i xa so",
     logout: "Mini",
+    tryDemo: "Demo mato",
+    demoMode: "Demo sɛtinyi",
   },
   nav: {
     home: "Banxi",
@@ -73,6 +75,8 @@ export const su: Translations = {
     creditGiven: "Doni fixi",
     totalReceivables: "Doni birin na sɔtɔ",
     saleCount: "mati(wu)",
+    undoSale: "Mati xɛɛma",
+    saleUndone: "Mati bara xɛɛma",
   },
   reminders: {
     sendReminder: "Ratuxi xili",

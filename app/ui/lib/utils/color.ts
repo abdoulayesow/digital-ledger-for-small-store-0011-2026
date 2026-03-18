@@ -1,3 +1,5 @@
+import { DEBT_AGE_GREEN_DAYS, DEBT_AGE_YELLOW_DAYS } from "@/lib/constants";
+
 /**
  * Generate a deterministic color code for a customer based on their name.
  * Produces high-contrast pastel colors suitable for dark backgrounds.
@@ -37,8 +39,8 @@ export function getDebtAge(lastSaleDate: Date): DebtAge {
   const days = Math.floor(
     (Date.now() - lastSaleDate.getTime()) / (1000 * 60 * 60 * 24)
   );
-  if (days < 7) return "green";
-  if (days < 14) return "yellow";
+  if (days < DEBT_AGE_GREEN_DAYS) return "green";
+  if (days < DEBT_AGE_YELLOW_DAYS) return "yellow";
   return "red";
 }
 

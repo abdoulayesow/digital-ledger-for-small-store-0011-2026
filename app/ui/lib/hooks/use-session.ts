@@ -13,7 +13,10 @@ export interface SessionInfo {
 let cachedSession: SessionInfo | null = null;
 let cachedAt: number = 0;
 
-const REVALIDATION_INTERVAL = 15 * 60 * 1000; // 15 minutes
+import { SESSION_REVALIDATION_MS } from "@/lib/constants";
+import { isDemoMode, getDemoSession } from "@/lib/demo-session";
+
+const REVALIDATION_INTERVAL = SESSION_REVALIDATION_MS;
 
 export const SessionContext = createContext<SessionInfo | null>(null);
 
@@ -43,6 +46,16 @@ export function useSession(): {
   const [error, setError] = useState(false);
 
   const fetchSession = useCallback(async () => {
+    // Demo mode: return demo session without network
+    if (isDemoMode()) {
+      const demo = getDemoSession();
+      cachedSession = demo;
+      cachedAt = Date.now();
+      setSession(demo);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(false);
 

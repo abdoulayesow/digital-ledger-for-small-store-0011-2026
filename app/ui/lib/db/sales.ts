@@ -87,6 +87,27 @@ export async function recordPayment(
 }
 
 /**
+ * Delete a sale from IndexedDB and handle sync queue cleanup.
+ * Used by the undo-sale feature within the short undo window.
+ */
+export async function deleteSale(id: string): Promise<void> {
+  await db.transaction("rw", db.sales, db.syncQueue, async () => {
+    const sale = await db.sales.get(id);
+    if (!sale) return;
+
+    await db.sales.delete(id);
+
+    // Remove any pending "create" sync entries for this sale
+    await db.syncQueue.where("recordId").equals(id).delete();
+
+    // If already synced to server, enqueue a delete action
+    if (sale.syncStatus === "synced") {
+      await enqueueSync("sales", id, "delete", { id });
+    }
+  });
+}
+
+/**
  * Get all sales for a customer, newest first.
  */
 export async function getSalesByCustomer(

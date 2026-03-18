@@ -5,14 +5,15 @@ import { useParams, useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { useCustomer } from "@/lib/hooks/use-customers";
 import { useCustomerBalance } from "@/lib/hooks/use-balance";
+import { useUndoSale } from "@/lib/hooks/use-undo-sale";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Avatar } from "@/components/ui/Avatar";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
 import { AmountPicker } from "@/components/sale/AmountPicker";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { IconCheck } from "@/components/icons";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
+import { NOTE_MAX_LENGTH } from "@/lib/constants";
 import type { Sale } from "@/lib/db/schema";
 
 type AmountType = "neutral" | "debt" | "payment";
@@ -34,6 +35,7 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
   const params = useParams<{ id: string }>();
   const customerId = params.id;
   const retailerId = useRetailerId();
+  const { setUndoableSale } = useUndoSale();
 
   const customer = useCustomer(customerId);
   const balance = useCustomerBalance(retailerId, customerId);
@@ -41,18 +43,8 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [note, setNote] = useState("");
   const [saving, setSaving] = useState(false);
-  const [done, setDone] = useState(false);
-  const [savedAmount, setSavedAmount] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const submitting = useRef(false);
-
-  // Auto-redirect after success
-  useEffect(() => {
-    if (done) {
-      const id = setTimeout(() => router.push(`/customers/${customerId}`), 1200);
-      return () => clearTimeout(id);
-    }
-  }, [done, router, customerId]);
 
   // Clear error when amount changes
   useEffect(() => {
@@ -67,9 +59,9 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
     setSaving(true);
     setError(null);
     try {
-      await mode.recordFn(retailerId, customerId, selectedAmount, note.trim() || null);
-      setSavedAmount(selectedAmount);
-      setDone(true);
+      const sale = await mode.recordFn(retailerId, customerId, selectedAmount, note.trim() || null);
+      setUndoableSale({ saleId: sale.id, amount: sale.amount, type: sale.type });
+      router.push(`/customers/${customerId}`);
     } catch {
       setError(t.common.error);
     } finally {
@@ -82,18 +74,6 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
     return (
       <div className="flex flex-col">
         <PageHeader title={t.common.loading} showBack />
-      </div>
-    );
-  }
-
-  if (done) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen gap-4 px-6">
-        <div className={`w-20 h-20 rounded-full ${mode.accentBg} flex items-center justify-center`}>
-          <IconCheck size={40} className={mode.accentText} />
-        </div>
-        <p className="text-lg font-semibold text-text-primary">{mode.successMessage}</p>
-        <AmountDisplay amount={savedAmount} type={mode.amountType} size="lg" />
       </div>
     );
   }
@@ -136,7 +116,7 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
             type="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            maxLength={200}
+            maxLength={NOTE_MAX_LENGTH}
             placeholder={t.sales.note}
             className={[
               "w-full min-h-12 px-4 rounded-xl",

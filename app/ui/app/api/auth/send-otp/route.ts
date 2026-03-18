@@ -4,9 +4,11 @@ import { generateOtp, OTP_EXPIRY_MINUTES } from "@/lib/otp/generate";
 import { sendWhatsAppOtp } from "@/lib/otp/send-whatsapp";
 import { sendSmsOtp } from "@/lib/otp/send-sms";
 
-const DEV_CODE = "123456";
-const RATE_LIMIT_WINDOW_MINUTES = 10;
-const RATE_LIMIT_MAX = 3;
+import {
+  OTP_DEV_CODE,
+  RATE_LIMIT_WINDOW_MINUTES,
+  RATE_LIMIT_MAX,
+} from "@/lib/constants";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -22,7 +24,7 @@ export async function POST(req: NextRequest) {
 
   // Dev bypass: skip database and sending entirely
   if (process.env.DEV_BYPASS_AUTH === "true") {
-    console.log(`[DEV] OTP for ${phone}: ${DEV_CODE} (channel: ${channel})`);
+    console.log(`[DEV] OTP for ${phone}: ${OTP_DEV_CODE} (channel: ${channel})`);
     return NextResponse.json({ success: true, channel });
   }
 
@@ -33,7 +35,7 @@ export async function POST(req: NextRequest) {
     where: {
       phone,
       createdAt: {
-        gte: new Date(Date.now() - RATE_LIMIT_WINDOW_MINUTES * 60 * 1000),
+        gte: new Date(Date.now() - RATE_LIMIT_WINDOW_MINUTES * 60_000),
       },
     },
   });

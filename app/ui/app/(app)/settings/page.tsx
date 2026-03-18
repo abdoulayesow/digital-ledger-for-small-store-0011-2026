@@ -10,6 +10,8 @@ import { DeftarLogo } from "@/components/brand/DeftarLogo";
 import { clearSessionCache } from "@/lib/hooks/use-session";
 import { db, getPendingSyncEntries } from "@/lib/db";
 import { Button } from "@/components/ui/Button";
+import { isDemoMode, exitDemoMode } from "@/lib/demo-session";
+import { clearDemoData } from "@/lib/db/dev-seed";
 
 const LANGUAGES: Language[] = ["fr", "su", "ff", "man"];
 
@@ -72,6 +74,13 @@ export default function SettingsPage() {
           size="lg"
           className="w-full"
           onClick={async () => {
+            if (isDemoMode()) {
+              exitDemoMode();
+              await clearDemoData();
+              clearSessionCache();
+              window.location.href = "/login";
+              return;
+            }
             const pending = await getPendingSyncEntries();
             if (pending.length > 0) {
               if (!window.confirm(t.settings.logoutWarning)) return;
