@@ -2,11 +2,11 @@
 
 **Date:** 2026-03-18
 **Branch:** main
-**Commit:** 3af1970
+**Commit:** dcc8824
 
 ## Overview
 
-Replaced Firebase Phone Auth with server-side WhatsApp OTP (primary) + SMS fallback auth. Conducted full MVP progress assessment.
+Replaced Firebase Phone Auth with server-side WhatsApp OTP (primary) + SMS fallback auth. Made dev bypass fully mock everything (no database, no APIs). Conducted full MVP progress assessment.
 
 ## Completed Work
 
@@ -16,6 +16,7 @@ Replaced Firebase Phone Auth with server-side WhatsApp OTP (primary) + SMS fallb
 - **Prisma schema** — Added `OtpVerification` model with channel, expiry, attempts tracking
 - **i18n** — Added 5 new keys across all 4 languages (sendViaWhatsapp, sendViaSms, codeSentWhatsapp, codeSentSms, tooManyAttempts)
 - **Firebase cleanup** — Deleted firebase client/admin, auth providers, verify-token route; removed firebase-admin from next.config
+- **Zero-infra dev bypass** — `DEV_BYPASS_AUTH=true` skips database, WhatsApp, and SMS entirely across all auth routes
 - **Full MVP assessment** — ~85% feature-complete
 
 ## Key Files Modified/Created
@@ -41,8 +42,8 @@ Replaced Firebase Phone Auth with server-side WhatsApp OTP (primary) + SMS fallb
 - **Server-side OTP** — No Firebase/Google dependency, simple fetch from client
 - **Rate limiting** — Max 3 OTPs per phone in 10 min window
 - **Attempt limiting** — Max 3 wrong code attempts per OTP
-- **Dev bypass** — `DEV_BYPASS_AUTH=true` + code `123456` skips API calls
-- **Lazy cleanup** — Expired/verified OTP records cleaned on next send
+- **Dev bypass** — `DEV_BYPASS_AUTH=true` + code `123456` skips all external calls AND database
+- **Lazy cleanup** — Expired/verified OTP records cleaned on next send (production only)
 
 ## MVP Status (~85%)
 
@@ -55,33 +56,118 @@ Replaced Firebase Phone Auth with server-side WhatsApp OTP (primary) + SMS fallb
 - Reminders backend (V2 scope), Historical analytics, Data export
 - Voice input, Full SW caching, Tests
 
-## Environment Setup
+---
 
-### Required env vars (production)
-```
-WHATSAPP_PHONE_NUMBER_ID=...
-WHATSAPP_ACCESS_TOKEN=...
-AT_API_KEY=...
-AT_USERNAME=...
+## Local Testing Guide (Zero Infrastructure)
+
+### Quick Start on a New Machine
+
+```bash
+git pull
+cd app/ui
+npm install
 ```
 
-### Dev mode (no external services needed)
+### .env.local Setup
+
+Create `app/ui/.env.local` with just one line:
+
 ```
 DEV_BYPASS_AUTH=true
 ```
 
-### Database migration needed
+**That's it.** No database URL, no WhatsApp API keys, no SMS credentials needed. The dev bypass mode fully mocks everything in-memory.
+
+This file is gitignored — you must create it on each machine.
+
+### Run and Test
+
 ```bash
-cd app/db && npx prisma migrate dev --name add-otp-verification
+cd app/ui
+npm run dev
 ```
+
+1. Open `http://localhost:8000/login`
+2. Enter any valid Guinea phone number (e.g. `622123456`)
+3. Click **WhatsApp** or **SMS** button — both work identically in dev mode
+4. Enter code **`123456`**
+5. You land on the dashboard as **"Boutique Test"** retailer
+
+### How Dev Bypass Works
+
+All three auth routes have independent dev bypass paths:
+
+| Route | Dev Behavior |
+|-------|-------------|
+| `POST /api/auth/send-otp` | Logs OTP to console, returns success immediately. No database write. |
+| `POST /api/auth/verify-otp` | Accepts code `123456` for any phone. Sets cookie `dev-session-token`. No database. |
+| `GET /api/auth/session` | Returns hardcoded retailer (`dev-retailer-00000000`, "Boutique Test", French). No database. |
+
+The middleware only checks cookie existence (no DB), so the entire app works offline with just `DEV_BYPASS_AUTH=true`.
+
+### Testing Checklist
+
+- [ ] Login via WhatsApp button → code 123456 → dashboard
+- [ ] Login via SMS link → code 123456 → dashboard
+- [ ] Dashboard shows "Boutique Test", zero sales
+- [ ] Quick cash sale flow (tap amounts, confirm)
+- [ ] Add a customer, record credit sale, record payment
+- [ ] Customer balance updates correctly
+- [ ] Reminders page shows age-coded debts
+- [ ] Settings: switch between 4 languages
+- [ ] Back button from OTP step returns to phone step
+- [ ] All 4 language labels render on login page
+
+---
+
+## Production Environment Setup
+
+### Required env vars
+
+```env
+# PostgreSQL (Neon)
+DATABASE_URL=postgresql://...
+
+# WhatsApp Business Cloud API
+WHATSAPP_PHONE_NUMBER_ID=...
+WHATSAPP_ACCESS_TOKEN=...
+
+# Africa's Talking SMS (fallback)
+AT_API_KEY=...
+AT_USERNAME=...
+```
+
+### Database migration
+
+```bash
+cd app/db
+npx prisma migrate dev --name add-otp-verification
+# Or for production: npx prisma db push
+```
+
+### WhatsApp Business API Setup
+
+1. Create a Meta Business Account at business.facebook.com
+2. Enable WhatsApp Business API in Meta Developer portal
+3. Register a phone number for sending
+4. Create and get approved an `authentication_otp` message template
+5. Copy the Phone Number ID and generate a permanent access token
+6. Set `WHATSAPP_PHONE_NUMBER_ID` and `WHATSAPP_ACCESS_TOKEN`
+
+### Africa's Talking SMS Setup (Fallback)
+
+1. Create account at africastalking.com
+2. Use their sandbox for free testing
+3. Set `AT_API_KEY` and `AT_USERNAME`
+
+---
 
 ## Remaining Tasks (Next Session)
 
 1. Apply Prisma migration to Neon database
-2. Test dev bypass flow end-to-end
+2. Run through the full testing checklist above
 3. Set up WhatsApp Business API credentials for production
 4. Set up Africa's Talking sandbox for SMS testing
-5. Create mock infrastructure for local testing without external APIs
 
 ---
 
@@ -100,6 +186,7 @@ IMPORTANT: Follow token optimization patterns from `.claude/skills/summary-gener
 Previous session summary: docs/summaries/2026-03-18_whatsapp-otp-auth-progress.md
 
 Completed: WhatsApp OTP auth (replacing Firebase), full MVP ~85% done.
+Dev bypass fully works with zero infrastructure (DEV_BYPASS_AUTH=true, code 123456).
 
 Key files to review first:
 - app/ui/app/api/auth/send-otp/route.ts (OTP dispatch)
@@ -109,6 +196,6 @@ Key files to review first:
 
 Status: Auth committed + pushed. Need to:
 1. Apply Prisma migration (`cd app/db && npx prisma migrate dev`)
-2. Test dev bypass (DEV_BYPASS_AUTH=true, code 123456)
-3. Create mocks for testing without WhatsApp/SMS integration
+2. Run full testing checklist (see summary)
+3. Set up WhatsApp Business API + Africa's Talking for production
 ```
