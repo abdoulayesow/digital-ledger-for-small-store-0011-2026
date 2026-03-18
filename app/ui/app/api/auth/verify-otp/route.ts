@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { parsePhone } from "@/lib/utils/phone";
 import { setSessionCookie } from "@/lib/auth";
+import { MAX_ATTEMPTS } from "@/lib/otp/generate";
 
-const MAX_ATTEMPTS = 5;
 const SESSION_DURATION_DAYS = 30;
-
+const DEV_CODE = "123456";
 const DEV_RETAILER_ID = "dev-retailer-00000000";
 
 export async function POST(req: NextRequest) {
@@ -20,10 +20,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (process.env.DEV_BYPASS_AUTH === "true") {
-    if (code !== "123456") {
-      return NextResponse.json({ error: "Invalid code" }, { status: 400 });
-    }
+  // Dev bypass
+  if (process.env.DEV_BYPASS_AUTH === "true" && code === DEV_CODE) {
     await setSessionCookie("dev-session-token");
     return NextResponse.json({
       success: true,
@@ -38,7 +36,7 @@ export async function POST(req: NextRequest) {
 
   const { default: prisma } = await import("@/lib/prisma");
 
-  // Find the most recent unexpired, unverified OTP for this phone
+  // Find most recent non-verified, non-expired OTP for this phone
   const otp = await prisma.otpVerification.findFirst({
     where: {
       phone,
@@ -50,27 +48,32 @@ export async function POST(req: NextRequest) {
 
   if (!otp) {
     return NextResponse.json(
-      { error: "No valid OTP found. Please request a new code." },
+      { error: "expired" },
       { status: 400 }
     );
   }
 
+  // Check attempts
   if (otp.attempts >= MAX_ATTEMPTS) {
     return NextResponse.json(
-      { error: "Too many attempts. Please request a new code." },
+      { error: "too_many_attempts" },
       { status: 429 }
     );
   }
 
+  // Compare codes
   if (otp.code !== code) {
     await prisma.otpVerification.update({
       where: { id: otp.id },
       data: { attempts: { increment: 1 } },
     });
-    return NextResponse.json({ error: "Invalid code" }, { status: 400 });
+    return NextResponse.json(
+      { error: "invalid_code" },
+      { status: 400 }
+    );
   }
 
-  // Mark OTP as verified
+  // Mark verified
   await prisma.otpVerification.update({
     where: { id: otp.id },
     data: { verified: true },

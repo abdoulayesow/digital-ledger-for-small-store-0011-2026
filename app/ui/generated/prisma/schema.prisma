@@ -153,9 +153,10 @@ model OtpVerification {
   id        String   @id @default(uuid())
   phone     String
   code      String
+  channel   String   @default("whatsapp")
   expiresAt DateTime
-  verified  Boolean  @default(false)
   attempts  Int      @default(0)
+  verified  Boolean  @default(false)
   createdAt DateTime @default(now())
 
   @@index([phone, code])

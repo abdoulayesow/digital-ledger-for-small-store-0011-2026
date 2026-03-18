@@ -28,10 +28,16 @@ export interface Translations {
     phoneNumber: string;
     enterPhone: string;
     sendCode: string;
+    sendViaWhatsapp: string;
+    sendViaSms: string;
     enterCode: string;
+    codeSentWhatsapp: string;
+    codeSentSms: string;
     verifyCode: string;
     invalidCode: string;
     codeExpired: string;
+    tooManyAttempts: string;
+    networkRequired: string;
     logout: string;
   };
   nav: {

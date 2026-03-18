@@ -190,9 +190,10 @@ exports.Prisma.OtpVerificationScalarFieldEnum = {
   id: 'id',
   phone: 'phone',
   code: 'code',
+  channel: 'channel',
   expiresAt: 'expiresAt',
-  verified: 'verified',
   attempts: 'attempts',
+  verified: 'verified',
   createdAt: 'createdAt'
 };
 

@@ -8487,9 +8487,10 @@ export namespace Prisma {
     id: string | null
     phone: string | null
     code: string | null
+    channel: string | null
     expiresAt: Date | null
-    verified: boolean | null
     attempts: number | null
+    verified: boolean | null
     createdAt: Date | null
   }
 
@@ -8497,9 +8498,10 @@ export namespace Prisma {
     id: string | null
     phone: string | null
     code: string | null
+    channel: string | null
     expiresAt: Date | null
-    verified: boolean | null
     attempts: number | null
+    verified: boolean | null
     createdAt: Date | null
   }
 
@@ -8507,9 +8509,10 @@ export namespace Prisma {
     id: number
     phone: number
     code: number
+    channel: number
     expiresAt: number
-    verified: number
     attempts: number
+    verified: number
     createdAt: number
     _all: number
   }
@@ -8527,9 +8530,10 @@ export namespace Prisma {
     id?: true
     phone?: true
     code?: true
+    channel?: true
     expiresAt?: true
-    verified?: true
     attempts?: true
+    verified?: true
     createdAt?: true
   }
 
@@ -8537,9 +8541,10 @@ export namespace Prisma {
     id?: true
     phone?: true
     code?: true
+    channel?: true
     expiresAt?: true
-    verified?: true
     attempts?: true
+    verified?: true
     createdAt?: true
   }
 
@@ -8547,9 +8552,10 @@ export namespace Prisma {
     id?: true
     phone?: true
     code?: true
+    channel?: true
     expiresAt?: true
-    verified?: true
     attempts?: true
+    verified?: true
     createdAt?: true
     _all?: true
   }
@@ -8644,9 +8650,10 @@ export namespace Prisma {
     id: string
     phone: string
     code: string
+    channel: string
     expiresAt: Date
-    verified: boolean
     attempts: number
+    verified: boolean
     createdAt: Date
     _count: OtpVerificationCountAggregateOutputType | null
     _avg: OtpVerificationAvgAggregateOutputType | null
@@ -8673,9 +8680,10 @@ export namespace Prisma {
     id?: boolean
     phone?: boolean
     code?: boolean
+    channel?: boolean
     expiresAt?: boolean
-    verified?: boolean
     attempts?: boolean
+    verified?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["otpVerification"]>
 
@@ -8683,9 +8691,10 @@ export namespace Prisma {
     id?: boolean
     phone?: boolean
     code?: boolean
+    channel?: boolean
     expiresAt?: boolean
-    verified?: boolean
     attempts?: boolean
+    verified?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["otpVerification"]>
 
@@ -8693,9 +8702,10 @@ export namespace Prisma {
     id?: boolean
     phone?: boolean
     code?: boolean
+    channel?: boolean
     expiresAt?: boolean
-    verified?: boolean
     attempts?: boolean
+    verified?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["otpVerification"]>
 
@@ -8703,13 +8713,14 @@ export namespace Prisma {
     id?: boolean
     phone?: boolean
     code?: boolean
+    channel?: boolean
     expiresAt?: boolean
-    verified?: boolean
     attempts?: boolean
+    verified?: boolean
     createdAt?: boolean
   }
 
-  export type OtpVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "code" | "expiresAt" | "verified" | "attempts" | "createdAt", ExtArgs["result"]["otpVerification"]>
+  export type OtpVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "code" | "channel" | "expiresAt" | "attempts" | "verified" | "createdAt", ExtArgs["result"]["otpVerification"]>
 
   export type $OtpVerificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OtpVerification"
@@ -8718,9 +8729,10 @@ export namespace Prisma {
       id: string
       phone: string
       code: string
+      channel: string
       expiresAt: Date
-      verified: boolean
       attempts: number
+      verified: boolean
       createdAt: Date
     }, ExtArgs["result"]["otpVerification"]>
     composites: {}
@@ -9148,9 +9160,10 @@ export namespace Prisma {
     readonly id: FieldRef<"OtpVerification", 'String'>
     readonly phone: FieldRef<"OtpVerification", 'String'>
     readonly code: FieldRef<"OtpVerification", 'String'>
+    readonly channel: FieldRef<"OtpVerification", 'String'>
     readonly expiresAt: FieldRef<"OtpVerification", 'DateTime'>
-    readonly verified: FieldRef<"OtpVerification", 'Boolean'>
     readonly attempts: FieldRef<"OtpVerification", 'Int'>
+    readonly verified: FieldRef<"OtpVerification", 'Boolean'>
     readonly createdAt: FieldRef<"OtpVerification", 'DateTime'>
   }
     
@@ -9620,9 +9633,10 @@ export namespace Prisma {
     id: 'id',
     phone: 'phone',
     code: 'code',
+    channel: 'channel',
     expiresAt: 'expiresAt',
-    verified: 'verified',
     attempts: 'attempts',
+    verified: 'verified',
     createdAt: 'createdAt'
   };
 
@@ -10235,9 +10249,10 @@ export namespace Prisma {
     id?: StringFilter<"OtpVerification"> | string
     phone?: StringFilter<"OtpVerification"> | string
     code?: StringFilter<"OtpVerification"> | string
+    channel?: StringFilter<"OtpVerification"> | string
     expiresAt?: DateTimeFilter<"OtpVerification"> | Date | string
-    verified?: BoolFilter<"OtpVerification"> | boolean
     attempts?: IntFilter<"OtpVerification"> | number
+    verified?: BoolFilter<"OtpVerification"> | boolean
     createdAt?: DateTimeFilter<"OtpVerification"> | Date | string
   }
 
@@ -10245,9 +10260,10 @@ export namespace Prisma {
     id?: SortOrder
     phone?: SortOrder
     code?: SortOrder
+    channel?: SortOrder
     expiresAt?: SortOrder
-    verified?: SortOrder
     attempts?: SortOrder
+    verified?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -10258,9 +10274,10 @@ export namespace Prisma {
     NOT?: OtpVerificationWhereInput | OtpVerificationWhereInput[]
     phone?: StringFilter<"OtpVerification"> | string
     code?: StringFilter<"OtpVerification"> | string
+    channel?: StringFilter<"OtpVerification"> | string
     expiresAt?: DateTimeFilter<"OtpVerification"> | Date | string
-    verified?: BoolFilter<"OtpVerification"> | boolean
     attempts?: IntFilter<"OtpVerification"> | number
+    verified?: BoolFilter<"OtpVerification"> | boolean
     createdAt?: DateTimeFilter<"OtpVerification"> | Date | string
   }, "id">
 
@@ -10268,9 +10285,10 @@ export namespace Prisma {
     id?: SortOrder
     phone?: SortOrder
     code?: SortOrder
+    channel?: SortOrder
     expiresAt?: SortOrder
-    verified?: SortOrder
     attempts?: SortOrder
+    verified?: SortOrder
     createdAt?: SortOrder
     _count?: OtpVerificationCountOrderByAggregateInput
     _avg?: OtpVerificationAvgOrderByAggregateInput
@@ -10286,9 +10304,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"OtpVerification"> | string
     phone?: StringWithAggregatesFilter<"OtpVerification"> | string
     code?: StringWithAggregatesFilter<"OtpVerification"> | string
+    channel?: StringWithAggregatesFilter<"OtpVerification"> | string
     expiresAt?: DateTimeWithAggregatesFilter<"OtpVerification"> | Date | string
-    verified?: BoolWithAggregatesFilter<"OtpVerification"> | boolean
     attempts?: IntWithAggregatesFilter<"OtpVerification"> | number
+    verified?: BoolWithAggregatesFilter<"OtpVerification"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"OtpVerification"> | Date | string
   }
 
@@ -10779,9 +10798,10 @@ export namespace Prisma {
     id?: string
     phone: string
     code: string
+    channel?: string
     expiresAt: Date | string
-    verified?: boolean
     attempts?: number
+    verified?: boolean
     createdAt?: Date | string
   }
 
@@ -10789,9 +10809,10 @@ export namespace Prisma {
     id?: string
     phone: string
     code: string
+    channel?: string
     expiresAt: Date | string
-    verified?: boolean
     attempts?: number
+    verified?: boolean
     createdAt?: Date | string
   }
 
@@ -10799,9 +10820,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
     attempts?: IntFieldUpdateOperationsInput | number
+    verified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10809,9 +10831,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
     attempts?: IntFieldUpdateOperationsInput | number
+    verified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10819,9 +10842,10 @@ export namespace Prisma {
     id?: string
     phone: string
     code: string
+    channel?: string
     expiresAt: Date | string
-    verified?: boolean
     attempts?: number
+    verified?: boolean
     createdAt?: Date | string
   }
 
@@ -10829,9 +10853,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
     attempts?: IntFieldUpdateOperationsInput | number
+    verified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10839,9 +10864,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
     attempts?: IntFieldUpdateOperationsInput | number
+    verified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11354,9 +11380,10 @@ export namespace Prisma {
     id?: SortOrder
     phone?: SortOrder
     code?: SortOrder
+    channel?: SortOrder
     expiresAt?: SortOrder
-    verified?: SortOrder
     attempts?: SortOrder
+    verified?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -11368,9 +11395,10 @@ export namespace Prisma {
     id?: SortOrder
     phone?: SortOrder
     code?: SortOrder
+    channel?: SortOrder
     expiresAt?: SortOrder
-    verified?: SortOrder
     attempts?: SortOrder
+    verified?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -11378,9 +11406,10 @@ export namespace Prisma {
     id?: SortOrder
     phone?: SortOrder
     code?: SortOrder
+    channel?: SortOrder
     expiresAt?: SortOrder
-    verified?: SortOrder
     attempts?: SortOrder
+    verified?: SortOrder
     createdAt?: SortOrder
   }
 
