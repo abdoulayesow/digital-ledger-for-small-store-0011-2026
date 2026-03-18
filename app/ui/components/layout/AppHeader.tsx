@@ -7,7 +7,7 @@ import { useSessionContext } from "@/lib/hooks/use-session";
 
 export function AppHeader() {
   const session = useSessionContext();
-  const shopName = session?.shopName ?? "Déftar";
+  const shopName = session?.shopName ?? "B'tiki";
 
   return (
     <header className="sticky top-0 z-20 flex items-center min-h-14 px-4 gap-3 bg-surface-0/95 backdrop-blur-sm border-b border-surface-3/30">
@@ -16,7 +16,7 @@ export function AppHeader() {
 
       {/* Center: app name */}
       <h1 className="flex-1 font-display font-bold text-lg text-text-primary truncate">
-        Déftar
+        B&apos;tiki
       </h1>
 
       {/* Right: sync + avatar */}

@@ -44,6 +44,7 @@ function groupByDate(sales: Sale[]): Map<string, Sale[]> {
 
 export function SaleList({ sales, className = "" }: SaleListProps) {
   const { t } = useI18n();
+  const grouped = useMemo(() => groupByDate(sales), [sales]);
 
   if (sales.length === 0) {
     return (
@@ -54,8 +55,6 @@ export function SaleList({ sales, className = "" }: SaleListProps) {
       />
     );
   }
-
-  const grouped = useMemo(() => groupByDate(sales), [sales]);
 
   return (
     <div className={`flex flex-col ${className}`}>

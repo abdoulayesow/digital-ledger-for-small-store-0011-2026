@@ -17,13 +17,13 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Déftar",
-  description: "Carnet digital pour boutiquiers — Digital ledger for small retailers",
+  title: "B'tiki",
+  description: "Assara o aconti — Sell and track",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Déftar",
+    title: "B'tiki",
   },
 };
 

@@ -6,14 +6,14 @@ import type {
   SyncQueueEntry,
 } from "./schema";
 
-class DeftarDB extends Dexie {
+class BtikiDB extends Dexie {
   customers!: EntityTable<Customer, "id">;
   sales!: EntityTable<Sale, "id">;
   saleItems!: EntityTable<SaleItem, "id">;
   syncQueue!: EntityTable<SyncQueueEntry, "id">;
 
   constructor() {
-    super("deftar");
+    super("btiki");
 
     this.version(1).stores({
       customers:
@@ -65,7 +65,7 @@ class DeftarDB extends Dexie {
   }
 }
 
-export const db = new DeftarDB();
+export const db = new BtikiDB();
 
 /**
  * Enqueue a change for background sync to the server.

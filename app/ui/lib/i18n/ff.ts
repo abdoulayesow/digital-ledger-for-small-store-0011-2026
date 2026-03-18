@@ -2,7 +2,7 @@ import type { Translations } from "./types";
 
 export const ff: Translations = {
   common: {
-    appName: "Déftar",
+    appName: "B'tiki",
     save: "Mooftu",
     cancel: "Haaytu",
     delete: "Momtu",

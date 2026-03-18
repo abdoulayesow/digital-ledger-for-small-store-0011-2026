@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "Déftar",
-  "short_name": "Déftar",
-  "description": "Carnet digital pour boutiquiers — Digital ledger for small retailers",
+  "name": "B'tiki",
+  "short_name": "B'tiki",
+  "description": "Assara o aconti — Sell and track",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

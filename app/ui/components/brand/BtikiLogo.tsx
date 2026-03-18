@@ -1,12 +1,12 @@
 import { LogoMark } from "./LogoMark";
 
-interface DeftarLogoProps {
+interface BtikiLogoProps {
   size?: number;
   showText?: boolean;
   className?: string;
 }
 
-export function DeftarLogo({ size = 48, showText = true, className = "" }: DeftarLogoProps) {
+export function BtikiLogo({ size = 48, showText = true, className = "" }: BtikiLogoProps) {
   return (
     <div className={`inline-flex items-center gap-3 ${className}`}>
       <LogoMark size={size} />
@@ -15,7 +15,7 @@ export function DeftarLogo({ size = 48, showText = true, className = "" }: Defta
           className="font-display font-extrabold text-text-primary"
           style={{ fontSize: size * 0.6 }}
         >
-          Déftar
+          B&apos;tiki
         </span>
       )}
     </div>

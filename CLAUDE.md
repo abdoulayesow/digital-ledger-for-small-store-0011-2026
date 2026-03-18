@@ -2,7 +2,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-- Déftar: offline-first digital ledger PWA for small Guinean retailers and walking vendors
+- B'tiki: offline-first digital ledger PWA for small Guinean retailers and walking vendors
 - Tracks daily sales, manages customer credit, and provides business visibility
 - Replaces paper notebooks (cahiers) for sales tracking and credit management
 - Target: non-literate users on low-end Android (Itel A18, 1GB RAM)
@@ -120,7 +120,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
 
 ## Product Principles (Non-Negotiable)
 1. Offline is the default, not the exception
-2. If you can use WhatsApp, you can use Déftar
+2. If you can use WhatsApp, you can use B'tiki
 3. Notebook mental model — not an accounting system
 4. Recover money, not just track it
 5. Trust through transparency — user owns their data

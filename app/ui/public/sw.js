@@ -1,7 +1,7 @@
-// Déftar Service Worker — stub for PWA installability
+// B'tiki Service Worker — stub for PWA installability
 // Full caching strategy will be implemented in Phase B
 
-const CACHE_NAME = "deftar-v1";
+const CACHE_NAME = "btiki-v1";
 const OFFLINE_URL = "/offline";
 
 self.addEventListener("install", (event) => {

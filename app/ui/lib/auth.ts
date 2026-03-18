@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const SESSION_COOKIE = "deftar-session";
+const SESSION_COOKIE = "btiki-session";
 
 interface SessionData {
   sessionId: string;

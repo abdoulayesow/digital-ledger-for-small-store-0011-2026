@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
-import { DeftarLogo } from "@/components/brand/DeftarLogo";
+import { BtikiLogo } from "@/components/brand/BtikiLogo";
 import { Button } from "@/components/ui/Button";
 import { enterDemoMode, exitDemoMode } from "@/lib/demo-session";
 import { seedDemoData } from "@/lib/db/dev-seed";
@@ -93,7 +93,7 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-surface-0 px-6">
       {/* Logo */}
       <div className="mb-10">
-        <DeftarLogo size={56} />
+        <BtikiLogo size={56} />
       </div>
 
       {step === "phone" ? (

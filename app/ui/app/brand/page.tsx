@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DeftarLogo } from "@/components/brand/DeftarLogo";
+import { BtikiLogo } from "@/components/brand/BtikiLogo";
 import { LogoMark } from "@/components/brand/LogoMark";
 import {
   IconHome, IconUsers, IconBell, IconSettings, IconPlus, IconMinus,
@@ -145,7 +145,7 @@ export default function BrandPage() {
           <LogoMark size={72} />
           <div className="mt-5">
             <h1 className="font-[family-name:var(--font-display)] font-black text-3xl text-text-primary tracking-tight">
-              Déftar
+              B&apos;tiki
             </h1>
             <p className="text-sm text-text-muted mt-1 tracking-widest uppercase">
               Brand &amp; Design System
@@ -155,7 +155,7 @@ export default function BrandPage() {
           {/* Tagline bar */}
           <div className="mt-6 flex items-center gap-3 text-text-muted text-xs">
             <span className="h-px w-8 bg-brand/40" />
-            <span className="tracking-wider uppercase">Le carnet digital</span>
+            <span className="tracking-wider uppercase">Assara o aconti</span>
             <span className="h-px w-8 bg-brand/40" />
           </div>
         </div>
@@ -170,13 +170,13 @@ export default function BrandPage() {
         <div className="space-y-4">
           {/* Full logo on dark */}
           <div className="bg-surface-1 rounded-2xl border border-surface-3/30 p-6 flex items-center justify-center">
-            <DeftarLogo size={56} />
+            <BtikiLogo size={56} />
           </div>
 
           {/* Logo variations */}
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-surface-1 rounded-xl border border-surface-3/30 p-4 flex flex-col items-center gap-3">
-              <DeftarLogo size={32} />
+              <BtikiLogo size={32} />
               <span className="text-[10px] text-text-muted uppercase tracking-wider">Small</span>
             </div>
             <div className="bg-surface-1 rounded-xl border border-surface-3/30 p-4 flex flex-col items-center gap-3">
@@ -187,7 +187,7 @@ export default function BrandPage() {
 
           {/* Logo on light background */}
           <div className="bg-text-primary rounded-2xl p-6 flex items-center justify-center">
-            <DeftarLogo size={48} className="[&_span]:!text-surface-0" />
+            <BtikiLogo size={48} className="[&_span]:!text-surface-0" />
           </div>
           <p className="text-[10px] text-text-muted text-center uppercase tracking-wider">Inverted on light surfaces</p>
         </div>
@@ -247,7 +247,7 @@ export default function BrandPage() {
               Display &mdash; Nunito
             </p>
             <p className="font-[family-name:var(--font-display)] font-bold text-2xl text-text-primary leading-tight">
-              Déftar &mdash; Votre carnet digital
+              B&apos;tiki &mdash; Assara o aconti
             </p>
             <div className="mt-3 space-y-1">
               <div className="flex items-baseline gap-3">
@@ -557,7 +557,7 @@ export default function BrandPage() {
         <div className="text-center py-8">
           <LogoMark size={28} className="mx-auto opacity-30" />
           <p className="text-[10px] text-text-muted/50 mt-3 uppercase tracking-[0.2em]">
-            Déftar Design System v1.0
+            B&apos;tiki Design System v1.0
           </p>
         </div>
       </div>

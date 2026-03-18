@@ -26,7 +26,7 @@ export async function sendSmsOtp(
         body: new URLSearchParams({
           username,
           to: phone,
-          message: `Déftar: ${code}`,
+          message: `B'tiki: ${code}`,
         }),
       }
     );

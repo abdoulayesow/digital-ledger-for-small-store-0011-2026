@@ -16,4 +16,4 @@ export const BACKOFF_MAX_MS = 5 * 60 * 1_000;
 export const BATCH_SIZE = 20;
 
 /** localStorage key for last pull timestamp. */
-export const LAST_PULL_KEY = "deftar-last-pull";
+export const LAST_PULL_KEY = "btiki-last-pull";

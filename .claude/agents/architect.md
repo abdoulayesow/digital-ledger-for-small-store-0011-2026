@@ -50,7 +50,7 @@ When invoked, you should:
 
 ## Project Context
 
-This is Déftar, an offline-first PWA digital ledger for small Guinean retailers:
+This is B'tiki, an offline-first PWA digital ledger for small Guinean retailers:
 - **Frontend**: Next.js 15 + React 19 + TypeScript (app/ui/)
 - **Database**: PostgreSQL via Neon + Prisma (app/db/)
 - **Client-side DB**: IndexedDB via Dexie.js for offline-first storage

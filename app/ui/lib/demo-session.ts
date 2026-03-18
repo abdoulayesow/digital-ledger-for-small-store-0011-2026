@@ -1,6 +1,6 @@
 import type { SessionInfo } from "@/lib/hooks/use-session";
 
-const DEMO_STORAGE_KEY = "deftar-demo-mode";
+const DEMO_STORAGE_KEY = "btiki-demo-mode";
 export const DEMO_RETAILER_ID = "demo-retailer-001";
 
 export function enterDemoMode(): void {

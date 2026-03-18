@@ -6,7 +6,7 @@ import { getLanguageLabel } from "@/lib/i18n";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card } from "@/components/ui/Card";
 import { IconCheck } from "@/components/icons";
-import { DeftarLogo } from "@/components/brand/DeftarLogo";
+import { BtikiLogo } from "@/components/brand/BtikiLogo";
 import { clearSessionCache } from "@/lib/hooks/use-session";
 import { db, getPendingSyncEntries } from "@/lib/db";
 import { Button } from "@/components/ui/Button";
@@ -60,10 +60,10 @@ export default function SettingsPage() {
             {t.settings.about}
           </h2>
           <Card className="flex flex-col items-center gap-3 py-6">
-            <DeftarLogo size={48} />
+            <BtikiLogo size={48} />
             <p className="text-sm text-text-muted">v0.1.0</p>
             <p className="text-xs text-text-muted text-center max-w-xs">
-              Carnet digital pour boutiquiers — Digital ledger for small retailers
+              Assara o aconti — Sell and track
             </p>
           </Card>
         </div>

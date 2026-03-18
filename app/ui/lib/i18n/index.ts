@@ -16,7 +16,7 @@ const LANGUAGE_LABELS: Record<Language, string> = {
   fr: "Français",
 };
 
-const STORAGE_KEY = "deftar-language";
+const STORAGE_KEY = "btiki-language";
 const DEFAULT_LANGUAGE: Language = "fr";
 
 export function getStoredLanguage(): Language {

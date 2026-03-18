@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const SESSION_COOKIE = "deftar-session";
+const SESSION_COOKIE = "btiki-session";
 
 /**
  * Lightweight middleware: check that the session cookie exists.
