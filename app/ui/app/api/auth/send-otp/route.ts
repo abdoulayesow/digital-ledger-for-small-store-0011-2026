@@ -20,6 +20,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Dev bypass: skip database and sending entirely
+  if (process.env.DEV_BYPASS_AUTH === "true") {
+    console.log(`[DEV] OTP for ${phone}: ${DEV_CODE} (channel: ${channel})`);
+    return NextResponse.json({ success: true, channel });
+  }
+
   const { default: prisma } = await import("@/lib/prisma");
 
   // Rate limit: max 3 OTPs per phone in 10 minutes
@@ -40,8 +46,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Generate OTP
-  const isDev = process.env.DEV_BYPASS_AUTH === "true";
-  const code = isDev ? DEV_CODE : generateOtp();
+  const code = generateOtp();
   const expiresAt = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000);
 
   // Store in DB
@@ -57,28 +62,24 @@ export async function POST(req: NextRequest) {
     },
   }).catch(() => {});
 
-  // Send OTP (skip in dev)
-  if (!isDev) {
-    let sent = false;
-    if (channel === "whatsapp") {
-      sent = await sendWhatsAppOtp(phone, code);
-      if (!sent) {
-        return NextResponse.json(
-          { error: "whatsapp_failed", suggestion: "sms" },
-          { status: 502 }
-        );
-      }
-    } else {
-      sent = await sendSmsOtp(phone, code);
-      if (!sent) {
-        return NextResponse.json(
-          { error: "sms_failed" },
-          { status: 502 }
-        );
-      }
+  // Send OTP
+  let sent = false;
+  if (channel === "whatsapp") {
+    sent = await sendWhatsAppOtp(phone, code);
+    if (!sent) {
+      return NextResponse.json(
+        { error: "whatsapp_failed", suggestion: "sms" },
+        { status: 502 }
+      );
     }
   } else {
-    console.log(`[DEV] OTP for ${phone}: ${code}`);
+    sent = await sendSmsOtp(phone, code);
+    if (!sent) {
+      return NextResponse.json(
+        { error: "sms_failed" },
+        { status: 502 }
+      );
+    }
   }
 
   return NextResponse.json({ success: true, channel });
