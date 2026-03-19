@@ -93,7 +93,7 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-surface-0 px-6">
       {/* Logo */}
       <div className="mb-10">
-        <BtikiLogo size={56} />
+        <BtikiLogo size={72} showText={false} />
       </div>
 
       {step === "phone" ? (

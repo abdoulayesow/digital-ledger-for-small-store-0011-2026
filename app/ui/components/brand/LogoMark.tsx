@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 interface LogoMarkProps {
   size?: number;
   className?: string;
@@ -7,7 +5,7 @@ interface LogoMarkProps {
 
 export function LogoMark({ size = 48, className = "" }: LogoMarkProps) {
   return (
-    <Image
+    <img
       src="/logo.png"
       alt="B'tiki"
       width={size}
