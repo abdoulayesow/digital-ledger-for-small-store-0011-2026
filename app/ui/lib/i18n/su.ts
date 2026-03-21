@@ -75,6 +75,8 @@ export const su: Translations = {
     creditGiven: "Doni fixi",
     totalReceivables: "Doni birin na sɔtɔ",
     saleCount: "mati(wu)",
+    todayTotal: "To birin",
+    cashSales: "Kɛsi",
     undoSale: "Mati xɛɛma",
     saleUndone: "Mati bara xɛɛma",
   },

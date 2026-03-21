@@ -27,7 +27,7 @@ export function Card({ children, className = "", onClick, ...rest }: CardProps) 
           : undefined
       }
       className={[
-        "bg-surface-1 rounded-2xl p-4 border border-surface-3/50",
+        "bg-surface-1 rounded-lg p-4 border border-surface-3/50",
         isInteractive &&
           "cursor-pointer hover:bg-surface-2 active:bg-surface-2/70 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0",
         className,

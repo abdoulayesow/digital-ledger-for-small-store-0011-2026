@@ -75,6 +75,8 @@ export const ff: Translations = {
     creditGiven: "Ɲamaande hokkaande",
     totalReceivables: "Ɲamaande fof",
     saleCount: "njuɓɓudi",
+    todayTotal: "Fof hannde",
+    cashSales: "Keesu",
     undoSale: "Firtu njuɓɓudi",
     saleUndone: "Njuɓɓudi firtaama",
   },

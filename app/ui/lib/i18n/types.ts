@@ -74,6 +74,8 @@ export interface Translations {
     creditGiven: string;
     totalReceivables: string;
     saleCount: string;
+    todayTotal: string;
+    cashSales: string;
     undoSale: string;
     saleUndone: string;
   };

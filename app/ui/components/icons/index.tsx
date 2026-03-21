@@ -249,12 +249,13 @@ export function IconCoin({ size = 24, className, ...rest }: IconProps) {
       aria-hidden="true"
       {...rest}
     >
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="4" />
-      <line x1="12" y1="3" x2="12" y2="8" />
-      <line x1="12" y1="16" x2="12" y2="21" />
-      <line x1="3" y1="12" x2="8" y2="12" />
-      <line x1="16" y1="12" x2="21" y2="12" />
+      {/* Banknote rectangle */}
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      {/* Center circle (denomination mark) */}
+      <circle cx="12" cy="12" r="3" />
+      {/* Corner marks */}
+      <line x1="6" y1="10" x2="6" y2="14" />
+      <line x1="18" y1="10" x2="18" y2="14" />
     </svg>
   );
 }
@@ -274,12 +275,12 @@ export function IconDebt({ size = 24, className, ...rest }: IconProps) {
       aria-hidden="true"
       {...rest}
     >
-      {/* Coin circle */}
-      <circle cx="9" cy="12" r="5" />
-      <line x1="9" y1="10" x2="9" y2="14" />
-      {/* Arrow going out to the right */}
-      <line x1="14" y1="12" x2="22" y2="12" />
-      <polyline points="18 8 22 12 18 16" />
+      {/* Banknote with arrow out — credit given */}
+      <rect x="1" y="7" width="15" height="10" rx="1.5" />
+      <circle cx="8.5" cy="12" r="2" />
+      {/* Arrow going out */}
+      <path d="M16 12h6" />
+      <polyline points="19 9 22 12 19 15" />
     </svg>
   );
 }
@@ -299,12 +300,11 @@ export function IconPayment({ size = 24, className, ...rest }: IconProps) {
       aria-hidden="true"
       {...rest}
     >
-      {/* Arrow coming in from the left */}
-      <line x1="2" y1="12" x2="10" y2="12" />
-      <polyline points="6 8 2 12 6 16" />
-      {/* Coin circle */}
-      <circle cx="17" cy="12" r="5" />
-      <line x1="17" y1="10" x2="17" y2="14" />
+      {/* Arrow coming in + banknote — payment received */}
+      <path d="M2 12h6" />
+      <polyline points="5 9 2 12 5 15" />
+      <rect x="8" y="7" width="15" height="10" rx="1.5" />
+      <circle cx="15.5" cy="12" r="2" />
     </svg>
   );
 }

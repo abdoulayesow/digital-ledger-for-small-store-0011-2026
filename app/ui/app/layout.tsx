@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Nunito, Noto_Sans } from "next/font/google";
+import { Outfit, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const nunito = Nunito({
+const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
-  weight: ["700", "800", "900"],
+  weight: ["600", "700", "800", "900"],
   display: "swap",
   variable: "--font-display",
 });
 
-const notoSans = Noto_Sans({
+const dmSans = DM_Sans({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${nunito.variable} ${notoSans.variable}`}>
+    <html lang="fr" className={`${outfit.variable} ${dmSans.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />

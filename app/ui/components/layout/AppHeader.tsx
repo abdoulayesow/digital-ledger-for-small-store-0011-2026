@@ -10,19 +10,24 @@ export function AppHeader() {
   const shopName = session?.shopName ?? "B'tiki";
 
   return (
-    <header className="sticky top-0 z-20 flex items-center min-h-14 px-4 gap-3 bg-surface-0/95 backdrop-blur-sm border-b border-surface-3/30">
+    <header
+      className="sticky top-0 z-20 flex items-center h-[4.5rem] px-5 gap-4 border-b border-surface-3/20"
+      style={{
+        background: "linear-gradient(135deg, #1C1917 0%, #292524 100%)",
+      }}
+    >
       {/* Left: logo */}
-      <LogoMark size={28} />
+      <LogoMark size={38} />
 
-      {/* Center: app name */}
-      <h1 className="flex-1 font-display font-bold text-lg text-text-primary truncate">
-        B&apos;tiki
+      {/* Center: shop name */}
+      <h1 className="flex-1 font-display font-black text-3xl text-brand text-center tracking-wide">
+        B&apos;TIKI
       </h1>
 
       {/* Right: sync + avatar */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-3">
         <SyncStatusBadge />
-        <Avatar name={shopName} size="sm" />
+        <Avatar name={shopName} size="md" />
       </div>
     </header>
   );

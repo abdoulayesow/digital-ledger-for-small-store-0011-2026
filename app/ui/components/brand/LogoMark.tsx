@@ -10,7 +10,7 @@ export function LogoMark({ size = 48, className = "" }: LogoMarkProps) {
       alt="B'tiki"
       width={size}
       height={size}
-      className={className}
+      className={`rounded-lg border-2 border-brand ${className}`}
       aria-label="B'tiki"
     />
   );

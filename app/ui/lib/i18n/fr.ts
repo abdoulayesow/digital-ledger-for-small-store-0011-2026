@@ -75,6 +75,8 @@ export const fr: Translations = {
     creditGiven: "Crédits donnés",
     totalReceivables: "Total à recevoir",
     saleCount: "vente(s)",
+    todayTotal: "Total du jour",
+    cashSales: "Comptant",
     undoSale: "Annuler la vente",
     saleUndone: "Vente annulée",
   },

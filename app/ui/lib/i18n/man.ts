@@ -75,6 +75,8 @@ export const man: Translations = {
     creditGiven: "Juru dira",
     totalReceivables: "Juru bɛɛ ka sɔrɔ",
     saleCount: "fɛɛrɛ(w)",
+    todayTotal: "Bi bɛɛ",
+    cashSales: "Wari",
     undoSale: "Fɛɛrɛ dabila",
     saleUndone: "Fɛɛrɛ dabilara",
   },
