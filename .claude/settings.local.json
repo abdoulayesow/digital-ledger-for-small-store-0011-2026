@@ -14,7 +14,10 @@
       "Bash(cd C:/workspace/sources/digital-ledger-for-small-store-0011-2026/app/ui && npx tsc --noEmit 2>&1 | head -40)",
       "Bash(cd C:/workspace/sources/digital-ledger-for-small-store-0011-2026/app/ui && npm run build 2>&1 | tail -30)",
       "Bash(npm run:*)",
-      "Skill(summary-generator)"
+      "Skill(summary-generator)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(curl:*)"
     ]
   }
 }

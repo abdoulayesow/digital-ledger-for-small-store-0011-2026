@@ -92,8 +92,11 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-surface-0 px-6">
       {/* Logo */}
-      <div className="mb-10">
+      <div className="mb-10 flex flex-col items-center gap-3">
         <BtikiLogo size={72} showText={false} />
+        <h1 className="font-display font-black text-4xl text-brand tracking-wide">
+          B&apos;TIKI
+        </h1>
       </div>
 
       {step === "phone" ? (
