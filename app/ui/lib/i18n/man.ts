@@ -53,6 +53,8 @@ export const man: Translations = {
     addCustomer: "Juru tigi kura fara",
     customerName: "Juru tigi tɔgɔ",
     phoneOptional: "Telefɔni (ni i bɛ a fɛ)",
+    editCustomer: "Juru tigi yɛlɛma",
+    deleteConfirm: "Juru tigi nin bɔ?",
     noCustomers: "Juru tigi si tɛ",
     totalOwed: "Juru bɛɛ",
     saleHistory: "Fɛɛrɛ tariku",

@@ -53,6 +53,8 @@ export const ff: Translations = {
     addCustomer: "Ɓeydu kalkitiiɗo",
     customerName: "Innde kalkitiiɗo",
     phoneOptional: "Telefon (so a yiɗii)",
+    editCustomer: "Waylu kalkitiiɗo",
+    deleteConfirm: "Momtu kalkitiiɗo oo?",
     noCustomers: "Alaa kalkitiiɗo",
     totalOwed: "Njobdi fof",
     saleHistory: "Daartol njuɓɓudi",

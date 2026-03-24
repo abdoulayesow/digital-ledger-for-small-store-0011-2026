@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { Sale } from "@/lib/db/schema";
 import { AmountDisplay } from "@/components/ui/AmountDisplay";
 import { IconDebt, IconPayment, IconCoin } from "@/components/icons";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { SaleDetailModal } from "@/components/sale/SaleDetailModal";
 import { useI18n } from "@/lib/hooks/use-i18n";
 
 interface SaleListProps {
@@ -45,6 +46,7 @@ function groupByDate(sales: Sale[]): Map<string, Sale[]> {
 export function SaleList({ sales, className = "" }: SaleListProps) {
   const { t } = useI18n();
   const grouped = useMemo(() => groupByDate(sales), [sales]);
+  const [selectedSale, setSelectedSale] = useState<Sale | null>(null);
 
   if (sales.length === 0) {
     return (
@@ -69,7 +71,11 @@ export function SaleList({ sales, className = "" }: SaleListProps) {
             {items.map((sale) => (
               <li
                 key={sale.id}
-                className="flex items-center gap-3 px-4 py-3 border-b border-surface-3/30"
+                role="button"
+                tabIndex={0}
+                onClick={() => setSelectedSale(sale)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedSale(sale); } }}
+                className="flex items-center gap-3 px-4 py-3 border-b border-surface-3/30 active:bg-surface-2 transition-colors cursor-pointer"
               >
                 <div
                   className={[
@@ -108,6 +114,7 @@ export function SaleList({ sales, className = "" }: SaleListProps) {
           </ul>
         </div>
       ))}
+      <SaleDetailModal sale={selectedSale} onClose={() => setSelectedSale(null)} />
     </div>
   );
 }

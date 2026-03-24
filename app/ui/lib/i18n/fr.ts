@@ -53,6 +53,8 @@ export const fr: Translations = {
     addCustomer: "Ajouter un client",
     customerName: "Nom du client",
     phoneOptional: "Téléphone (optionnel)",
+    editCustomer: "Modifier le client",
+    deleteConfirm: "Supprimer ce client ?",
     noCustomers: "Aucun client",
     totalOwed: "Total dû",
     saleHistory: "Historique des ventes",

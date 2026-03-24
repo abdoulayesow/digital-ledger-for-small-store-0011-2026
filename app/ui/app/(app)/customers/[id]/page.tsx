@@ -11,7 +11,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
 import { BalanceSummary } from "@/components/customer/BalanceSummary";
 import { SaleList } from "@/components/sale/SaleList";
-import { IconCoin, IconDebt, IconPayment } from "@/components/icons";
+import { IconCoin, IconDebt, IconPayment, IconEdit } from "@/components/icons";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
 
 export default function CustomerDetailPage() {
@@ -41,7 +41,15 @@ export default function CustomerDetailPage() {
       <PageHeader
         title={customer.name}
         showBack
-        rightAction={<SyncStatusBadge />}
+        rightAction={
+          <button
+            type="button"
+            onClick={() => router.push(`/customers/${customerId}/edit`)}
+            className="min-w-12 min-h-12 flex items-center justify-center rounded-full text-text-muted hover:text-text-primary hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            <IconEdit size={20} />
+          </button>
+        }
       />
 
       <div className="px-4 flex flex-col gap-4 pb-4">

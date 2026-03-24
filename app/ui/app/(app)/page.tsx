@@ -22,6 +22,8 @@ export default function DashboardPage() {
   const todayTotal = totalCash + totalCredit + totalPayments;
   const saleCount = dailySummary?.saleCount ?? 0;
 
+  const hasSales = (recentSales ?? []).length > 0;
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-4 pb-4">
@@ -63,27 +65,59 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Recent sales */}
-        <div className="px-4">
-          <h2 className="text-sm font-semibold text-text-secondary mb-2 px-1 font-display">
-            {t.sales.todaySummary}
-          </h2>
-          <SaleList sales={recentSales ?? []} />
-        </div>
+        {hasSales ? (
+          <>
+            {/* Recent sales */}
+            <div className="px-4">
+              <h2 className="text-sm font-semibold text-text-secondary mb-2 px-1 font-display">
+                {t.sales.todaySummary}
+              </h2>
+              <SaleList sales={recentSales ?? []} />
+            </div>
 
-        {/* Receivables row — only shown when > 0 */}
-        {(totalReceivables ?? 0) > 0 && (
-          <Link
-            href="/customers"
-            className="mx-4 flex items-center gap-3 px-3 py-3 rounded-lg bg-surface-1 border border-surface-3/30 border-l-2 border-l-debt active:bg-surface-2 transition-colors"
-          >
-            <IconDebt size={20} className="text-debt" />
-            <span className="flex-1 text-sm text-text-secondary">{t.sales.totalReceivables}</span>
-            <span className="text-sm font-semibold text-debt tabular-nums">
-              {formatGNF(totalReceivables ?? 0)}
-            </span>
-            <IconChevronRight size={16} className="text-text-muted" />
-          </Link>
+            {/* Receivables row — only shown when > 0 */}
+            {(totalReceivables ?? 0) > 0 && (
+              <Link
+                href="/customers"
+                className="mx-4 flex items-center gap-3 px-3 py-3 rounded-lg bg-surface-1 border border-surface-3/30 border-l-2 border-l-debt active:bg-surface-2 transition-colors"
+              >
+                <IconDebt size={20} className="text-debt" />
+                <span className="flex-1 text-sm text-text-secondary">{t.sales.totalReceivables}</span>
+                <span className="text-sm font-semibold text-debt tabular-nums">
+                  {formatGNF(totalReceivables ?? 0)}
+                </span>
+                <IconChevronRight size={16} className="text-text-muted" />
+              </Link>
+            )}
+          </>
+        ) : (
+          /* Empty state — first-time user, no sales yet */
+          <div className="mx-4 flex flex-col items-center gap-5 py-8">
+            <div
+              className="w-20 h-20 rounded-2xl flex items-center justify-center"
+              style={{
+                background: "linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(245,158,11,0.05) 100%)",
+                border: "1px solid rgba(245,158,11,0.15)",
+              }}
+            >
+              <IconCoin size={36} className="text-brand" />
+            </div>
+            <div className="text-center flex flex-col gap-1.5">
+              <p className="text-lg font-display font-bold text-text-secondary">
+                {t.sales.quickSale}
+              </p>
+              <p className="text-sm text-text-muted leading-relaxed max-w-[240px]">
+                {t.sales.enterAmount}
+              </p>
+            </div>
+            <Link
+              href="/sales/quick"
+              className="inline-flex items-center gap-2 min-h-12 px-6 rounded-xl bg-brand text-surface-0 font-semibold text-base active:bg-brand-dark transition-colors"
+            >
+              <IconCoin size={20} />
+              {t.sales.quickSale}
+            </Link>
+          </div>
         )}
       </div>
     </div>

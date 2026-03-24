@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { BtikiLogo } from "@/components/brand/BtikiLogo";
 import { Button } from "@/components/ui/Button";
+import { TextInput } from "@/components/ui/TextInput";
 import { enterDemoMode, exitDemoMode } from "@/lib/demo-session";
 import { seedDemoData } from "@/lib/db/dev-seed";
 
@@ -104,19 +105,14 @@ export default function LoginPage() {
           <label className="text-sm font-medium text-text-secondary">
             {t.auth.phoneNumber}
           </label>
-          <input
+          <TextInput
             type="tel"
             inputMode="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder={t.auth.enterPhone}
             autoFocus
-            className={[
-              "min-h-12 px-4 rounded-xl text-center text-lg",
-              "bg-surface-2 text-text-primary placeholder:text-text-muted",
-              "border border-surface-3/50 focus:border-brand",
-              "focus:outline-none",
-            ].join(" ")}
+            variant="centered"
           />
 
           {error && <p className="text-sm text-debt text-center">{error}</p>}
@@ -177,7 +173,7 @@ export default function LoginPage() {
           <p className="text-sm text-text-secondary text-center">
             {channel === "whatsapp" ? t.auth.codeSentWhatsapp : t.auth.codeSentSms}
           </p>
-          <input
+          <TextInput
             type="text"
             inputMode="numeric"
             value={code}
@@ -185,12 +181,8 @@ export default function LoginPage() {
             placeholder="000000"
             autoFocus
             maxLength={6}
-            className={[
-              "min-h-14 px-4 rounded-xl text-center text-2xl tracking-[0.3em]",
-              "bg-surface-2 text-text-primary placeholder:text-text-muted",
-              "border border-surface-3/50 focus:border-brand",
-              "focus:outline-none font-mono",
-            ].join(" ")}
+            variant="centered"
+            style={{ minHeight: "3.5rem", fontSize: "1.5rem", letterSpacing: "0.3em", fontFamily: "monospace" }}
           />
 
           {error && <p className="text-sm text-debt text-center">{error}</p>}

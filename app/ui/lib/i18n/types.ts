@@ -52,6 +52,8 @@ export interface Translations {
     addCustomer: string;
     customerName: string;
     phoneOptional: string;
+    editCustomer: string;
+    deleteConfirm: string;
     noCustomers: string;
     totalOwed: string;
     saleHistory: string;

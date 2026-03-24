@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
+import { useFormSubmit } from "@/lib/hooks/use-form-submit";
 import { createCustomer } from "@/lib/hooks/use-customers";
 import { parsePhone } from "@/lib/utils/phone";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
+import { TextInput } from "@/components/ui/TextInput";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
 
 export default function NewCustomerPage() {
@@ -15,11 +17,9 @@ export default function NewCustomerPage() {
   const retailerId = useRetailerId();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  const handleCreate = useCallback(async () => {
     if (!name.trim()) return;
 
     const rawPhone = phone.trim();
@@ -27,49 +27,45 @@ export default function NewCustomerPage() {
     if (rawPhone) {
       normalizedPhone = parsePhone(rawPhone);
       if (!normalizedPhone) {
-        setError(t.auth.enterPhone);
-        return;
+        setPhoneError(true);
+        throw new Error("invalid_phone");
       }
     }
 
-    setSaving(true);
-    setError(null);
-    try {
-      await createCustomer({
-        retailerId,
-        name: name.trim(),
-        phone: normalizedPhone,
-      });
-      router.push("/customers");
-    } catch {
-      setError(t.common.error);
-    } finally {
-      setSaving(false);
-    }
-  }
+    await createCustomer({
+      retailerId,
+      name: name.trim(),
+      phone: normalizedPhone,
+    });
+    router.push("/customers");
+  }, [name, phone, retailerId, router]);
+
+  const { submit, saving, error } = useFormSubmit(handleCreate, {
+    onError: (err) =>
+      err instanceof Error && err.message === "invalid_phone"
+        ? t.auth.enterPhone
+        : t.common.error,
+  });
 
   return (
     <div className="flex flex-col">
       <PageHeader title={t.customers.addCustomer} showBack />
 
-      <form onSubmit={handleSubmit} className="px-4 flex flex-col gap-4 pt-4">
+      <form
+        onSubmit={(e) => { e.preventDefault(); submit(); }}
+        className="px-4 flex flex-col gap-4 pt-4"
+      >
         {/* Name */}
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-medium text-text-secondary">
             {t.customers.customerName}
           </label>
-          <input
+          <TextInput
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={t.customers.customerName}
             autoFocus
-            className={[
-              "min-h-12 px-4 rounded-xl",
-              "bg-surface-2 text-text-primary placeholder:text-text-muted",
-              "border border-surface-3/50 focus:border-brand",
-              "focus:outline-none text-base",
-            ].join(" ")}
           />
         </div>
 
@@ -78,18 +74,13 @@ export default function NewCustomerPage() {
           <label className="text-sm font-medium text-text-secondary">
             {t.customers.phoneOptional}
           </label>
-          <input
+          <TextInput
             type="tel"
             inputMode="tel"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => { setPhone(e.target.value); setPhoneError(false); }}
             placeholder="+224 6XX XX XX XX"
-            className={[
-              "min-h-12 px-4 rounded-xl",
-              "bg-surface-2 text-text-primary placeholder:text-text-muted",
-              "border border-surface-3/50 focus:border-brand",
-              "focus:outline-none text-base",
-            ].join(" ")}
+            error={phoneError}
           />
         </div>
 

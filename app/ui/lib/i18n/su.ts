@@ -53,6 +53,8 @@ export const su: Translations = {
     addCustomer: "Dimi tigi nɛɛnɛ sa",
     customerName: "Dimi tigi xili",
     phoneOptional: "Telefɔni (xa i wama)",
+    editCustomer: "Dimi tigi masara",
+    deleteConfirm: "I xa yi dimi tigi xɔn?",
     noCustomers: "Dimi tigi yo mu na",
     totalOwed: "Doni birin",
     saleHistory: "Mati taruxui",

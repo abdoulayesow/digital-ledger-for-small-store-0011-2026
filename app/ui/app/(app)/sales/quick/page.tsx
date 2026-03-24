@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
+import { useFormSubmit } from "@/lib/hooks/use-form-submit";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
 import { useUndoSale } from "@/lib/hooks/use-undo-sale";
 import { createSale } from "@/lib/db/sales";
@@ -17,33 +18,22 @@ export default function QuickCashSalePage() {
   const { setUndoableSale } = useUndoSale();
 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const submitting = useRef(false);
 
-  async function handleConfirm() {
-    if (submitting.current) return;
-    if (!selectedAmount || saving) return;
+  const handleConfirm = useCallback(async () => {
+    if (!selectedAmount) return;
+    const sale = await createSale({
+      retailerId,
+      customerId: null,
+      type: "cash",
+      amount: selectedAmount,
+    });
+    setUndoableSale({ saleId: sale.id, amount: sale.amount, type: sale.type });
+    router.push("/");
+  }, [selectedAmount, retailerId, setUndoableSale, router]);
 
-    submitting.current = true;
-    setSaving(true);
-    setError(null);
-    try {
-      const sale = await createSale({
-        retailerId,
-        customerId: null,
-        type: "cash",
-        amount: selectedAmount,
-      });
-      setUndoableSale({ saleId: sale.id, amount: sale.amount, type: sale.type });
-      router.push("/");
-    } catch {
-      setError(t.common.error);
-    } finally {
-      setSaving(false);
-      submitting.current = false;
-    }
-  }
+  const { submit, saving, error } = useFormSubmit(handleConfirm, {
+    onError: () => t.common.error,
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -68,7 +58,7 @@ export default function QuickCashSalePage() {
           <AmountPicker
             selectedAmount={selectedAmount}
             onSelect={setSelectedAmount}
-            onConfirm={handleConfirm}
+            onConfirm={submit}
           />
         </div>
 

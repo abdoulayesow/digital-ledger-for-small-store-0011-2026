@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
+import { useFormSubmit } from "@/lib/hooks/use-form-submit";
 import { useCustomer } from "@/lib/hooks/use-customers";
 import { useCustomerBalance } from "@/lib/hooks/use-balance";
 import { useUndoSale } from "@/lib/hooks/use-undo-sale";
@@ -12,6 +13,7 @@ import { AmountDisplay } from "@/components/ui/AmountDisplay";
 import { AmountPicker } from "@/components/sale/AmountPicker";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { TextInput } from "@/components/ui/TextInput";
 import { useRetailerId } from "@/lib/hooks/use-retailer-id";
 import { NOTE_MAX_LENGTH } from "@/lib/constants";
 import type { Sale } from "@/lib/db/schema";
@@ -42,33 +44,22 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [note, setNote] = useState("");
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const submitting = useRef(false);
+
+  const handleConfirm = useCallback(async () => {
+    if (!selectedAmount || !retailerId) return;
+    const sale = await mode.recordFn(retailerId, customerId, selectedAmount, note.trim() || null);
+    setUndoableSale({ saleId: sale.id, amount: sale.amount, type: sale.type });
+    router.push(`/customers/${customerId}`);
+  }, [selectedAmount, retailerId, customerId, note, mode, setUndoableSale, router]);
+
+  const { submit, saving, error, clearError } = useFormSubmit(handleConfirm, {
+    onError: () => t.common.error,
+  });
 
   // Clear error when amount changes
   useEffect(() => {
-    setError(null);
-  }, [selectedAmount]);
-
-  async function handleConfirm() {
-    if (submitting.current) return;
-    if (!selectedAmount || !retailerId || saving) return;
-
-    submitting.current = true;
-    setSaving(true);
-    setError(null);
-    try {
-      const sale = await mode.recordFn(retailerId, customerId, selectedAmount, note.trim() || null);
-      setUndoableSale({ saleId: sale.id, amount: sale.amount, type: sale.type });
-      router.push(`/customers/${customerId}`);
-    } catch {
-      setError(t.common.error);
-    } finally {
-      setSaving(false);
-      submitting.current = false;
-    }
-  }
+    clearError();
+  }, [selectedAmount, clearError]);
 
   if (!customer) {
     return (
@@ -112,18 +103,12 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
           <label className="text-sm font-medium text-text-secondary block mb-1.5">
             {t.sales.noteOptional}
           </label>
-          <input
+          <TextInput
             type="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             maxLength={NOTE_MAX_LENGTH}
             placeholder={t.sales.note}
-            className={[
-              "w-full min-h-12 px-4 rounded-xl",
-              "bg-surface-2 text-text-primary placeholder:text-text-muted",
-              "border border-surface-3/50 focus:border-brand",
-              "focus:outline-none text-base",
-            ].join(" ")}
           />
         </div>
 
@@ -137,7 +122,7 @@ export function RecordSaleForm({ mode }: { mode: SaleMode }) {
           <Button
             variant={mode.buttonVariant}
             size="lg"
-            onClick={handleConfirm}
+            onClick={submit}
             disabled={!selectedAmount || saving}
             className="w-full"
           >
