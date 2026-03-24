@@ -103,4 +103,9 @@ export const su: Translations = {
     yellow: "A forixi keren",
     red: "A forixi belebele",
   },
+  pwa: {
+    install: "B'tiki sa",
+    installDescription: "A sa i xa telefon kui alako a xa mafuren",
+    dismiss: "Yakɔsi",
+  },
 };

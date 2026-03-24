@@ -1,11 +1,24 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSession, SessionContext } from "@/lib/hooks/use-session";
 import { useI18n } from "@/lib/hooks/use-i18n";
+import { useServiceWorker } from "@/lib/hooks/use-service-worker";
+import { startSync, stopSync } from "@/lib/sync/engine";
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const { session, loading, error, retry } = useSession();
   const { t } = useI18n();
+
+  // Register service worker for PWA installability + offline caching
+  useServiceWorker();
+
+  // Start background sync when session is available
+  useEffect(() => {
+    if (!session) return;
+    startSync();
+    return () => stopSync();
+  }, [session]);
 
   if (loading) {
     return (

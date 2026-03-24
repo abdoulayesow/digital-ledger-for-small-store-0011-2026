@@ -103,4 +103,9 @@ export const ff: Translations = {
     yellow: "Ina ɓooyii seeɗa",
     red: "Ina ɓooyii no feewi",
   },
+  pwa: {
+    install: "Aaf B'tiki",
+    installDescription: "Ɓeydu e hello ngam heɓde law-law",
+    dismiss: "Wonaa jooni",
+  },
 };

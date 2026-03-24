@@ -102,4 +102,9 @@ export interface Translations {
     yellow: string;
     red: string;
   };
+  pwa: {
+    install: string;
+    installDescription: string;
+    dismiss: string;
+  };
 }

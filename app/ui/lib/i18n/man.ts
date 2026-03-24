@@ -103,4 +103,9 @@ export const man: Translations = {
     yellow: "A mɛɛnna dɔɔnin",
     red: "A mɛɛnna kosɛbɛ",
   },
+  pwa: {
+    install: "B'tiki doni",
+    installDescription: "A doni i ka telefon na joona sɔrɔli kama",
+    dismiss: "Sisan tɛ",
+  },
 };

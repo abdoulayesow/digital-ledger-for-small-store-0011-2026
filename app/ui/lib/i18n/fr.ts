@@ -103,4 +103,9 @@ export const fr: Translations = {
     yellow: "En retard",
     red: "Très en retard",
   },
+  pwa: {
+    install: "Installer B'tiki",
+    installDescription: "Ajouter à l'écran d'accueil pour un accès rapide",
+    dismiss: "Pas maintenant",
+  },
 };
