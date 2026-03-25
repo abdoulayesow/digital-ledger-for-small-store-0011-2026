@@ -53,10 +53,9 @@ export function UndoSaleProvider({ children }: { children: ReactNode }) {
     if (!undoable) return;
     try {
       await deleteSale(undoable.saleId);
-    } catch {
-      // Swallow — sale stays if delete fails
-    } finally {
       clearUndo();
+    } catch (err) {
+      console.error("[undo-sale] Failed to undo:", err);
     }
   }, [undoable, clearUndo]);
 

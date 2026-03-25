@@ -123,6 +123,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.RetailerScalarFieldEnum = {
   id: 'id',
   phone: 'phone',
+  pinHash: 'pinHash',
+  pinAttempts: 'pinAttempts',
+  pinLockedUntil: 'pinLockedUntil',
   language: 'language',
   shopName: 'shopName',
   neighborhood: 'neighborhood',
@@ -153,6 +156,7 @@ exports.Prisma.SaleScalarFieldEnum = {
   note: 'note',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
   syncStatus: 'syncStatus',
   lastSyncedAt: 'lastSyncedAt',
   clientId: 'clientId'
@@ -183,17 +187,6 @@ exports.Prisma.SessionScalarFieldEnum = {
   retailerId: 'retailerId',
   token: 'token',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.OtpVerificationScalarFieldEnum = {
-  id: 'id',
-  phone: 'phone',
-  code: 'code',
-  channel: 'channel',
-  expiresAt: 'expiresAt',
-  attempts: 'attempts',
-  verified: 'verified',
   createdAt: 'createdAt'
 };
 
@@ -242,8 +235,7 @@ exports.Prisma.ModelName = {
   Sale: 'Sale',
   SaleItem: 'SaleItem',
   Reminder: 'Reminder',
-  Session: 'Session',
-  OtpVerification: 'OtpVerification'
+  Session: 'Session'
 };
 
 /**

@@ -17,37 +17,42 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const { default: prisma } = await import("@/lib/prisma");
-  const retailerId = session!.retailerId;
-  const serverTime = new Date().toISOString();
+  try {
+    const { default: prisma } = await import("@/lib/prisma");
+    const retailerId = session!.retailerId;
+    const serverTime = new Date().toISOString();
 
-  const [customers, sales] = await Promise.all([
-    prisma.customer.findMany({
-      where: {
-        retailerId,
-        updatedAt: { gt: since },
-      },
-      orderBy: { updatedAt: "asc" },
-      take: MAX_RECORDS_PER_TABLE,
-    }),
-    prisma.sale.findMany({
-      where: {
-        retailerId,
-        updatedAt: { gt: since },
-      },
-      orderBy: { updatedAt: "asc" },
-      take: MAX_RECORDS_PER_TABLE,
-    }),
-  ]);
+    const [customers, sales] = await Promise.all([
+      prisma.customer.findMany({
+        where: {
+          retailerId,
+          updatedAt: { gt: since },
+        },
+        orderBy: { updatedAt: "asc" },
+        take: MAX_RECORDS_PER_TABLE,
+      }),
+      prisma.sale.findMany({
+        where: {
+          retailerId,
+          updatedAt: { gt: since },
+        },
+        orderBy: { updatedAt: "asc" },
+        take: MAX_RECORDS_PER_TABLE,
+      }),
+    ]);
 
-  const hasMore =
-    customers.length >= MAX_RECORDS_PER_TABLE ||
-    sales.length >= MAX_RECORDS_PER_TABLE;
+    const hasMore =
+      customers.length >= MAX_RECORDS_PER_TABLE ||
+      sales.length >= MAX_RECORDS_PER_TABLE;
 
-  return NextResponse.json({
-    customers,
-    sales,
-    serverTime,
-    hasMore,
-  });
+    return NextResponse.json({
+      customers,
+      sales,
+      serverTime,
+      hasMore,
+    });
+  } catch (err) {
+    console.error("[api/sync/pull] Database error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }

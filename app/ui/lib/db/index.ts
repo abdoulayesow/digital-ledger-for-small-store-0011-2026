@@ -62,6 +62,12 @@ class BtikiDB extends Dexie {
       transactions: null,
       transactionItems: null,
     });
+
+    // v4: Add deletedAt to sales for soft-delete support (undo + sync).
+    this.version(4).stores({
+      sales:
+        "id, retailerId, customerId, type, createdAt, syncStatus, deletedAt, [retailerId+customerId], [retailerId+createdAt]",
+    });
   }
 }
 

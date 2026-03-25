@@ -13,7 +13,8 @@ interface SessionResult {
   error: NextResponse | null;
 }
 
-const DEV_BYPASS_AUTH = process.env.DEV_BYPASS_AUTH === "true";
+const DEV_BYPASS_AUTH =
+  process.env.DEV_BYPASS_AUTH === "true" && process.env.NODE_ENV !== "production";
 const DEV_RETAILER_ID = "dev-retailer-00000000";
 
 /**

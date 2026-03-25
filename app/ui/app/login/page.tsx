@@ -8,87 +8,149 @@ import { Button } from "@/components/ui/Button";
 import { TextInput } from "@/components/ui/TextInput";
 import { enterDemoMode, exitDemoMode } from "@/lib/demo-session";
 import { seedDemoData } from "@/lib/db/dev-seed";
+import { PIN_LENGTH } from "@/lib/constants";
 
-type Channel = "whatsapp" | "sms";
+type Step = "phone" | "pin" | "create-pin" | "confirm-pin";
 
 export default function LoginPage() {
   const { t } = useI18n();
   const router = useRouter();
 
-  const [step, setStep] = useState<"phone" | "otp">("phone");
+  const [step, setStep] = useState<Step>("phone");
   const [phone, setPhone] = useState("");
-  const [code, setCode] = useState("");
-  const [channel, setChannel] = useState<Channel>("whatsapp");
+  const [pin, setPin] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSendOtp(selectedChannel: Channel) {
+  async function handleCheckPhone() {
     if (!phone.trim()) return;
 
     setLoading(true);
     setError(null);
-    setChannel(selectedChannel);
 
     try {
-      const res = await fetch("/api/auth/send-otp", {
+      const res = await fetch("/api/auth/check-phone", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phone.trim(), channel: selectedChannel }),
+        body: JSON.stringify({ phone: phone.trim() }),
       });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        if (data.error === "too_many_requests") {
-          setError(t.auth.tooManyAttempts);
-        } else if (data.suggestion === "sms") {
-          setError(t.auth.networkRequired);
-        } else {
-          setError(t.auth.networkRequired);
-        }
+        setError(t.common.error);
         return;
       }
 
-      setStep("otp");
+      const data = await res.json();
+      setStep(data.exists ? "pin" : "create-pin");
     } catch {
-      setError(t.auth.networkRequired);
+      setError(!navigator.onLine ? t.common.connectionCheck : t.common.error);
     } finally {
       setLoading(false);
     }
   }
 
-  async function handleVerifyOtp(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (!code.trim()) return;
+    if (pin.length !== PIN_LENGTH) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      const res = await fetch("/api/auth/verify-otp", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phone.trim(), code: code.trim() }),
+        body: JSON.stringify({ phone: phone.trim(), pin }),
       });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        if (data.error === "too_many_attempts") {
-          setError(t.auth.tooManyAttempts);
-        } else if (data.error === "expired") {
-          setError(t.auth.codeExpired);
+        if (data.error === "account_locked") {
+          setError(t.auth.accountLocked);
+        } else if (data.error === "invalid_pin") {
+          setError(t.auth.invalidPin);
         } else {
-          setError(t.auth.invalidCode);
+          setError(t.common.error);
+        }
+        setPin("");
+        return;
+      }
+
+      router.push("/");
+    } catch {
+      setError(!navigator.onLine ? t.common.connectionCheck : t.common.error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handleCreatePinNext() {
+    if (pin.length !== PIN_LENGTH) return;
+    setError(null);
+    setStep("confirm-pin");
+  }
+
+  async function handleRegister(e: React.FormEvent) {
+    e.preventDefault();
+    if (confirmPin.length !== PIN_LENGTH) return;
+
+    if (pin !== confirmPin) {
+      setError(t.auth.pinMismatch);
+      setConfirmPin("");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phone.trim(), pin }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        if (data.error === "phone_taken") {
+          setError(t.auth.phoneTaken);
+          setStep("pin");
+          setPin("");
+        } else {
+          setError(t.common.error);
         }
         return;
       }
 
       router.push("/");
     } catch {
-      setError(t.auth.networkRequired);
+      setError(!navigator.onLine ? t.common.connectionCheck : t.common.error);
     } finally {
       setLoading(false);
     }
   }
+
+  function goBack() {
+    if (step === "confirm-pin") {
+      setStep("create-pin");
+      setConfirmPin("");
+    } else {
+      setStep("phone");
+      setPin("");
+      setConfirmPin("");
+    }
+    setError(null);
+  }
+
+  const pinInputProps = {
+    type: "text" as const,
+    inputMode: "numeric" as const,
+    maxLength: PIN_LENGTH,
+    autoFocus: true,
+    variant: "centered" as const,
+    style: { minHeight: "3.5rem", fontSize: "1.5rem", letterSpacing: "0.3em", fontFamily: "monospace" },
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-surface-0 px-6">
@@ -100,7 +162,7 @@ export default function LoginPage() {
         </h1>
       </div>
 
-      {step === "phone" ? (
+      {step === "phone" && (
         <div className="w-full max-w-sm flex flex-col gap-4">
           <label className="text-sm font-medium text-text-secondary">
             {t.auth.phoneNumber}
@@ -123,26 +185,10 @@ export default function LoginPage() {
             size="lg"
             disabled={!phone.trim() || loading}
             className="mt-2"
-            onClick={() => handleSendOtp("whatsapp")}
+            onClick={handleCheckPhone}
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-5 h-5 mr-2 inline-block"
-            >
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            {loading ? t.common.loading : t.auth.sendViaWhatsapp}
+            {loading ? t.common.loading : t.common.next}
           </Button>
-
-          <button
-            type="button"
-            disabled={!phone.trim() || loading}
-            onClick={() => handleSendOtp("sms")}
-            className="text-sm text-text-muted hover:text-text-secondary transition-colors cursor-pointer disabled:opacity-50"
-          >
-            {t.auth.sendViaSms}
-          </button>
 
           {/* Demo mode */}
           <div className="pt-4 border-t border-surface-3/30">
@@ -157,7 +203,7 @@ export default function LoginPage() {
                   router.push("/");
                 } catch {
                   exitDemoMode();
-                  setError(t.common.error);
+                  setError(!navigator.onLine ? t.common.connectionCheck : t.common.error);
                 } finally {
                   setLoading(false);
                 }
@@ -168,21 +214,18 @@ export default function LoginPage() {
             </button>
           </div>
         </div>
-      ) : (
-        <form onSubmit={handleVerifyOtp} className="w-full max-w-sm flex flex-col gap-4">
+      )}
+
+      {step === "pin" && (
+        <form onSubmit={handleLogin} className="w-full max-w-sm flex flex-col gap-4">
           <p className="text-sm text-text-secondary text-center">
-            {channel === "whatsapp" ? t.auth.codeSentWhatsapp : t.auth.codeSentSms}
+            {t.auth.enterPin}
           </p>
           <TextInput
-            type="text"
-            inputMode="numeric"
-            value={code}
-            onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-            placeholder="000000"
-            autoFocus
-            maxLength={6}
-            variant="centered"
-            style={{ minHeight: "3.5rem", fontSize: "1.5rem", letterSpacing: "0.3em", fontFamily: "monospace" }}
+            {...pinInputProps}
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, PIN_LENGTH))}
+            placeholder={"•".repeat(PIN_LENGTH)}
           />
 
           {error && <p className="text-sm text-debt text-center">{error}</p>}
@@ -191,21 +234,74 @@ export default function LoginPage() {
             type="submit"
             variant="primary"
             size="lg"
-            disabled={code.length < 6 || loading}
+            disabled={pin.length < PIN_LENGTH || loading}
             className="mt-2"
           >
-            {loading ? t.common.loading : t.auth.verifyCode}
+            {loading ? t.common.loading : t.common.confirm}
           </Button>
 
-          <button
+          <button type="button" onClick={goBack} className="text-sm text-text-muted hover:text-text-secondary transition-colors cursor-pointer">
+            {t.common.back}
+          </button>
+        </form>
+      )}
+
+      {step === "create-pin" && (
+        <div className="w-full max-w-sm flex flex-col gap-4">
+          <p className="text-sm text-text-secondary text-center">
+            {t.auth.createPin}
+          </p>
+          <TextInput
+            {...pinInputProps}
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, PIN_LENGTH))}
+            placeholder={"•".repeat(PIN_LENGTH)}
+          />
+
+          {error && <p className="text-sm text-debt text-center">{error}</p>}
+
+          <Button
             type="button"
-            onClick={() => {
-              setStep("phone");
-              setCode("");
-              setError(null);
-            }}
-            className="text-sm text-text-muted hover:text-text-secondary transition-colors cursor-pointer"
+            variant="primary"
+            size="lg"
+            disabled={pin.length < PIN_LENGTH}
+            className="mt-2"
+            onClick={handleCreatePinNext}
           >
+            {t.common.next}
+          </Button>
+
+          <button type="button" onClick={goBack} className="text-sm text-text-muted hover:text-text-secondary transition-colors cursor-pointer">
+            {t.common.back}
+          </button>
+        </div>
+      )}
+
+      {step === "confirm-pin" && (
+        <form onSubmit={handleRegister} className="w-full max-w-sm flex flex-col gap-4">
+          <p className="text-sm text-text-secondary text-center">
+            {t.auth.confirmPin}
+          </p>
+          <TextInput
+            {...pinInputProps}
+            value={confirmPin}
+            onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, "").slice(0, PIN_LENGTH))}
+            placeholder={"•".repeat(PIN_LENGTH)}
+          />
+
+          {error && <p className="text-sm text-debt text-center">{error}</p>}
+
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            disabled={confirmPin.length < PIN_LENGTH || loading}
+            className="mt-2"
+          >
+            {loading ? t.common.loading : t.common.confirm}
+          </Button>
+
+          <button type="button" onClick={goBack} className="text-sm text-text-muted hover:text-text-secondary transition-colors cursor-pointer">
             {t.common.back}
           </button>
         </form>

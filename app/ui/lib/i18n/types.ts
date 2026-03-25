@@ -27,17 +27,14 @@ export interface Translations {
   auth: {
     phoneNumber: string;
     enterPhone: string;
-    sendCode: string;
-    sendViaWhatsapp: string;
-    sendViaSms: string;
-    enterCode: string;
-    codeSentWhatsapp: string;
-    codeSentSms: string;
-    verifyCode: string;
-    invalidCode: string;
-    codeExpired: string;
+    enterPin: string;
+    createPin: string;
+    confirmPin: string;
+    pinMismatch: string;
+    invalidPin: string;
+    accountLocked: string;
+    phoneTaken: string;
     tooManyAttempts: string;
-    networkRequired: string;
     logout: string;
     tryDemo: string;
     demoMode: string;
@@ -106,5 +103,12 @@ export interface Translations {
     install: string;
     installDescription: string;
     dismiss: string;
+    updateAvailable: string;
+    updateDescription: string;
+    update: string;
+  };
+  offline: {
+    title: string;
+    message: string;
   };
 }

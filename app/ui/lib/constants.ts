@@ -19,9 +19,11 @@ export const NOTE_MAX_LENGTH = 200;
 export const DEBT_AGE_GREEN_DAYS = 7;
 export const DEBT_AGE_YELLOW_DAYS = 14;
 
-/** Dev-mode OTP bypass code. */
-export const OTP_DEV_CODE = "123456";
+/** PIN auth configuration. */
+export const PIN_LENGTH = 4;
+export const PIN_MAX_ATTEMPTS = 5;
+export const PIN_LOCKOUT_MINUTES = 15;
+export const PIN_DEV_CODE = "1234";
 
-/** Rate limiting for OTP requests. */
-export const RATE_LIMIT_WINDOW_MINUTES = 10;
-export const RATE_LIMIT_MAX = 3;
+/** Session duration in days. */
+export const SESSION_DURATION_DAYS = 30;

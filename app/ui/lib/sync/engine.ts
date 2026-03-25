@@ -114,8 +114,13 @@ async function runSyncCycle(): Promise<void> {
   try {
     await pushChanges();
     await pullChanges();
-  } catch {
-    // Network failures are expected when offline
+  } catch (err) {
+    // Network failures are expected when offline — log everything else
+    const isNetworkError =
+      err instanceof TypeError && (err as TypeError).message.includes("fetch");
+    if (!isNetworkError) {
+      console.error("[sync] Unexpected error during sync cycle:", err);
+    }
   } finally {
     syncing = false;
   }
@@ -136,17 +141,17 @@ async function pushChanges(): Promise<void> {
 
   for (const entry of batch) {
     if (entry.retryCount >= MAX_RETRIES) {
-      // Give up on this entry
+      console.error(
+        `[sync] Giving up on entry ${entry.id} (table: ${entry.table}, record: ${entry.recordId}) after ${MAX_RETRIES} retries`
+      );
       await removeSyncEntry(entry.id!);
       continue;
     }
 
     try {
       await pushEntry(entry);
-      await removeSyncEntry(entry.id!);
-
-      // Mark the local record as synced
       await markSynced(entry.table, entry.recordId);
+      await removeSyncEntry(entry.id!);
     } catch (err) {
       if (err instanceof UnknownTableError) {
         // Don't remove or retry — leave unknown entries in the queue
@@ -168,7 +173,14 @@ async function pushChanges(): Promise<void> {
  * Push a single sync entry to the appropriate server endpoint.
  */
 async function pushEntry(entry: SyncQueueEntry): Promise<void> {
-  const data = JSON.parse(entry.data);
+  let data: Record<string, unknown>;
+  try {
+    data = JSON.parse(entry.data);
+  } catch {
+    console.error(`[sync] Corrupted data in sync entry ${entry.id}, removing`);
+    await removeSyncEntry(entry.id!);
+    throw new Error(`Corrupted sync entry ${entry.id}`);
+  }
   let url: string;
 
   if (entry.table === "customers") {
@@ -213,13 +225,20 @@ async function markSynced(table: string, recordId: string): Promise<void> {
  * Pull: fetch server changes since last pull and apply with last-write-wins.
  */
 async function pullChanges(): Promise<void> {
-  let hasMore = true;
+  if (typeof window === "undefined") return;
 
-  while (hasMore) {
+  let hasMore = true;
+  let page = 0;
+  const MAX_PAGES = 20;
+
+  while (hasMore && page < MAX_PAGES) {
+    page++;
     const lastPull = localStorage.getItem(LAST_PULL_KEY) ?? new Date(0).toISOString();
 
     const response = await fetch(`/api/sync/pull?since=${encodeURIComponent(lastPull)}`);
-    if (!response.ok) return;
+    if (!response.ok) {
+      throw new Error(`Sync pull failed: ${response.status}`);
+    }
 
     const result = (await response.json()) as {
       customers: Customer[];
@@ -288,14 +307,17 @@ async function applyCustomer(server: Customer): Promise<void> {
 async function applySale(server: Sale): Promise<void> {
   const local = await db.sales.get(server.id);
 
+  const saleData = {
+    ...server,
+    createdAt: new Date(server.createdAt),
+    updatedAt: new Date(server.updatedAt),
+    deletedAt: server.deletedAt ? new Date(server.deletedAt) : null,
+    lastSyncedAt: server.lastSyncedAt ? new Date(server.lastSyncedAt) : null,
+    syncStatus: "synced" as const,
+  };
+
   if (!local) {
-    await db.sales.put({
-      ...server,
-      createdAt: new Date(server.createdAt),
-      updatedAt: new Date(server.updatedAt),
-      lastSyncedAt: server.lastSyncedAt ? new Date(server.lastSyncedAt) : null,
-      syncStatus: "synced",
-    });
+    await db.sales.put(saleData);
     return;
   }
 
@@ -305,13 +327,7 @@ async function applySale(server: Sale): Promise<void> {
   const localUpdated = local.updatedAt.getTime();
 
   if (serverUpdated > localUpdated) {
-    await db.sales.put({
-      ...server,
-      createdAt: new Date(server.createdAt),
-      updatedAt: new Date(server.updatedAt),
-      lastSyncedAt: server.lastSyncedAt ? new Date(server.lastSyncedAt) : null,
-      syncStatus: "synced",
-    });
+    await db.sales.put(saleData);
   }
 }
 

@@ -37,6 +37,7 @@ export async function createSale({
     note: note?.trim() || null,
     createdAt: now,
     updatedAt: now,
+    deletedAt: null,
     syncStatus: "pending",
     lastSyncedAt: null,
     clientId: null,
@@ -95,14 +96,23 @@ export async function deleteSale(id: string): Promise<void> {
     const sale = await db.sales.get(id);
     if (!sale) return;
 
-    await db.sales.delete(id);
+    const now = new Date();
 
-    // Remove any pending "create" sync entries for this sale
+    // Remove any pending sync entries for this sale
     await db.syncQueue.where("recordId").equals(id).delete();
 
-    // If already synced to server, enqueue a delete action
     if (sale.syncStatus === "synced") {
-      await enqueueSync("sales", id, "delete", { id });
+      // Soft-delete: mark as deleted and enqueue for server sync
+      await db.sales.update(id, {
+        deletedAt: now,
+        updatedAt: now,
+        syncStatus: "pending",
+      });
+      const updated = await db.sales.get(id);
+      await enqueueSync("sales", id, "delete", updated as unknown as Record<string, unknown>);
+    } else {
+      // Never synced — safe to hard-delete locally
+      await db.sales.delete(id);
     }
   });
 }
@@ -117,6 +127,7 @@ export async function getSalesByCustomer(
   const results = await db.sales
     .where("[retailerId+customerId]")
     .equals([retailerId, customerId])
+    .filter((s) => s.deletedAt === null)
     .toArray();
   return results.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 }
@@ -132,6 +143,7 @@ export async function getRecentSales(
     .where("[retailerId+createdAt]")
     .between([retailerId, Dexie.minKey], [retailerId, Dexie.maxKey])
     .reverse()
+    .filter((s) => s.deletedAt === null)
     .limit(limit)
     .toArray();
 }

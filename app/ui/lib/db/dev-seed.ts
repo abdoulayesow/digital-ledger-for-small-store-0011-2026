@@ -64,6 +64,7 @@ export async function seedDemoData(): Promise<void> {
         note: null,
         createdAt: new Date(now - dayOffset * DAY + j * 3_600_000),
         updatedAt: new Date(now - dayOffset * DAY + j * 3_600_000),
+        deletedAt: null,
         syncStatus: "synced",
         lastSyncedAt: null,
         clientId: null,

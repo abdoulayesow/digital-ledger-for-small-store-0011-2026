@@ -39,7 +39,7 @@ export function AmountPicker({ onSelect, onConfirm, selectedAmount, className = 
             type="button"
             onClick={() => handlePresetTap(amount)}
             className={[
-              "shrink-0 min-h-10 px-4 rounded-full font-semibold text-sm",
+              "shrink-0 min-h-12 px-4 rounded-full font-semibold text-sm",
               "transition-colors duration-150 cursor-pointer",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand",
               selectedAmount === amount

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useI18n } from "@/lib/hooks/use-i18n";
 import { useFormSubmit } from "@/lib/hooks/use-form-submit";
@@ -25,9 +25,11 @@ export default function EditCustomerPage() {
   const [phoneError, setPhoneError] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  // Pre-populate from customer data
+  // Pre-populate from customer data (once only — don't reset on sync updates)
+  const initialized = useRef(false);
   useEffect(() => {
-    if (customer) {
+    if (customer && !initialized.current) {
+      initialized.current = true;
       setName(customer.name);
       setPhone(customer.phone ?? "");
     }

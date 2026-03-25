@@ -1,7 +1,7 @@
 // B'tiki Service Worker — offline-first caching for low-end Android
 // Bump CACHE_VERSION on each deploy to bust the cache
 
-const CACHE_VERSION = "btiki-shell-v1";
+const CACHE_VERSION = "btiki-shell-v2";
 const RUNTIME_CACHE = "btiki-runtime-v1";
 const OFFLINE_URL = "/offline";
 
@@ -20,7 +20,13 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_VERSION).then((cache) => cache.addAll(PRECACHE_URLS))
   );
-  self.skipWaiting();
+});
+
+// ─── Message: user-controlled skipWaiting ────────────────────────
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 // ─── Activate: clean old caches, claim clients ───────────────────

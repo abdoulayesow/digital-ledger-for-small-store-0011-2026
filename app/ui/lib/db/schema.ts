@@ -27,6 +27,7 @@ export interface Sale {
   note: string | null;
   createdAt: Date;
   updatedAt: Date;
+  deletedAt: Date | null;
   syncStatus: SyncStatus;
   lastSyncedAt: Date | null;
   clientId: string | null;

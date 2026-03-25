@@ -8,6 +8,7 @@ import { UndoSaleProvider } from "@/lib/hooks/use-undo-sale";
 import { UndoBar } from "@/components/sale/UndoBar";
 import { QuickSaleFab } from "@/components/layout/QuickSaleFab";
 import { InstallBanner } from "@/components/pwa/InstallBanner";
+import { UpdateBanner } from "@/components/pwa/UpdateBanner";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,6 +20,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
           <QuickSaleFab />
           <InstallBanner />
+          <UpdateBanner />
           <BottomNav />
         </AppShell>
       </UndoSaleProvider>

@@ -37,13 +37,16 @@ enum Language {
 // ─── Core Models ────────────────────────────────────────────
 
 model Retailer {
-  id           String   @id @default(uuid())
-  phone        String   @unique
-  language     Language @default(fr)
-  shopName     String?
-  neighborhood String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String    @id @default(uuid())
+  phone          String    @unique
+  pinHash        String?
+  pinAttempts    Int       @default(0)
+  pinLockedUntil DateTime?
+  language       Language  @default(fr)
+  shopName       String?
+  neighborhood   String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   customers Customer[]
   sales     Sale[]
@@ -76,14 +79,15 @@ model Customer {
 }
 
 model Sale {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   retailerId String
   customerId String?
   type       SaleType
   amount     Int // GNF, no decimals
   note       String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
 
   // Sync fields
   syncStatus   String    @default("synced")
@@ -146,19 +150,5 @@ model Session {
 
   @@index([token])
   @@index([retailerId])
-  @@index([expiresAt])
-}
-
-model OtpVerification {
-  id        String   @id @default(uuid())
-  phone     String
-  code      String
-  channel   String   @default("whatsapp")
-  expiresAt DateTime
-  attempts  Int      @default(0)
-  verified  Boolean  @default(false)
-  createdAt DateTime @default(now())
-
-  @@index([phone, code])
   @@index([expiresAt])
 }
