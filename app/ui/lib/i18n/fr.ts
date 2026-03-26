@@ -24,6 +24,8 @@ export const fr: Translations = {
     clear: "Effacer",
     sessionError: "Impossible de charger la session",
     connectionCheck: "Vérifiez votre connexion et réessayez.",
+    errorTitle: "Quelque chose s'est mal passé",
+    errorMessage: "Une erreur inattendue est survenue.",
   },
   auth: {
     phoneNumber: "Numéro de téléphone",

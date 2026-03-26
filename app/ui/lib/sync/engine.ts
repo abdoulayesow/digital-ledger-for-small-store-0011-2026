@@ -9,6 +9,7 @@ import {
   BATCH_SIZE,
   LAST_PULL_KEY,
 } from "./constants";
+import { safeGetItem, safeSetItem } from "@/lib/utils";
 
 class UnknownTableError extends Error {
   constructor(table: string) {
@@ -218,6 +219,8 @@ async function markSynced(table: string, recordId: string): Promise<void> {
       syncStatus: "synced",
       lastSyncedAt: now,
     });
+  } else {
+    console.error(`[sync] markSynced called with unknown table "${table}"`);
   }
 }
 
@@ -233,7 +236,7 @@ async function pullChanges(): Promise<void> {
 
   while (hasMore && page < MAX_PAGES) {
     page++;
-    const lastPull = localStorage.getItem(LAST_PULL_KEY) ?? new Date(0).toISOString();
+    const lastPull = safeGetItem(LAST_PULL_KEY) ?? new Date(0).toISOString();
 
     const response = await fetch(`/api/sync/pull?since=${encodeURIComponent(lastPull)}`);
     if (!response.ok) {
@@ -257,7 +260,7 @@ async function pullChanges(): Promise<void> {
       }
     });
 
-    localStorage.setItem(LAST_PULL_KEY, result.serverTime);
+    safeSetItem(LAST_PULL_KEY, result.serverTime);
     hasMore = result.hasMore === true;
   }
 }

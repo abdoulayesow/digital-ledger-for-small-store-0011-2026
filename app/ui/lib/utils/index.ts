@@ -6,3 +6,4 @@ export {
   getDebtAge,
   getDebtAgeColor,
 } from "./color";
+export { safeGetItem, safeSetItem } from "./storage";

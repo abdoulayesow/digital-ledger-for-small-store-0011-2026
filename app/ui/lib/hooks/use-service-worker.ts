@@ -11,7 +11,7 @@ export function useServiceWorker() {
     registered.current = true;
 
     navigator.serviceWorker.register("/sw.js").catch((err) => {
-      console.warn("[sw] Registration failed:", err);
+      console.error("[sw] Registration failed:", err);
     });
 
     // Reload when a new SW takes over (seamless updates)

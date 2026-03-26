@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { safeGetItem, safeSetItem } from "@/lib/utils";
 
 const DISMISSED_KEY = "btiki-update-dismissed";
 const DISMISS_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
@@ -14,7 +15,7 @@ export function useSWUpdate() {
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
 
     // Check if dismissed within cooldown
-    const dismissedAt = localStorage.getItem(DISMISSED_KEY);
+    const dismissedAt = safeGetItem(DISMISSED_KEY);
     if (dismissedAt && Date.now() - Number(dismissedAt) < DISMISS_DURATION_MS) {
       setDismissed(true);
       return;
@@ -61,7 +62,7 @@ export function useSWUpdate() {
 
   const dismissUpdate = useCallback(() => {
     setDismissed(true);
-    localStorage.setItem(DISMISSED_KEY, String(Date.now()));
+    safeSetItem(DISMISSED_KEY, String(Date.now()));
   }, []);
 
   return {

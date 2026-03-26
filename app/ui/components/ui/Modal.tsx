@@ -70,7 +70,7 @@ export function Modal({ open, onClose, title, closeLabel, children }: ModalProps
       role="dialog"
       aria-label={title}
       aria-hidden={!open}
-      inert={!open ? (true as unknown as undefined) : undefined}
+      inert={!open || undefined}
       className={[
         "fixed inset-0 z-50",
         "flex flex-col justify-end",

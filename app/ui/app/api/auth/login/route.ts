@@ -88,6 +88,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Clean up expired sessions for this retailer (best-effort)
+    await prisma.session.deleteMany({
+      where: { retailerId: retailer.id, expiresAt: { lt: new Date() } },
+    }).catch(() => {});
+
     // Create session
     const token = randomUUID();
     const expiresAt = new Date(Date.now() + SESSION_DURATION_DAYS * 24 * 60 * 60 * 1000);

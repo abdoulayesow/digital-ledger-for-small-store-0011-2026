@@ -23,6 +23,8 @@ export interface Translations {
     clear: string;
     sessionError: string;
     connectionCheck: string;
+    errorTitle: string;
+    errorMessage: string;
   };
   auth: {
     phoneNumber: string;

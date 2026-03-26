@@ -16,6 +16,8 @@ export default function DashboardPage() {
   const dailySummary = useDailySummary(retailerId);
   const recentSales = useRecentSales(retailerId, 10);
 
+  const isLoading = dailySummary === undefined;
+
   const totalCash = dailySummary?.totalCashSales ?? 0;
   const totalCredit = dailySummary?.totalCreditSales ?? 0;
   const totalPayments = dailySummary?.totalPayments ?? 0;
@@ -23,6 +25,35 @@ export default function DashboardPage() {
   const saleCount = dailySummary?.saleCount ?? 0;
 
   const hasSales = (recentSales ?? []).length > 0;
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-4 pb-4">
+        {/* Hero skeleton */}
+        <div className="flex flex-col items-center gap-3 pt-8 pb-4 mx-4">
+          <div className="h-3 w-24 bg-surface-2 rounded animate-pulse" />
+          <div className="h-10 w-40 bg-surface-2 rounded animate-pulse" />
+          <div className="h-3 w-16 bg-surface-2 rounded animate-pulse" />
+        </div>
+        {/* Breakdown strip skeleton */}
+        <div className="mx-4 grid grid-cols-3 gap-2">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="flex flex-col items-center gap-2 py-3">
+              <div className="h-5 w-5 bg-surface-2 rounded-full animate-pulse" />
+              <div className="h-4 w-16 bg-surface-2 rounded animate-pulse" />
+              <div className="h-2 w-12 bg-surface-2 rounded animate-pulse" />
+            </div>
+          ))}
+        </div>
+        {/* Sale rows skeleton */}
+        <div className="px-4 flex flex-col gap-2">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="h-14 bg-surface-2 rounded-lg animate-pulse" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">

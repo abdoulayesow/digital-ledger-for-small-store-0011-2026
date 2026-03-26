@@ -41,20 +41,25 @@ export async function createCustomer({
  * List all active customers for a retailer, sorted by name.
  */
 export async function listCustomers(retailerId: string): Promise<Customer[]> {
-  return db.customers
-    .where("[retailerId+deletedAt]")
-    .equals([retailerId, 0])
-    .sortBy("name")
-    .then((results) => {
-      // Compound index trick: Dexie indexes null as 0 for compound keys.
-      // Fall back to a filter if compound index doesn't match.
-      if (results.length > 0) return results;
-      return db.customers
-        .where("retailerId")
-        .equals(retailerId)
-        .filter((c) => c.deletedAt === null)
-        .sortBy("name");
-    });
+  try {
+    return await db.customers
+      .where("[retailerId+deletedAt]")
+      .equals([retailerId, 0])
+      .sortBy("name")
+      .then((results) => {
+        // Compound index trick: Dexie indexes null as 0 for compound keys.
+        // Fall back to a filter if compound index doesn't match.
+        if (results.length > 0) return results;
+        return db.customers
+          .where("retailerId")
+          .equals(retailerId)
+          .filter((c) => c.deletedAt === null)
+          .sortBy("name");
+      });
+  } catch (err) {
+    console.error("[db/customers] listCustomers failed:", err);
+    return [];
+  }
 }
 
 /**

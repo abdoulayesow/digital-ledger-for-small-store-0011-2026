@@ -24,6 +24,8 @@ export const su: Translations = {
     clear: "A ba",
     sessionError: "Sesiɔn mu nɔma rasɛnɛde",
     connectionCheck: "I xa nɛti mato, i mato tugu.",
+    errorTitle: "Fe ma fo",
+    errorMessage: "Tɔɔrɛ keren bara ke.",
   },
   auth: {
     phoneNumber: "Telefɔni kɔntɔ",

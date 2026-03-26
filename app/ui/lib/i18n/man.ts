@@ -24,6 +24,8 @@ export const man: Translations = {
     clear: "A bɔ",
     sessionError: "Sesiɔn ma se donna",
     connectionCheck: "I ka rezo lajɛ, ka a lajɛ tugu.",
+    errorTitle: "Fɛn jugu kɛra",
+    errorMessage: "Jugu dɔ kɛra.",
   },
   auth: {
     phoneNumber: "Telefɔni nimɔrɔ",

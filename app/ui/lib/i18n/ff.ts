@@ -24,6 +24,8 @@ export const ff: Translations = {
     clear: "Momtu",
     sessionError: "Horiima loowde ceŋol",
     connectionCheck: "Ƴeewtu ceŋol maa nde fuɗɗitaa.",
+    errorTitle: "Huunde bonnde waɗii",
+    errorMessage: "Juumre heɓaaka.",
   },
   auth: {
     phoneNumber: "Tonngoode telefon",

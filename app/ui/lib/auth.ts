@@ -42,28 +42,43 @@ export async function requireSession(): Promise<SessionResult> {
     };
   }
 
-  // Dynamic import keeps Prisma out of client bundles
-  const { default: prisma } = await import("@/lib/prisma");
+  try {
+    // Dynamic import keeps Prisma out of client bundles
+    const { default: prisma } = await import("@/lib/prisma");
 
-  const dbSession = await prisma.session.findUnique({
-    where: { token },
-    select: { id: true, retailerId: true, expiresAt: true },
-  });
+    const dbSession = await prisma.session.findUnique({
+      where: { token },
+      select: { id: true, retailerId: true, expiresAt: true },
+    });
 
-  if (!dbSession || dbSession.expiresAt < new Date()) {
+    if (!dbSession || dbSession.expiresAt < new Date()) {
+      // Clean up expired session (fire-and-forget)
+      if (dbSession) {
+        prisma.session.delete({ where: { id: dbSession.id } }).catch(() => {});
+      }
+      return {
+        session: null,
+        error: NextResponse.json(
+          { error: "Session expired" },
+          { status: 401 }
+        ),
+      };
+    }
+
+    return {
+      session: { sessionId: dbSession.id, retailerId: dbSession.retailerId },
+      error: null,
+    };
+  } catch (err) {
+    console.error("[auth] Session validation failed:", err);
     return {
       session: null,
       error: NextResponse.json(
-        { error: "Session expired" },
-        { status: 401 }
+        { error: "Internal server error" },
+        { status: 500 }
       ),
     };
   }
-
-  return {
-    session: { sessionId: dbSession.id, retailerId: dbSession.retailerId },
-    error: null,
-  };
 }
 
 /**

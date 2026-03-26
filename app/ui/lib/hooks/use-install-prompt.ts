@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { safeGetItem, safeSetItem } from "@/lib/utils";
 
 const DISMISSED_KEY = "btiki-install-dismissed";
 
@@ -17,7 +18,7 @@ export function useInstallPrompt() {
     if (typeof window === "undefined") return;
 
     // Re-show after 7 days if previously dismissed
-    const dismissedAt = localStorage.getItem(DISMISSED_KEY);
+    const dismissedAt = safeGetItem(DISMISSED_KEY);
     if (dismissedAt && Date.now() - Number(dismissedAt) < 7 * 86_400_000) {
       setDismissed(true);
       return;
@@ -42,7 +43,7 @@ export function useInstallPrompt() {
   const dismiss = useCallback(() => {
     setDismissed(true);
     setDeferredPrompt(null);
-    localStorage.setItem(DISMISSED_KEY, String(Date.now()));
+    safeSetItem(DISMISSED_KEY, String(Date.now()));
   }, []);
 
   return {

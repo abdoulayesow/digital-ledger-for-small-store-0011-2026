@@ -28,6 +28,7 @@ export function useFormSubmit<T>(
       const result = await fnRef.current();
       return result;
     } catch (err) {
+      console.error("[useFormSubmit]", err);
       const message = optsRef.current?.onError?.(err) ?? "An error occurred";
       setError(message);
       return undefined;
