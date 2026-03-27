@@ -17,7 +17,7 @@ export function useSWUpdate() {
     // Check if dismissed within cooldown
     const dismissedAt = safeGetItem(DISMISSED_KEY);
     if (dismissedAt && Date.now() - Number(dismissedAt) < DISMISS_DURATION_MS) {
-      setDismissed(true);
+      setDismissed(true); // eslint-disable-line react-hooks/set-state-in-effect -- reading from localStorage, not cascading
       return;
     }
 

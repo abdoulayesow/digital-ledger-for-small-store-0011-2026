@@ -41,7 +41,7 @@ export default function OfflinePage() {
   const { t } = useI18n();
 
   useEffect(() => {
-    setHydrated(true);
+    setHydrated(true); // eslint-disable-line react-hooks/set-state-in-effect -- hydration flag
   }, []);
 
   return (

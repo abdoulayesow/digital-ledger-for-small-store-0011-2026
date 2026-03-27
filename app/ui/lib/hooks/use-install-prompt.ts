@@ -20,7 +20,7 @@ export function useInstallPrompt() {
     // Re-show after 7 days if previously dismissed
     const dismissedAt = safeGetItem(DISMISSED_KEY);
     if (dismissedAt && Date.now() - Number(dismissedAt) < 7 * 86_400_000) {
-      setDismissed(true);
+      setDismissed(true); // eslint-disable-line react-hooks/set-state-in-effect -- reading from localStorage, not cascading
       return;
     }
 

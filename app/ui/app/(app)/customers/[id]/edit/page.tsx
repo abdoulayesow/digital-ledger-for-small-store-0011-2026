@@ -30,8 +30,8 @@ export default function EditCustomerPage() {
   useEffect(() => {
     if (customer && !initialized.current) {
       initialized.current = true;
-      setName(customer.name);
-      setPhone(customer.phone ?? "");
+      setName(customer.name); // eslint-disable-line react-hooks/set-state-in-effect -- initializing form from async data
+      setPhone(customer.phone ?? ""); // eslint-disable-line react-hooks/set-state-in-effect
     }
   }, [customer]);
 
